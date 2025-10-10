@@ -1,0 +1,3476 @@
+{
+  "nodes": [
+    {
+      "id": 1407374883553284,
+      "label": "AgriFarm",
+      "properties": {
+        "id": "urn:ngsi-ld:AgriFarm:unibo:c29ee13f6e871b9588c9b3d58e43df23",
+        "name": "ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA",
+        "type": "AgriFarm",
+        "domain": "unibo",
+        "location": "POLYGON ((11.798105 44.234354, 11.801217 44.237683, 11.805286 44.235809, 11.803987 44.234851, 11.804789 44.233683, 11.80268 44.231419, 11.798105 44.234354))",
+        "namespace": "unibo.watering.",
+        "dateCreated": "2024-09-20T14:10:23Z",
+        "description": "A farm producing kiwis",
+        "dateModified": "2024-09-20T14:10:23Z",
+        "hasAgriParcel": [
+          "urn:ngsi-ld:AgriParcel:unibo:102220a008cba90174069a0c12d5c212",
+          "urn:ngsi-ld:AgriParcel:unibo:2de48d8524fbe1867ae9b7f1979e87ad",
+          "urn:ngsi-ld:AgriParcel:unibo:647c399b2188ff484f7416389f94885c"
+        ],
+        "timestamp_kafka": 1727168403845,
+        "unixtimestampCreated": 1726834224,
+        "unixtimestampModified": 1726834224,
+        "timestamp_subscription": 1727168323895
+      }
+    },
+    {
+      "id": 1125899906842632,
+      "label": "AgriParcel",
+      "properties": {
+        "id": "urn:ngsi-ld:AgriParcel:unibo:647c399b2188ff484f7416389f94885c",
+        "name": "Fondo Errano 2024 T0",
+        "type": "AgriParcel",
+        "domain": "unibo",
+        "colture": "Kiwi G3",
+        "location": "POLYGON ((11.798775 44.235004, 11.799136 44.235376, 11.800661 44.234333, 11.800189 44.234023, 11.798775 44.235004))",
+        "belongsTo": "urn:ngsi-ld:AgriFarm:unibo:c29ee13f6e871b9588c9b3d58e43df23",
+        "hasDevice": [
+          "urn:ngsi-ld:Device:unibo:133a623a4e1cd32cdeaa7303d38f8333"
+        ],
+        "namespace": "unibo.watering.",
+        "dateCreated": "2024-09-20T14:10:23Z",
+        "description": "ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA Fondo Errano 2024 T0",
+        "dateModified": "2024-09-20T14:10:23Z",
+        "timestamp_kafka": 1727168403855,
+        "irrigationSystemType": "Drip irrigation",
+        "unixtimestampCreated": 1726834224,
+        "unixtimestampModified": 1726834224,
+        "timestamp_subscription": 1727168323907
+      }
+    },
+    {
+      "id": 1125899906842633,
+      "label": "AgriParcel",
+      "properties": {
+        "id": "urn:ngsi-ld:AgriParcel:unibo:2de48d8524fbe1867ae9b7f1979e87ad",
+        "name": "Fondo Errano 2024 T2",
+        "type": "AgriParcel",
+        "domain": "unibo",
+        "colture": "Kiwi G3",
+        "location": "POLYGON ((11.799569 44.235609, 11.79977 44.235759, 11.801395 44.234782, 11.80108 44.234572, 11.799569 44.235609))",
+        "belongsTo": "urn:ngsi-ld:AgriFarm:unibo:c29ee13f6e871b9588c9b3d58e43df23",
+        "hasDevice": [
+          "urn:ngsi-ld:Device:unibo:5cf4faaf5edc8b63d1f573b2e02acc3d",
+          "urn:ngsi-ld:Device:unibo:66c18326d560f8cfd92ac27919df7155"
+        ],
+        "namespace": "unibo.watering.",
+        "dateCreated": "2024-09-20T14:10:23Z",
+        "description": "ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA Fondo Errano 2024 T2",
+        "dateModified": "2024-09-20T14:10:23Z",
+        "timestamp_kafka": 1727168403868,
+        "irrigationSystemType": "Drip irrigation",
+        "unixtimestampCreated": 1726834224,
+        "unixtimestampModified": 1726834224,
+        "timestamp_subscription": 1727168323920
+      }
+    },
+    {
+      "id": 1125899906842634,
+      "label": "AgriParcel",
+      "properties": {
+        "id": "urn:ngsi-ld:AgriParcel:unibo:102220a008cba90174069a0c12d5c212",
+        "name": "Fondo Errano 2024 T1",
+        "type": "AgriParcel",
+        "domain": "unibo",
+        "colture": "Kiwi G3",
+        "location": "POLYGON ((11.79915 44.235384, 11.799412 44.23567, 11.801042 44.234555, 11.800681 44.234343, 11.79915 44.235384))",
+        "belongsTo": "urn:ngsi-ld:AgriFarm:unibo:c29ee13f6e871b9588c9b3d58e43df23",
+        "hasDevice": [
+          "urn:ngsi-ld:Device:unibo:18dcacfd086f936b0eeefb315f674597",
+          "urn:ngsi-ld:Device:unibo:b249a835fe350f38d120e2b1d1e3ed0d"
+        ],
+        "namespace": "unibo.watering.",
+        "dateCreated": "2024-09-20T14:10:23Z",
+        "description": "ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA Fondo Errano 2024 T1",
+        "dateModified": "2024-09-20T14:10:23Z",
+        "timestamp_kafka": 1727168403879,
+        "irrigationSystemType": "Drip irrigation",
+        "unixtimestampCreated": 1726834224,
+        "unixtimestampModified": 1726834224,
+        "timestamp_subscription": 1727168323931
+      }
+    },
+    {
+      "id": 3096224743817252,
+      "label": "Device",
+      "properties": {
+        "x": 50,
+        "y": -60,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:09bf3c00cdb036951340bc3de59b401b",
+        "name": "Ges v60_52",
+        "type": "Device",
+        "value": [
+          -23.72543126
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817253,
+      "label": "Device",
+      "properties": {
+        "x": 80,
+        "y": -60,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:7c9ac3b27115a41c509ad71d20db4a88",
+        "name": "Ges v60_80",
+        "type": "Device",
+        "value": [
+          -28.325010716
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817254,
+      "label": "Device",
+      "properties": {
+        "x": 0,
+        "y": -40,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:5d929b1bde23c5f6ef1b70201195701b",
+        "name": "Ges v40_0",
+        "type": "Device",
+        "value": [
+          -25.54639104
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817240,
+      "label": "Device",
+      "properties": {
+        "id": "urn:ngsi-ld:Device:unibo:a316ef4f55a925842cca39af7280f4d8",
+        "name": "Dripper Fondo Errano 2024 T0 T0",
+        "type": "Device",
+        "value": [
+          0
+        ],
+        "domain": "unibo",
+        "location": "POINT (11.798998 44.235024)",
+        "belongsTo": "urn:ngsi-ld:AgriParcel:unibo:647c399b2188ff484f7416389f94885c",
+        "namespace": "unibo.watering.",
+        "dateCreated": "2024-09-24T10:22:07",
+        "dateObserved": "2024-04-26T00:00:13",
+        "deviceCategory": [
+          "sensor"
+        ],
+        "timestamp_kafka": 1727189791952,
+        "controlledProperty": [
+          "dripper"
+        ],
+        "unixtimestampCreated": 1727166127,
+        "unixtimestampModified": 1714082413,
+        "timestamp_subscription": 1727189712013
+      }
+    },
+    {
+      "id": 3096224743817241,
+      "label": "Device",
+      "properties": {
+        "id": "urn:ngsi-ld:Device:unibo:e0a35eede1bd643062e7e83011896ef2",
+        "name": "Dripper Fondo Errano 2024 T1 T1 alto",
+        "type": "Device",
+        "value": [
+          0
+        ],
+        "domain": "unibo",
+        "location": "POINT (11.799328 44.235394)",
+        "belongsTo": "urn:ngsi-ld:AgriParcel:unibo:102220a008cba90174069a0c12d5c212",
+        "namespace": "unibo.watering.",
+        "dateCreated": "2024-09-24T10:22:07",
+        "dateObserved": "2024-04-26T00:00:06",
+        "deviceCategory": [
+          "sensor"
+        ],
+        "timestamp_kafka": 1727189881798,
+        "controlledProperty": [
+          "dripper"
+        ],
+        "unixtimestampCreated": 1727166127,
+        "unixtimestampModified": 1714082406,
+        "timestamp_subscription": 1727189801860
+      }
+    },
+    {
+      "id": 3096224743817242,
+      "label": "Device",
+      "properties": {
+        "id": "urn:ngsi-ld:Device:unibo:4706ab32adba82399acb21d45489535c",
+        "name": "Dripper Fondo Errano 2024 T1 T1 basso",
+        "type": "Device",
+        "value": [
+          0
+        ],
+        "domain": "unibo",
+        "location": "POINT (11.800613 44.234509)",
+        "belongsTo": "urn:ngsi-ld:AgriParcel:unibo:102220a008cba90174069a0c12d5c212",
+        "namespace": "unibo.watering.",
+        "dateCreated": "2024-09-24T10:22:07",
+        "dateObserved": "2024-04-26T00:00:09",
+        "deviceCategory": [
+          "sensor"
+        ],
+        "timestamp_kafka": 1727189960907,
+        "controlledProperty": [
+          "dripper"
+        ],
+        "unixtimestampCreated": 1727166127,
+        "unixtimestampModified": 1714082409,
+        "timestamp_subscription": 1727189880971
+      }
+    },
+    {
+      "id": 3096224743817243,
+      "label": "Device",
+      "properties": {
+        "id": "urn:ngsi-ld:Device:unibo:bc8f7461962ba09c7d9574a068c8780a",
+        "name": "Dripper Fondo Errano 2024 T2 T2 alto",
+        "type": "Device",
+        "value": [
+          0
+        ],
+        "domain": "unibo",
+        "location": "POINT (11.799925 44.235401)",
+        "belongsTo": "urn:ngsi-ld:AgriParcel:unibo:2de48d8524fbe1867ae9b7f1979e87ad",
+        "namespace": "unibo.watering.",
+        "dateCreated": "2024-09-24T10:22:07",
+        "dateObserved": "2024-04-26T00:00:11",
+        "deviceCategory": [
+          "sensor"
+        ],
+        "timestamp_kafka": 1727190048839,
+        "controlledProperty": [
+          "dripper"
+        ],
+        "unixtimestampCreated": 1727166127,
+        "unixtimestampModified": 1714082411,
+        "timestamp_subscription": 1727189968903
+      }
+    },
+    {
+      "id": 3096224743817244,
+      "label": "Device",
+      "properties": {
+        "id": "urn:ngsi-ld:Device:unibo:aaaa7adc8f8a91bcaee40f7528877b53",
+        "name": "Dripper Fondo Errano 2024 T2 T2 basso",
+        "type": "Device",
+        "value": [
+          0
+        ],
+        "domain": "unibo",
+        "location": "POINT (11.800711 44.234904)",
+        "belongsTo": "urn:ngsi-ld:AgriParcel:unibo:2de48d8524fbe1867ae9b7f1979e87ad",
+        "namespace": "unibo.watering.",
+        "dateCreated": "2024-09-24T10:22:07",
+        "dateObserved": "2024-04-26T00:00:07",
+        "deviceCategory": [
+          "sensor"
+        ],
+        "timestamp_kafka": 1727190127228,
+        "controlledProperty": [
+          "dripper"
+        ],
+        "unixtimestampCreated": 1727166127,
+        "unixtimestampModified": 1714082407,
+        "timestamp_subscription": 1727190047292
+      }
+    },
+    {
+      "id": 3096224743817245,
+      "label": "Device",
+      "properties": {
+        "id": "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
+        "name": "Soil moisture sensor grid Fondo Errano 2024 T0 T0",
+        "type": "Device",
+        "domain": "unibo",
+        "location": "POINT (11.798998 44.235024)",
+        "belongsTo": "urn:ngsi-ld:AgriParcel:unibo:647c399b2188ff484f7416389f94885c",
+        "hasDevice": [
+          {
+            "x": 0,
+            "y": -20,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:fabb65ec5178be7d3e0f7c1e8210cfdc",
+            "name": "Ges v20_0",
+            "type": "Device",
+            "value": [
+              -2500
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 25,
+            "y": -20,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:7fb7b74c0b10ee2bc49659ef2fbfc17e",
+            "name": "Ges v20_26",
+            "type": "Device",
+            "value": [
+              -2500
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 50,
+            "y": -20,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:2f2699dd8eb6bb75c0df757bfccc035f",
+            "name": "Ges v20_52",
+            "type": "Device",
+            "value": [
+              -25.54639104
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 80,
+            "y": -20,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:a3a5e76ca4431df1daa44ed824714bd2",
+            "name": "Ges v20_80",
+            "type": "Device",
+            "value": [
+              -27.702294398
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 0,
+            "y": -60,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:469041255c19a44e276333092dd4129a",
+            "name": "Ges v60_0",
+            "type": "Device",
+            "value": [
+              -27.989707511
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 25,
+            "y": -60,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:bbd0fc75da579af01a8e67b6de1ba64c",
+            "name": "Ges v60_26",
+            "type": "Device",
+            "value": [
+              -26.792089744
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 50,
+            "y": -60,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:09bf3c00cdb036951340bc3de59b401b",
+            "name": "Ges v60_52",
+            "type": "Device",
+            "value": [
+              -23.72543126
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 80,
+            "y": -60,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:7c9ac3b27115a41c509ad71d20db4a88",
+            "name": "Ges v60_80",
+            "type": "Device",
+            "value": [
+              -28.325010716
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 0,
+            "y": -40,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:5d929b1bde23c5f6ef1b70201195701b",
+            "name": "Ges v40_0",
+            "type": "Device",
+            "value": [
+              -25.54639104
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 25,
+            "y": -40,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:aa330bc5e29463d601c1dad3ffc03121",
+            "name": "Ges v40_26",
+            "type": "Device",
+            "value": [
+              -23.389949438
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 50,
+            "y": -40,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:ea878798346b626a88d88e29b7f9ea34",
+            "name": "Ges v40_52",
+            "type": "Device",
+            "value": [
+              -31.677326438
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 80,
+            "y": -40,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:13e6e314d9b9c5eacfa444358261f077",
+            "name": "Ges v40_80",
+            "type": "Device",
+            "value": [
+              -29.235053764
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          }
+        ],
+        "namespace": "unibo.watering.",
+        "dateModified": "2024-10-24T11:33:40",
+        "dateObserved": "2024-04-26T00:00:00",
+        "timestamp_kafka": 1729762455855,
+        "unixtimestampModified": 1729762421,
+        "timestamp_subscription": 1729762455712
+      }
+    },
+    {
+      "id": 3096224743817246,
+      "label": "Device",
+      "properties": {
+        "x": 0,
+        "y": -20,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:fabb65ec5178be7d3e0f7c1e8210cfdc",
+        "name": "Ges v20_0",
+        "type": "Device",
+        "value": [
+          -2500
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817247,
+      "label": "Device",
+      "properties": {
+        "x": 25,
+        "y": -20,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:7fb7b74c0b10ee2bc49659ef2fbfc17e",
+        "name": "Ges v20_26",
+        "type": "Device",
+        "value": [
+          -2500
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817248,
+      "label": "Device",
+      "properties": {
+        "x": 50,
+        "y": -20,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:2f2699dd8eb6bb75c0df757bfccc035f",
+        "name": "Ges v20_52",
+        "type": "Device",
+        "value": [
+          -25.54639104
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817249,
+      "label": "Device",
+      "properties": {
+        "x": 80,
+        "y": -20,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:a3a5e76ca4431df1daa44ed824714bd2",
+        "name": "Ges v20_80",
+        "type": "Device",
+        "value": [
+          -27.702294398
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817250,
+      "label": "Device",
+      "properties": {
+        "x": 0,
+        "y": -60,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:469041255c19a44e276333092dd4129a",
+        "name": "Ges v60_0",
+        "type": "Device",
+        "value": [
+          -27.989707511
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817251,
+      "label": "Device",
+      "properties": {
+        "x": 25,
+        "y": -60,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:bbd0fc75da579af01a8e67b6de1ba64c",
+        "name": "Ges v60_26",
+        "type": "Device",
+        "value": [
+          -26.792089744
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817255,
+      "label": "Device",
+      "properties": {
+        "x": 25,
+        "y": -40,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:aa330bc5e29463d601c1dad3ffc03121",
+        "name": "Ges v40_26",
+        "type": "Device",
+        "value": [
+          -23.389949438
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817256,
+      "label": "Device",
+      "properties": {
+        "x": 50,
+        "y": -40,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:ea878798346b626a88d88e29b7f9ea34",
+        "name": "Ges v40_52",
+        "type": "Device",
+        "value": [
+          -31.677326438
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817257,
+      "label": "Device",
+      "properties": {
+        "x": 80,
+        "y": -40,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:13e6e314d9b9c5eacfa444358261f077",
+        "name": "Ges v40_80",
+        "type": "Device",
+        "value": [
+          -29.235053764
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817258,
+      "label": "Device",
+      "properties": {
+        "id": "urn:ngsi-ld:Device:unibo:a4f623ee3a7cec264df7af733c3b58e4",
+        "name": "Soil moisture sensor grid Fondo Errano 2024 T1 T1 alto",
+        "type": "Device",
+        "domain": "unibo",
+        "location": "POINT (11.799328 44.235394)",
+        "belongsTo": "urn:ngsi-ld:AgriParcel:unibo:102220a008cba90174069a0c12d5c212",
+        "hasDevice": [
+          {
+            "x": 80,
+            "y": -20,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:ef8500898bef0b14a32f8169edebac0b",
+            "name": "Ges v20_80",
+            "type": "Device",
+            "value": [
+              -26.169262852
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 80,
+            "y": -40,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:8480b7a7ac70dc1b7c6d16860c30a48c",
+            "name": "Ges v40_80",
+            "type": "Device",
+            "value": [
+              -21.616472012
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 0,
+            "y": -20,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:4b50a0bcfe3003f759ebf9822d1b417c",
+            "name": "Ges v20_0",
+            "type": "Device",
+            "value": [
+              -2022.073776
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 0,
+            "y": -40,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:ae1bab98fd2de2b3c1c19a094c624d00",
+            "name": "Ges v40_0",
+            "type": "Device",
+            "value": [
+              -24.923474308
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 80,
+            "y": -60,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:0879959787ef0bc019d60e0f276b20f5",
+            "name": "Ges v60_80",
+            "type": "Device",
+            "value": [
+              -21.904087666
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": -80,
+            "y": -20,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:c80cee815bbe7005e7fe43ca566b42f5",
+            "name": "Ges v20_-80",
+            "type": "Device",
+            "value": [
+              -42.969821938
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": -25,
+            "y": -40,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:abab65e58239b3eed4c4d393200f8969",
+            "name": "Ges v40_-26",
+            "type": "Device",
+            "value": [
+              -2500
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 26,
+            "y": -60,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:a6f612ee6dbd43e6aa5b35e73077851b",
+            "name": "Ges v60_26_SX",
+            "type": "Device",
+            "value": [
+              -33.54448024
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": -80,
+            "y": -40,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:eb8203a907270a596c71a18e10531889",
+            "name": "Ges v40_-80",
+            "type": "Device",
+            "value": [
+              -24.012976742
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": -80,
+            "y": -60,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:6c35e0fbc698b5d3d5775a8d547c51ed",
+            "name": "Ges v60_-80",
+            "type": "Device",
+            "value": [
+              -24.923474308
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 0,
+            "y": -60,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:eaa5ed03c90067ea6f7827163f373121",
+            "name": "Ges v60_0",
+            "type": "Device",
+            "value": [
+              -20.75356764
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": -25,
+            "y": -20,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:27b5d273f42f4ca161abda3c475193c4",
+            "name": "Ges v20_-26",
+            "type": "Device",
+            "value": [
+              -2500
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          }
+        ],
+        "namespace": "unibo.watering.",
+        "dateModified": "2024-10-24T11:33:40",
+        "dateObserved": "2024-04-26T00:00:00",
+        "timestamp_kafka": 1729762455858,
+        "unixtimestampModified": 1729762421,
+        "timestamp_subscription": 1729762455718
+      }
+    },
+    {
+      "id": 3096224743817259,
+      "label": "Device",
+      "properties": {
+        "x": 80,
+        "y": -20,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:ef8500898bef0b14a32f8169edebac0b",
+        "name": "Ges v20_80",
+        "type": "Device",
+        "value": [
+          -26.169262852
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817260,
+      "label": "Device",
+      "properties": {
+        "x": 80,
+        "y": -40,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:8480b7a7ac70dc1b7c6d16860c30a48c",
+        "name": "Ges v40_80",
+        "type": "Device",
+        "value": [
+          -21.616472012
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817261,
+      "label": "Device",
+      "properties": {
+        "x": 0,
+        "y": -20,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:4b50a0bcfe3003f759ebf9822d1b417c",
+        "name": "Ges v20_0",
+        "type": "Device",
+        "value": [
+          -2022.073776
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817262,
+      "label": "Device",
+      "properties": {
+        "x": 0,
+        "y": -40,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:ae1bab98fd2de2b3c1c19a094c624d00",
+        "name": "Ges v40_0",
+        "type": "Device",
+        "value": [
+          -24.923474308
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817263,
+      "label": "Device",
+      "properties": {
+        "x": 80,
+        "y": -60,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:0879959787ef0bc019d60e0f276b20f5",
+        "name": "Ges v60_80",
+        "type": "Device",
+        "value": [
+          -21.904087666
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817264,
+      "label": "Device",
+      "properties": {
+        "x": -80,
+        "y": -20,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:c80cee815bbe7005e7fe43ca566b42f5",
+        "name": "Ges v20_-80",
+        "type": "Device",
+        "value": [
+          -42.969821938
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817265,
+      "label": "Device",
+      "properties": {
+        "x": -25,
+        "y": -40,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:abab65e58239b3eed4c4d393200f8969",
+        "name": "Ges v40_-26",
+        "type": "Device",
+        "value": [
+          -2500
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817266,
+      "label": "Device",
+      "properties": {
+        "x": 26,
+        "y": -60,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:a6f612ee6dbd43e6aa5b35e73077851b",
+        "name": "Ges v60_26_SX",
+        "type": "Device",
+        "value": [
+          -33.54448024
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817267,
+      "label": "Device",
+      "properties": {
+        "x": -80,
+        "y": -40,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:eb8203a907270a596c71a18e10531889",
+        "name": "Ges v40_-80",
+        "type": "Device",
+        "value": [
+          -24.012976742
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817268,
+      "label": "Device",
+      "properties": {
+        "x": -80,
+        "y": -60,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:6c35e0fbc698b5d3d5775a8d547c51ed",
+        "name": "Ges v60_-80",
+        "type": "Device",
+        "value": [
+          -24.923474308
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817269,
+      "label": "Device",
+      "properties": {
+        "x": 0,
+        "y": -60,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:eaa5ed03c90067ea6f7827163f373121",
+        "name": "Ges v60_0",
+        "type": "Device",
+        "value": [
+          -20.75356764
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817270,
+      "label": "Device",
+      "properties": {
+        "x": -25,
+        "y": -20,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:27b5d273f42f4ca161abda3c475193c4",
+        "name": "Ges v20_-26",
+        "type": "Device",
+        "value": [
+          -2500
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817271,
+      "label": "Device",
+      "properties": {
+        "id": "urn:ngsi-ld:Device:unibo:ace4b1adb69da4c71c3e02e6509e859e",
+        "name": "Soil moisture sensor grid Fondo Errano 2024 T1 T1 basso",
+        "type": "Device",
+        "domain": "unibo",
+        "location": "POINT (11.800613 44.234509)",
+        "belongsTo": "urn:ngsi-ld:AgriParcel:unibo:102220a008cba90174069a0c12d5c212",
+        "hasDevice": [
+          {
+            "x": 0,
+            "y": -20,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:1c23c1ae83fb4a17593f2c4a48df242a",
+            "name": "Ges v20_0",
+            "type": "Device",
+            "value": [
+              -21.904087666
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 25,
+            "y": -20,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:fc9eddab8396ceb7984269e6c4f64a37",
+            "name": "Ges v20_26",
+            "type": "Device",
+            "value": [
+              -22.479290266
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 50,
+            "y": -20,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:b9841b914bcbcef037e8228dfe0534c7",
+            "name": "Ges v20_52",
+            "type": "Device",
+            "value": [
+              -23.389949438
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 80,
+            "y": -20,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:73123080564803f933d53da932285009",
+            "name": "Ges v20_80",
+            "type": "Device",
+            "value": [
+              -23.389949438
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 50,
+            "y": -60,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:021603b7002a09a92f0b8c33b8cf58df",
+            "name": "Ges v60_52",
+            "type": "Device",
+            "value": [
+              -21.904087666
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 80,
+            "y": -60,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:3021f6ae554c290d29eed7a69794ebbf",
+            "name": "Ges v60_80",
+            "type": "Device",
+            "value": [
+              -21.904087666
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 0,
+            "y": -60,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:b75d85c1d0a8556889ed0edb2125254d",
+            "name": "Ges v60_0",
+            "type": "Device",
+            "value": [
+              -22.19169375
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 25,
+            "y": -60,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:b44e173125a6aec1d1ce19d4fa7a06f7",
+            "name": "Ges v60_26",
+            "type": "Device",
+            "value": [
+              -2500
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          }
+        ],
+        "namespace": "unibo.watering.",
+        "dateModified": "2024-10-24T11:33:40",
+        "dateObserved": "2024-04-26T00:00:00",
+        "timestamp_kafka": 1729762455862,
+        "unixtimestampModified": 1729762421,
+        "timestamp_subscription": 1729762455723
+      }
+    },
+    {
+      "id": 3096224743817272,
+      "label": "Device",
+      "properties": {
+        "x": 0,
+        "y": -20,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:1c23c1ae83fb4a17593f2c4a48df242a",
+        "name": "Ges v20_0",
+        "type": "Device",
+        "value": [
+          -21.904087666
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817273,
+      "label": "Device",
+      "properties": {
+        "x": 25,
+        "y": -20,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:fc9eddab8396ceb7984269e6c4f64a37",
+        "name": "Ges v20_26",
+        "type": "Device",
+        "value": [
+          -22.479290266
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817274,
+      "label": "Device",
+      "properties": {
+        "x": 50,
+        "y": -20,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:b9841b914bcbcef037e8228dfe0534c7",
+        "name": "Ges v20_52",
+        "type": "Device",
+        "value": [
+          -23.389949438
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817275,
+      "label": "Device",
+      "properties": {
+        "x": 80,
+        "y": -20,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:73123080564803f933d53da932285009",
+        "name": "Ges v20_80",
+        "type": "Device",
+        "value": [
+          -23.389949438
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817276,
+      "label": "Device",
+      "properties": {
+        "x": 50,
+        "y": -60,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:021603b7002a09a92f0b8c33b8cf58df",
+        "name": "Ges v60_52",
+        "type": "Device",
+        "value": [
+          -21.904087666
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817277,
+      "label": "Device",
+      "properties": {
+        "x": 80,
+        "y": -60,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:3021f6ae554c290d29eed7a69794ebbf",
+        "name": "Ges v60_80",
+        "type": "Device",
+        "value": [
+          -21.904087666
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817278,
+      "label": "Device",
+      "properties": {
+        "x": 0,
+        "y": -60,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:b75d85c1d0a8556889ed0edb2125254d",
+        "name": "Ges v60_0",
+        "type": "Device",
+        "value": [
+          -22.19169375
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817279,
+      "label": "Device",
+      "properties": {
+        "x": 25,
+        "y": -60,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:b44e173125a6aec1d1ce19d4fa7a06f7",
+        "name": "Ges v60_26",
+        "type": "Device",
+        "value": [
+          -2500
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817280,
+      "label": "Device",
+      "properties": {
+        "id": "urn:ngsi-ld:Device:unibo:584cdee35107b5f7d9774433be67a661",
+        "name": "Soil moisture sensor grid Fondo Errano 2024 T2 T2 alto",
+        "type": "Device",
+        "domain": "unibo",
+        "location": "POINT (11.799925 44.235401)",
+        "belongsTo": "urn:ngsi-ld:AgriParcel:unibo:2de48d8524fbe1867ae9b7f1979e87ad",
+        "hasDevice": [
+          {
+            "x": 0,
+            "y": -40,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:ee01b6d5da860b9da2d401aff84f62b6",
+            "name": "Ges v40_0",
+            "type": "Device",
+            "value": [
+              -29.522415844
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 100,
+            "y": -40,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:a2160dfe09c426a5ffb59e5ed707225a",
+            "name": "Ges v40_100",
+            "type": "Device",
+            "value": [
+              -23.389949438
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 35,
+            "y": -40,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:b3fbebb223aeb083e6872342e799309d",
+            "name": "Ges v40_33",
+            "type": "Device",
+            "value": [
+              -2500
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 65,
+            "y": -40,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:8c2e793562c0fa448edfa544c3358c68",
+            "name": "Ges v40_66",
+            "type": "Device",
+            "value": [
+              -1384.105213048
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 0,
+            "y": -20,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:cc0bd900fd26648c528389c9bcec83c3",
+            "name": "Ges v20_0",
+            "type": "Device",
+            "value": [
+              -25.258896592
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 100,
+            "y": -20,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:3ca361bc617f7328f938d50ee72b924e",
+            "name": "Ges v20_100",
+            "type": "Device",
+            "value": [
+              -26.169262852
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 35,
+            "y": -20,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:95b749fe480dc357bb8be94c9a70ac8f",
+            "name": "Ges v20_33",
+            "type": "Device",
+            "value": [
+              -72.423053327
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 65,
+            "y": -20,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:41712974e0a32be25b58dd48aadf1993",
+            "name": "Ges v20_66",
+            "type": "Device",
+            "value": [
+              -358.674773822
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 100,
+            "y": -60,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:a24fe9ee3b1c1904adfde95ece8691e9",
+            "name": "Ges v60_100",
+            "type": "Device",
+            "value": [
+              -23.389949438
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 35,
+            "y": -60,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:aef26afa31492e7ae52fe8fb3e880f24",
+            "name": "Ges v60_33",
+            "type": "Device",
+            "value": [
+              -2500
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 65,
+            "y": -60,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:982ebb7c2cded9794c60b636f726710b",
+            "name": "Ges v60_66",
+            "type": "Device",
+            "value": [
+              -22.479290266
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 0,
+            "y": -60,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:cd1164af506ac55a816e19370c9310dd",
+            "name": "Ges v60_0",
+            "type": "Device",
+            "value": [
+              -21.616472012
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          }
+        ],
+        "namespace": "unibo.watering.",
+        "dateModified": "2024-10-24T11:33:40",
+        "dateObserved": "2024-04-26T00:00:00",
+        "timestamp_kafka": 1729762455867,
+        "unixtimestampModified": 1729762421,
+        "timestamp_subscription": 1729762455727
+      }
+    },
+    {
+      "id": 3096224743817281,
+      "label": "Device",
+      "properties": {
+        "x": 0,
+        "y": -40,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:ee01b6d5da860b9da2d401aff84f62b6",
+        "name": "Ges v40_0",
+        "type": "Device",
+        "value": [
+          -29.522415844
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817282,
+      "label": "Device",
+      "properties": {
+        "x": 100,
+        "y": -40,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:a2160dfe09c426a5ffb59e5ed707225a",
+        "name": "Ges v40_100",
+        "type": "Device",
+        "value": [
+          -23.389949438
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817283,
+      "label": "Device",
+      "properties": {
+        "x": 35,
+        "y": -40,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:b3fbebb223aeb083e6872342e799309d",
+        "name": "Ges v40_33",
+        "type": "Device",
+        "value": [
+          -2500
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817284,
+      "label": "Device",
+      "properties": {
+        "x": 65,
+        "y": -40,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:8c2e793562c0fa448edfa544c3358c68",
+        "name": "Ges v40_66",
+        "type": "Device",
+        "value": [
+          -1384.105213048
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817285,
+      "label": "Device",
+      "properties": {
+        "x": 0,
+        "y": -20,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:cc0bd900fd26648c528389c9bcec83c3",
+        "name": "Ges v20_0",
+        "type": "Device",
+        "value": [
+          -25.258896592
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817286,
+      "label": "Device",
+      "properties": {
+        "x": 100,
+        "y": -20,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:3ca361bc617f7328f938d50ee72b924e",
+        "name": "Ges v20_100",
+        "type": "Device",
+        "value": [
+          -26.169262852
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817287,
+      "label": "Device",
+      "properties": {
+        "x": 35,
+        "y": -20,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:95b749fe480dc357bb8be94c9a70ac8f",
+        "name": "Ges v20_33",
+        "type": "Device",
+        "value": [
+          -72.423053327
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817288,
+      "label": "Device",
+      "properties": {
+        "x": 65,
+        "y": -20,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:41712974e0a32be25b58dd48aadf1993",
+        "name": "Ges v20_66",
+        "type": "Device",
+        "value": [
+          -358.674773822
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817289,
+      "label": "Device",
+      "properties": {
+        "x": 100,
+        "y": -60,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:a24fe9ee3b1c1904adfde95ece8691e9",
+        "name": "Ges v60_100",
+        "type": "Device",
+        "value": [
+          -23.389949438
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817290,
+      "label": "Device",
+      "properties": {
+        "x": 35,
+        "y": -60,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:aef26afa31492e7ae52fe8fb3e880f24",
+        "name": "Ges v60_33",
+        "type": "Device",
+        "value": [
+          -2500
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817291,
+      "label": "Device",
+      "properties": {
+        "x": 65,
+        "y": -60,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:982ebb7c2cded9794c60b636f726710b",
+        "name": "Ges v60_66",
+        "type": "Device",
+        "value": [
+          -22.479290266
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817292,
+      "label": "Device",
+      "properties": {
+        "x": 0,
+        "y": -60,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:cd1164af506ac55a816e19370c9310dd",
+        "name": "Ges v60_0",
+        "type": "Device",
+        "value": [
+          -21.616472012
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817293,
+      "label": "Device",
+      "properties": {
+        "id": "urn:ngsi-ld:Device:unibo:2d6b0e0c8c57f720c48fcb40563b4401",
+        "name": "Soil moisture sensor grid Fondo Errano 2024 T2 T2 basso",
+        "type": "Device",
+        "domain": "unibo",
+        "location": "POINT (11.800711 44.234904)",
+        "belongsTo": "urn:ngsi-ld:AgriParcel:unibo:2de48d8524fbe1867ae9b7f1979e87ad",
+        "hasDevice": [
+          {
+            "x": 100,
+            "y": -20,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:5803479336682117345f280f4696df68",
+            "name": "Ges v20_100",
+            "type": "Device",
+            "value": [
+              -43.973945378
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 35,
+            "y": -20,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:5ae1780eac62ecc1dc428bca4bb1ed03",
+            "name": "Ges v20_33",
+            "type": "Device",
+            "value": [
+              -45.599420519
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 65,
+            "y": -20,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:218035d236661e6841738c8594b40692",
+            "name": "Ges v20_66",
+            "type": "Device",
+            "value": [
+              -43.973945378
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 0,
+            "y": -20,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:64f08a20f0bf561596a0c17d7e9b89a4",
+            "name": "Ges v20_0",
+            "type": "Device",
+            "value": [
+              -30.767540951
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 0,
+            "y": -60,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:72b4e32b32c26e2bdf09ac684e547053",
+            "name": "Ges v60_0",
+            "type": "Device",
+            "value": [
+              -32.587015972
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 100,
+            "y": -60,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:5acd0f9d7b680045dbc3253fd139d835",
+            "name": "Ges v60_100",
+            "type": "Device",
+            "value": [
+              -24.300512656
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 35,
+            "y": -60,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:0d3a505153a67ba5aeaa38fd76509a77",
+            "name": "Ges v60_33",
+            "type": "Device",
+            "value": [
+              -2500
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 65,
+            "y": -60,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:e1bddbe97fb2250946afdff592536926",
+            "name": "Ges v60_66",
+            "type": "Device",
+            "value": [
+              -31.054851997
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 0,
+            "y": -40,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:42743b9cc2883d0d4d57db2d704c24ef",
+            "name": "Ges v40_0",
+            "type": "Device",
+            "value": [
+              -24.923474308
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 100,
+            "y": -40,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:5b3f1e17cb9a61bf709f43d2dfaa8c81",
+            "name": "Ges v40_100",
+            "type": "Device",
+            "value": [
+              -26.792089744
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 35,
+            "y": -40,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:43ef95eede19014fc817fdc81e0ff76e",
+            "name": "Ges v40_33",
+            "type": "Device",
+            "value": [
+              -24.923474308
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          },
+          {
+            "x": 65,
+            "y": -40,
+            "z": 0,
+            "id": "urn:ngsi-ld:Device:unibo:578e326ffc1428e78fe44418300b816e",
+            "name": "Ges v40_66",
+            "type": "Device",
+            "value": [
+              -109.892034899
+            ],
+            "controlledProperty": [
+              "soilMoisture"
+            ]
+          }
+        ],
+        "namespace": "unibo.watering.",
+        "dateModified": "2024-10-24T11:33:40",
+        "dateObserved": "2024-04-26T00:00:00",
+        "timestamp_kafka": 1729762455872,
+        "unixtimestampModified": 1729762421,
+        "timestamp_subscription": 1729762455732
+      }
+    },
+    {
+      "id": 3096224743817294,
+      "label": "Device",
+      "properties": {
+        "x": 100,
+        "y": -20,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:5803479336682117345f280f4696df68",
+        "name": "Ges v20_100",
+        "type": "Device",
+        "value": [
+          -43.973945378
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817295,
+      "label": "Device",
+      "properties": {
+        "x": 35,
+        "y": -20,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:5ae1780eac62ecc1dc428bca4bb1ed03",
+        "name": "Ges v20_33",
+        "type": "Device",
+        "value": [
+          -45.599420519
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817296,
+      "label": "Device",
+      "properties": {
+        "x": 65,
+        "y": -20,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:218035d236661e6841738c8594b40692",
+        "name": "Ges v20_66",
+        "type": "Device",
+        "value": [
+          -43.973945378
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817297,
+      "label": "Device",
+      "properties": {
+        "x": 0,
+        "y": -20,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:64f08a20f0bf561596a0c17d7e9b89a4",
+        "name": "Ges v20_0",
+        "type": "Device",
+        "value": [
+          -30.767540951
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817298,
+      "label": "Device",
+      "properties": {
+        "x": 0,
+        "y": -60,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:72b4e32b32c26e2bdf09ac684e547053",
+        "name": "Ges v60_0",
+        "type": "Device",
+        "value": [
+          -32.587015972
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817299,
+      "label": "Device",
+      "properties": {
+        "x": 100,
+        "y": -60,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:5acd0f9d7b680045dbc3253fd139d835",
+        "name": "Ges v60_100",
+        "type": "Device",
+        "value": [
+          -24.300512656
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817300,
+      "label": "Device",
+      "properties": {
+        "x": 35,
+        "y": -60,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:0d3a505153a67ba5aeaa38fd76509a77",
+        "name": "Ges v60_33",
+        "type": "Device",
+        "value": [
+          -2500
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817301,
+      "label": "Device",
+      "properties": {
+        "x": 65,
+        "y": -60,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:e1bddbe97fb2250946afdff592536926",
+        "name": "Ges v60_66",
+        "type": "Device",
+        "value": [
+          -31.054851997
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817302,
+      "label": "Device",
+      "properties": {
+        "x": 0,
+        "y": -40,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:42743b9cc2883d0d4d57db2d704c24ef",
+        "name": "Ges v40_0",
+        "type": "Device",
+        "value": [
+          -24.923474308
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817303,
+      "label": "Device",
+      "properties": {
+        "x": 100,
+        "y": -40,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:5b3f1e17cb9a61bf709f43d2dfaa8c81",
+        "name": "Ges v40_100",
+        "type": "Device",
+        "value": [
+          -26.792089744
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817304,
+      "label": "Device",
+      "properties": {
+        "x": 35,
+        "y": -40,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:43ef95eede19014fc817fdc81e0ff76e",
+        "name": "Ges v40_33",
+        "type": "Device",
+        "value": [
+          -24.923474308
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    },
+    {
+      "id": 3096224743817305,
+      "label": "Device",
+      "properties": {
+        "x": 65,
+        "y": -40,
+        "z": 0,
+        "id": "urn:ngsi-ld:Device:unibo:578e326ffc1428e78fe44418300b816e",
+        "name": "Ges v40_66",
+        "type": "Device",
+        "value": [
+          -109.892034899
+        ],
+        "controlledProperty": [
+          "soilMoisture"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": 1970324836974914,
+      "type": "belongsTo",
+      "start_id": 1125899906842632,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974915,
+      "type": "belongsTo",
+      "start_id": 1125899906842633,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974916,
+      "type": "belongsTo",
+      "start_id": 1125899906842634,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974914,
+      "type": "belongsTo",
+      "start_id": 1125899906842632,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974922,
+      "type": "belongsTo",
+      "start_id": 3096224743817245,
+      "end_id": 1125899906842632,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659847,
+      "type": "hasDevice",
+      "start_id": 3096224743817245,
+      "end_id": 3096224743817252,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974914,
+      "type": "belongsTo",
+      "start_id": 1125899906842632,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974922,
+      "type": "belongsTo",
+      "start_id": 3096224743817245,
+      "end_id": 1125899906842632,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659848,
+      "type": "hasDevice",
+      "start_id": 3096224743817245,
+      "end_id": 3096224743817253,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974914,
+      "type": "belongsTo",
+      "start_id": 1125899906842632,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974922,
+      "type": "belongsTo",
+      "start_id": 3096224743817245,
+      "end_id": 1125899906842632,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659849,
+      "type": "hasDevice",
+      "start_id": 3096224743817245,
+      "end_id": 3096224743817254,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974914,
+      "type": "belongsTo",
+      "start_id": 1125899906842632,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974917,
+      "type": "belongsTo",
+      "start_id": 3096224743817240,
+      "end_id": 1125899906842632,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974916,
+      "type": "belongsTo",
+      "start_id": 1125899906842634,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974918,
+      "type": "belongsTo",
+      "start_id": 3096224743817241,
+      "end_id": 1125899906842634,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974916,
+      "type": "belongsTo",
+      "start_id": 1125899906842634,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974919,
+      "type": "belongsTo",
+      "start_id": 3096224743817242,
+      "end_id": 1125899906842634,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974915,
+      "type": "belongsTo",
+      "start_id": 1125899906842633,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974920,
+      "type": "belongsTo",
+      "start_id": 3096224743817243,
+      "end_id": 1125899906842633,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974915,
+      "type": "belongsTo",
+      "start_id": 1125899906842633,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974921,
+      "type": "belongsTo",
+      "start_id": 3096224743817244,
+      "end_id": 1125899906842633,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974914,
+      "type": "belongsTo",
+      "start_id": 1125899906842632,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974922,
+      "type": "belongsTo",
+      "start_id": 3096224743817245,
+      "end_id": 1125899906842632,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974914,
+      "type": "belongsTo",
+      "start_id": 1125899906842632,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974922,
+      "type": "belongsTo",
+      "start_id": 3096224743817245,
+      "end_id": 1125899906842632,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659841,
+      "type": "hasDevice",
+      "start_id": 3096224743817245,
+      "end_id": 3096224743817246,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974914,
+      "type": "belongsTo",
+      "start_id": 1125899906842632,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974922,
+      "type": "belongsTo",
+      "start_id": 3096224743817245,
+      "end_id": 1125899906842632,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659842,
+      "type": "hasDevice",
+      "start_id": 3096224743817245,
+      "end_id": 3096224743817247,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974914,
+      "type": "belongsTo",
+      "start_id": 1125899906842632,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974922,
+      "type": "belongsTo",
+      "start_id": 3096224743817245,
+      "end_id": 1125899906842632,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659843,
+      "type": "hasDevice",
+      "start_id": 3096224743817245,
+      "end_id": 3096224743817248,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974914,
+      "type": "belongsTo",
+      "start_id": 1125899906842632,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974922,
+      "type": "belongsTo",
+      "start_id": 3096224743817245,
+      "end_id": 1125899906842632,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659844,
+      "type": "hasDevice",
+      "start_id": 3096224743817245,
+      "end_id": 3096224743817249,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974914,
+      "type": "belongsTo",
+      "start_id": 1125899906842632,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974922,
+      "type": "belongsTo",
+      "start_id": 3096224743817245,
+      "end_id": 1125899906842632,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659845,
+      "type": "hasDevice",
+      "start_id": 3096224743817245,
+      "end_id": 3096224743817250,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974914,
+      "type": "belongsTo",
+      "start_id": 1125899906842632,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974922,
+      "type": "belongsTo",
+      "start_id": 3096224743817245,
+      "end_id": 1125899906842632,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659846,
+      "type": "hasDevice",
+      "start_id": 3096224743817245,
+      "end_id": 3096224743817251,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974914,
+      "type": "belongsTo",
+      "start_id": 1125899906842632,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974922,
+      "type": "belongsTo",
+      "start_id": 3096224743817245,
+      "end_id": 1125899906842632,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659850,
+      "type": "hasDevice",
+      "start_id": 3096224743817245,
+      "end_id": 3096224743817255,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974914,
+      "type": "belongsTo",
+      "start_id": 1125899906842632,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974922,
+      "type": "belongsTo",
+      "start_id": 3096224743817245,
+      "end_id": 1125899906842632,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659851,
+      "type": "hasDevice",
+      "start_id": 3096224743817245,
+      "end_id": 3096224743817256,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974914,
+      "type": "belongsTo",
+      "start_id": 1125899906842632,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974922,
+      "type": "belongsTo",
+      "start_id": 3096224743817245,
+      "end_id": 1125899906842632,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659852,
+      "type": "hasDevice",
+      "start_id": 3096224743817245,
+      "end_id": 3096224743817257,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974916,
+      "type": "belongsTo",
+      "start_id": 1125899906842634,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974923,
+      "type": "belongsTo",
+      "start_id": 3096224743817258,
+      "end_id": 1125899906842634,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974916,
+      "type": "belongsTo",
+      "start_id": 1125899906842634,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974923,
+      "type": "belongsTo",
+      "start_id": 3096224743817258,
+      "end_id": 1125899906842634,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659853,
+      "type": "hasDevice",
+      "start_id": 3096224743817258,
+      "end_id": 3096224743817259,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974916,
+      "type": "belongsTo",
+      "start_id": 1125899906842634,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974923,
+      "type": "belongsTo",
+      "start_id": 3096224743817258,
+      "end_id": 1125899906842634,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659854,
+      "type": "hasDevice",
+      "start_id": 3096224743817258,
+      "end_id": 3096224743817260,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974916,
+      "type": "belongsTo",
+      "start_id": 1125899906842634,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974923,
+      "type": "belongsTo",
+      "start_id": 3096224743817258,
+      "end_id": 1125899906842634,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659855,
+      "type": "hasDevice",
+      "start_id": 3096224743817258,
+      "end_id": 3096224743817261,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974916,
+      "type": "belongsTo",
+      "start_id": 1125899906842634,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974923,
+      "type": "belongsTo",
+      "start_id": 3096224743817258,
+      "end_id": 1125899906842634,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659856,
+      "type": "hasDevice",
+      "start_id": 3096224743817258,
+      "end_id": 3096224743817262,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974916,
+      "type": "belongsTo",
+      "start_id": 1125899906842634,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974923,
+      "type": "belongsTo",
+      "start_id": 3096224743817258,
+      "end_id": 1125899906842634,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659857,
+      "type": "hasDevice",
+      "start_id": 3096224743817258,
+      "end_id": 3096224743817263,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974916,
+      "type": "belongsTo",
+      "start_id": 1125899906842634,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974923,
+      "type": "belongsTo",
+      "start_id": 3096224743817258,
+      "end_id": 1125899906842634,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659858,
+      "type": "hasDevice",
+      "start_id": 3096224743817258,
+      "end_id": 3096224743817264,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974916,
+      "type": "belongsTo",
+      "start_id": 1125899906842634,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974923,
+      "type": "belongsTo",
+      "start_id": 3096224743817258,
+      "end_id": 1125899906842634,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659859,
+      "type": "hasDevice",
+      "start_id": 3096224743817258,
+      "end_id": 3096224743817265,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974916,
+      "type": "belongsTo",
+      "start_id": 1125899906842634,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974923,
+      "type": "belongsTo",
+      "start_id": 3096224743817258,
+      "end_id": 1125899906842634,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659860,
+      "type": "hasDevice",
+      "start_id": 3096224743817258,
+      "end_id": 3096224743817266,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974916,
+      "type": "belongsTo",
+      "start_id": 1125899906842634,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974923,
+      "type": "belongsTo",
+      "start_id": 3096224743817258,
+      "end_id": 1125899906842634,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659861,
+      "type": "hasDevice",
+      "start_id": 3096224743817258,
+      "end_id": 3096224743817267,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974916,
+      "type": "belongsTo",
+      "start_id": 1125899906842634,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974923,
+      "type": "belongsTo",
+      "start_id": 3096224743817258,
+      "end_id": 1125899906842634,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659862,
+      "type": "hasDevice",
+      "start_id": 3096224743817258,
+      "end_id": 3096224743817268,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974916,
+      "type": "belongsTo",
+      "start_id": 1125899906842634,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974923,
+      "type": "belongsTo",
+      "start_id": 3096224743817258,
+      "end_id": 1125899906842634,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659863,
+      "type": "hasDevice",
+      "start_id": 3096224743817258,
+      "end_id": 3096224743817269,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974916,
+      "type": "belongsTo",
+      "start_id": 1125899906842634,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974923,
+      "type": "belongsTo",
+      "start_id": 3096224743817258,
+      "end_id": 1125899906842634,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659864,
+      "type": "hasDevice",
+      "start_id": 3096224743817258,
+      "end_id": 3096224743817270,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974916,
+      "type": "belongsTo",
+      "start_id": 1125899906842634,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974924,
+      "type": "belongsTo",
+      "start_id": 3096224743817271,
+      "end_id": 1125899906842634,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974916,
+      "type": "belongsTo",
+      "start_id": 1125899906842634,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974924,
+      "type": "belongsTo",
+      "start_id": 3096224743817271,
+      "end_id": 1125899906842634,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659865,
+      "type": "hasDevice",
+      "start_id": 3096224743817271,
+      "end_id": 3096224743817272,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974916,
+      "type": "belongsTo",
+      "start_id": 1125899906842634,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974924,
+      "type": "belongsTo",
+      "start_id": 3096224743817271,
+      "end_id": 1125899906842634,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659866,
+      "type": "hasDevice",
+      "start_id": 3096224743817271,
+      "end_id": 3096224743817273,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974916,
+      "type": "belongsTo",
+      "start_id": 1125899906842634,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974924,
+      "type": "belongsTo",
+      "start_id": 3096224743817271,
+      "end_id": 1125899906842634,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659867,
+      "type": "hasDevice",
+      "start_id": 3096224743817271,
+      "end_id": 3096224743817274,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974916,
+      "type": "belongsTo",
+      "start_id": 1125899906842634,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974924,
+      "type": "belongsTo",
+      "start_id": 3096224743817271,
+      "end_id": 1125899906842634,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659868,
+      "type": "hasDevice",
+      "start_id": 3096224743817271,
+      "end_id": 3096224743817275,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974916,
+      "type": "belongsTo",
+      "start_id": 1125899906842634,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974924,
+      "type": "belongsTo",
+      "start_id": 3096224743817271,
+      "end_id": 1125899906842634,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659869,
+      "type": "hasDevice",
+      "start_id": 3096224743817271,
+      "end_id": 3096224743817276,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974916,
+      "type": "belongsTo",
+      "start_id": 1125899906842634,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974924,
+      "type": "belongsTo",
+      "start_id": 3096224743817271,
+      "end_id": 1125899906842634,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659870,
+      "type": "hasDevice",
+      "start_id": 3096224743817271,
+      "end_id": 3096224743817277,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974916,
+      "type": "belongsTo",
+      "start_id": 1125899906842634,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974924,
+      "type": "belongsTo",
+      "start_id": 3096224743817271,
+      "end_id": 1125899906842634,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659871,
+      "type": "hasDevice",
+      "start_id": 3096224743817271,
+      "end_id": 3096224743817278,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974916,
+      "type": "belongsTo",
+      "start_id": 1125899906842634,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974924,
+      "type": "belongsTo",
+      "start_id": 3096224743817271,
+      "end_id": 1125899906842634,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659872,
+      "type": "hasDevice",
+      "start_id": 3096224743817271,
+      "end_id": 3096224743817279,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974915,
+      "type": "belongsTo",
+      "start_id": 1125899906842633,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974925,
+      "type": "belongsTo",
+      "start_id": 3096224743817280,
+      "end_id": 1125899906842633,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974915,
+      "type": "belongsTo",
+      "start_id": 1125899906842633,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974925,
+      "type": "belongsTo",
+      "start_id": 3096224743817280,
+      "end_id": 1125899906842633,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659873,
+      "type": "hasDevice",
+      "start_id": 3096224743817280,
+      "end_id": 3096224743817281,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974915,
+      "type": "belongsTo",
+      "start_id": 1125899906842633,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974925,
+      "type": "belongsTo",
+      "start_id": 3096224743817280,
+      "end_id": 1125899906842633,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659874,
+      "type": "hasDevice",
+      "start_id": 3096224743817280,
+      "end_id": 3096224743817282,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974915,
+      "type": "belongsTo",
+      "start_id": 1125899906842633,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974925,
+      "type": "belongsTo",
+      "start_id": 3096224743817280,
+      "end_id": 1125899906842633,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659875,
+      "type": "hasDevice",
+      "start_id": 3096224743817280,
+      "end_id": 3096224743817283,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974915,
+      "type": "belongsTo",
+      "start_id": 1125899906842633,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974925,
+      "type": "belongsTo",
+      "start_id": 3096224743817280,
+      "end_id": 1125899906842633,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659876,
+      "type": "hasDevice",
+      "start_id": 3096224743817280,
+      "end_id": 3096224743817284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974915,
+      "type": "belongsTo",
+      "start_id": 1125899906842633,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974925,
+      "type": "belongsTo",
+      "start_id": 3096224743817280,
+      "end_id": 1125899906842633,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659877,
+      "type": "hasDevice",
+      "start_id": 3096224743817280,
+      "end_id": 3096224743817285,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974915,
+      "type": "belongsTo",
+      "start_id": 1125899906842633,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974925,
+      "type": "belongsTo",
+      "start_id": 3096224743817280,
+      "end_id": 1125899906842633,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659878,
+      "type": "hasDevice",
+      "start_id": 3096224743817280,
+      "end_id": 3096224743817286,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974915,
+      "type": "belongsTo",
+      "start_id": 1125899906842633,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974925,
+      "type": "belongsTo",
+      "start_id": 3096224743817280,
+      "end_id": 1125899906842633,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659879,
+      "type": "hasDevice",
+      "start_id": 3096224743817280,
+      "end_id": 3096224743817287,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974915,
+      "type": "belongsTo",
+      "start_id": 1125899906842633,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974925,
+      "type": "belongsTo",
+      "start_id": 3096224743817280,
+      "end_id": 1125899906842633,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659880,
+      "type": "hasDevice",
+      "start_id": 3096224743817280,
+      "end_id": 3096224743817288,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974915,
+      "type": "belongsTo",
+      "start_id": 1125899906842633,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974925,
+      "type": "belongsTo",
+      "start_id": 3096224743817280,
+      "end_id": 1125899906842633,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659881,
+      "type": "hasDevice",
+      "start_id": 3096224743817280,
+      "end_id": 3096224743817289,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974915,
+      "type": "belongsTo",
+      "start_id": 1125899906842633,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974925,
+      "type": "belongsTo",
+      "start_id": 3096224743817280,
+      "end_id": 1125899906842633,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659882,
+      "type": "hasDevice",
+      "start_id": 3096224743817280,
+      "end_id": 3096224743817290,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974915,
+      "type": "belongsTo",
+      "start_id": 1125899906842633,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974925,
+      "type": "belongsTo",
+      "start_id": 3096224743817280,
+      "end_id": 1125899906842633,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659883,
+      "type": "hasDevice",
+      "start_id": 3096224743817280,
+      "end_id": 3096224743817291,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974915,
+      "type": "belongsTo",
+      "start_id": 1125899906842633,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974925,
+      "type": "belongsTo",
+      "start_id": 3096224743817280,
+      "end_id": 1125899906842633,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659884,
+      "type": "hasDevice",
+      "start_id": 3096224743817280,
+      "end_id": 3096224743817292,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974915,
+      "type": "belongsTo",
+      "start_id": 1125899906842633,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974926,
+      "type": "belongsTo",
+      "start_id": 3096224743817293,
+      "end_id": 1125899906842633,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974915,
+      "type": "belongsTo",
+      "start_id": 1125899906842633,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974926,
+      "type": "belongsTo",
+      "start_id": 3096224743817293,
+      "end_id": 1125899906842633,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659885,
+      "type": "hasDevice",
+      "start_id": 3096224743817293,
+      "end_id": 3096224743817294,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974915,
+      "type": "belongsTo",
+      "start_id": 1125899906842633,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974926,
+      "type": "belongsTo",
+      "start_id": 3096224743817293,
+      "end_id": 1125899906842633,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659886,
+      "type": "hasDevice",
+      "start_id": 3096224743817293,
+      "end_id": 3096224743817295,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974915,
+      "type": "belongsTo",
+      "start_id": 1125899906842633,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974926,
+      "type": "belongsTo",
+      "start_id": 3096224743817293,
+      "end_id": 1125899906842633,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659887,
+      "type": "hasDevice",
+      "start_id": 3096224743817293,
+      "end_id": 3096224743817296,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974915,
+      "type": "belongsTo",
+      "start_id": 1125899906842633,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974926,
+      "type": "belongsTo",
+      "start_id": 3096224743817293,
+      "end_id": 1125899906842633,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659888,
+      "type": "hasDevice",
+      "start_id": 3096224743817293,
+      "end_id": 3096224743817297,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974915,
+      "type": "belongsTo",
+      "start_id": 1125899906842633,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974926,
+      "type": "belongsTo",
+      "start_id": 3096224743817293,
+      "end_id": 1125899906842633,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659889,
+      "type": "hasDevice",
+      "start_id": 3096224743817293,
+      "end_id": 3096224743817298,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974915,
+      "type": "belongsTo",
+      "start_id": 1125899906842633,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974926,
+      "type": "belongsTo",
+      "start_id": 3096224743817293,
+      "end_id": 1125899906842633,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659890,
+      "type": "hasDevice",
+      "start_id": 3096224743817293,
+      "end_id": 3096224743817299,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974915,
+      "type": "belongsTo",
+      "start_id": 1125899906842633,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974926,
+      "type": "belongsTo",
+      "start_id": 3096224743817293,
+      "end_id": 1125899906842633,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659891,
+      "type": "hasDevice",
+      "start_id": 3096224743817293,
+      "end_id": 3096224743817300,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974915,
+      "type": "belongsTo",
+      "start_id": 1125899906842633,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974926,
+      "type": "belongsTo",
+      "start_id": 3096224743817293,
+      "end_id": 1125899906842633,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659892,
+      "type": "hasDevice",
+      "start_id": 3096224743817293,
+      "end_id": 3096224743817301,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974915,
+      "type": "belongsTo",
+      "start_id": 1125899906842633,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974926,
+      "type": "belongsTo",
+      "start_id": 3096224743817293,
+      "end_id": 1125899906842633,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659893,
+      "type": "hasDevice",
+      "start_id": 3096224743817293,
+      "end_id": 3096224743817302,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974915,
+      "type": "belongsTo",
+      "start_id": 1125899906842633,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974926,
+      "type": "belongsTo",
+      "start_id": 3096224743817293,
+      "end_id": 1125899906842633,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659894,
+      "type": "hasDevice",
+      "start_id": 3096224743817293,
+      "end_id": 3096224743817303,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974915,
+      "type": "belongsTo",
+      "start_id": 1125899906842633,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974926,
+      "type": "belongsTo",
+      "start_id": 3096224743817293,
+      "end_id": 1125899906842633,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659895,
+      "type": "hasDevice",
+      "start_id": 3096224743817293,
+      "end_id": 3096224743817304,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974915,
+      "type": "belongsTo",
+      "start_id": 1125899906842633,
+      "end_id": 1407374883553284,
+      "properties": {}
+    },
+    {
+      "id": 1970324836974926,
+      "type": "belongsTo",
+      "start_id": 3096224743817293,
+      "end_id": 1125899906842633,
+      "properties": {}
+    },
+    {
+      "id": 4222124650659896,
+      "type": "hasDevice",
+      "start_id": 3096224743817293,
+      "end_id": 3096224743817305,
+      "properties": {}
+    }
+  ]
+}
