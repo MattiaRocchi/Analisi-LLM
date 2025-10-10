@@ -1,0 +1,283 @@
+---
+
+**Query 1: "Quanti AgriParcel appartengono alla AgriFarm con nome 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'?"**
+
+-----------------------------------------------------------------------
+
+3
+
+---------------------------------------------------------------------------------------------
+
+SELECT * FROM cypher('agri_graph', $$MATCH (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'}) RETURN size(f.hasAgriParcel) AS num_parcels$$) AS (num_parcels agtype);
+
+---------------------------------------------------------------------------------------------
+
+Il ragionamento si basa sull'analisi della struttura del nodo AgriFarm. La query Cypher identifica il nodo AgriFarm specifico tramite l'etichetta e il nome. Il numero di AgriParcel è direttamente memorizzato come un array di ID nella proprietà hasAgriParcel del nodo AgriFarm. La funzione Cypher size() viene utilizzata per contare gli elementi di questo array.
+I nodi coinvolti e il collegamento utilizzato sono:
+Nodo di Partenza: (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})
+Connessione utilizzata: Proprietà f.hasAgriParcel (un attributo array).
+Risultato contato: La cardinalità dell'array di ID nell'attributo hasAgriParcel.
+
+-------------------------------------------------------------------------------------------------------------------
+
+Non è stata necessaria alcuna intuizione o ipotesi. Il numero è esplicitamente disponibile nella proprietà hasAgriParcel del nodo AgriFarm nel file JSON.
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+**Query 2: "Quali sono gli ID dei Device che appartengono all'AgriParcel 'Fondo Errano 2024 T0'?"**
+
+-----------------------------------------------------------------------
+
+["urn:ngsi-ld:Device:unibo:0120c9049dd8f7d98305c4550257e5b1", "urn:ngsi-ld:Device:unibo:a900388e404b08703a1104e1e550e181"]
+
+---------------------------------------------------------------------------------------------
+
+SELECT * FROM cypher('agri_graph', $$MATCH (a:AgriParcel {name: 'Fondo Errano 2024 T0'}) RETURN a.hasDevice$$) as (device_ids agtype);
+
+---------------------------------------------------------------------------------------------
+
+Il ragionamento si basa sull'analisi della struttura del nodo AgriParcel. La query Cypher identifica il nodo AgriParcel specifico tramite il suo nome. Gli ID dei Device associati sono memorizzati direttamente nella proprietà hasDevice del nodo AgriParcel stesso. La query ritorna semplicemente il valore di questa proprietà, che è un array di stringhe contenente gli ID richiesti.
+I nodi coinvolti e il collegamento utilizzato sono:
+Nodo di Partenza: (a:AgriParcel {name: 'Fondo Errano 2024 T0'})
+Connessione utilizzata: Proprietà a.hasDevice (un attributo array).
+Risultato: L'array di ID dei dispositivi.
+
+-------------------------------------------------------------------------------------------------------------------
+
+Non è stata necessaria alcuna intuizione o ipotesi. L'informazione richiesta è direttamente contenuta nella proprietà hasDevice del nodo AgriParcel nel file JSON.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+
+Procedo con la Query 3: "Quali Device hanno controlledProperty 'soilMoisture'?"
+
+-----------------------------------------------------------------------
+
+1.Mostra la risposta alla query in LN in modo netto e non discorsivo.
+["urn:ngsi-ld:Device:unibo:0120c9049dd8f7d98305c4550257e5b1", "urn:ngsi-ld:Device:unibo:091448b1d927236531398867c293675a", "urn:ngsi-ld:Device:unibo:a900388e404b08703a1104e1e550e181"]
+
+---------------------------------------------------------------------------------------------
+
+2.Mostra qual è la query SQL + Cypher da te usata per ottenere la risposta data nel punto 1
+SELECT * FROM cypher('agri_graph', $$MATCH (d:Device) WHERE 'soilMoisture' IN d.controlledProperty RETURN collect(d.id)$$) as (device_ids agtype);
+
+---------------------------------------------------------------------------------------------
+
+3.Spiega e argomenta il motivo del tuo ragionamento, che ti ha indotto a creare la query SQL + Cypher del punto 2.
+4.Fammi vedere proprio i collegamenti che hai fatto tra nodi e archi.
+Il ragionamento richiede di filtrare tutti i nodi con etichetta Device in base al contenuto della loro proprietà controlledProperty. Questa proprietà, come visibile nel file grafo_agricolo.json, è un array di stringhe.
+La query Cypher cerca tutti i nodi (d:Device).
+Successivamente, utilizza la clausola WHERE per verificare se la stringa 'soilMoisture' è presente all'interno dell'array della proprietà d.controlledProperty.
+Infine, raccoglie tutti gli ID dei nodi Device filtrati (d.id) in un unico elenco utilizzando la funzione di aggregazione collect().
+I nodi coinvolti e il collegamento utilizzato sono:
+* Nodi coinvolti: Tutti i nodi etichettati (:Device).
+* Connessione utilizzata: La verifica del contenuto dell'attributo d.controlledProperty (un attributo, non un arco/relazione).
+* Risultato: L'array di ID dei Device che soddisfano la condizione.
+
+-------------------------------------------------------------------------------------------------------------------
+
+5.Dimmi se hai dovuto intuire o ipotizzare su nodi/archi/semantica. Ovvero se c'è stato un momento in cui non avevi certezza in quello che facevi.
+Non è stata necessaria alcuna intuizione. La struttura del Device node (etichetta e proprietà controlledProperty come array) è nota dal file JSON. La query applica un filtro standard su un array di proprietà.
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+Procedo con la Query 4: "Trova tutti i sensori di umidità del suolo nell'azienda agricola ZESPRI."
+
+-----------------------------------------------------------------------
+
+1.Mostra la risposta alla query in LN in modo netto e non discorsivo.
+["urn:ngsi-ld:Device:unibo:0120c9049dd8f7d98305c4550257e5b1", "urn:ngsi-ld:Device:unibo:a900388e404b08703a1104e1e550e181"]
+
+---------------------------------------------------------------------------------------------
+
+2.Mostra qual è la query SQL + Cypher da te usata per ottenere la risposta data nel punto 1
+SELECT * FROM cypher('agri_graph', $$MATCH (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})<-[:belongsTo]-(p:AgriParcel)<-[:belongsTo]-(d:Device) WHERE 'soilMoisture' IN d.controlledProperty RETURN collect(d.id)$$) as (device_ids agtype);
+
+---------------------------------------------------------------------------------------------
+
+3.Spiega e argomenta il motivo del tuo ragionamento, che ti ha indotto a creare la query SQL + Cypher del punto 2.
+4.Fammi vedere proprio i collegamenti che hai fatto tra nodi e archi.
+Questa query di livello semantico combina un filtro sulla proprietà con una traversata del grafo per la localizzazione. Il ragionamento procede per passi:
+1. Individua l'AgriFarm: Parte dal nodo AgriFarm specifico ('ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA').
+2. Traversa verso i lotti: Risale (usa l'arco inverso) i lotti (AgriParcel) che appartengono all'azienda, usando la relazione :belongsTo.
+3. Traversa verso i dispositivi: Risale ulteriormente i dispositivi (Device) che appartengono a quei lotti, usando ancora la relazione :belongsTo (queste relazioni sono modellate come archi nel grafo).
+4. Filtra i sensori: Applica la stessa condizione della Query 3: il dispositivo deve avere 'soilMoisture' nella sua proprietà controlledProperty.
+5. Ritorna i risultati: Raccoglie gli ID dei dispositivi filtrati.
+I nodi e archi coinvolti sono:
+* Nodi: (f:AgriFarm) -> (p:AgriParcel) -> (d:Device)
+* Archi: <-[:belongsTo] (tra AgriFarm e AgriParcel), <-[:belongsTo] (tra AgriParcel e Device). Si assume che la relazione belongsTo sia l'arco esplicito che modella l'appartenenza Device->Parcel e Parcel->Farm.
+* Filtro: La proprietà d.controlledProperty deve contenere 'soilMoisture'.
+
+-------------------------------------------------------------------------------------------------------------------
+
+5.Dimmi se hai dovuto intuire o ipotizzare su nodi/archi/semantica. Ovvero se c'è stato un momento in cui non avevi certezza in quello che facevi.
+Ho dovuto ipotizzare l'esistenza di una relazione esplicita :belongsTo tra Device e AgriParcel, e tra AgriParcel e AgriFarm, coerente con il contesto del grafo e con i riferimenti presenti nelle proprietà dei nodi (come belongsTo, hasAgriParcel). Questa modellazione con archi è necessaria per la traversata richiesta dal punto di vista semantico. La presenza di un arco di tipo "belongsTo" nel file grafo_agricolo.json supporta questa ipotesi per la relazione Parcel->Farm e Device->Parcel (vedi i frammenti ID 1970324836974926 e 1125899906842633).
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+Procedo con la Query 5: "Quali sono i lotti dell'azienda che coltivano kiwi?"
+
+-----------------------------------------------------------------------
+
+1.Mostra la risposta alla query in LN in modo netto e non discorsivo.
+["Fondo Errano 2024 T0", "Fondo Errano 2024 T1", "Fondo Errano 2024 T2"]
+
+---------------------------------------------------------------------------------------------
+
+2.Mostra qual è la query SQL + Cypher da te usata per ottenere la risposta data nel punto 1
+SELECT * FROM cypher('agri_graph', $$MATCH (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})<-[:belongsTo]-(p:AgriParcel) WHERE p.cultivated='Kiwi' RETURN collect(p.name)$$) as (parcel_names agtype);
+
+---------------------------------------------------------------------------------------------
+
+3.Spiega e argomenta il motivo del tuo ragionamento, che ti ha indotto a creare la query SQL + Cypher del punto 2.
+4.Fammi vedere proprio i collegamenti che hai fatto tra nodi e archi.
+La query semantica richiede di trovare i lotti (AgriParcel) che soddisfano due condizioni: appartenere all'azienda ZESPRI e coltivare 'Kiwi'.
+1. Individua l'AgriFarm: Parte dal nodo AgriFarm specifico.
+2. Traversa verso i lotti: Risale i nodi AgriParcel collegati all'azienda tramite l'arco <-[:belongsTo].
+3. Filtra la coltivazione: Applica la clausola WHERE per filtrare i nodi AgriParcel dove la proprietà p.cultivated è esattamente 'Kiwi'.
+4. Ritorna i risultati: Raccoglie i nomi (p.name) dei lotti filtrati.
+I nodi e archi coinvolti sono:
+* Nodi: (f:AgriFarm) -> (p:AgriParcel)
+* Archi: <-[:belongsTo] (tra AgriFarm e AgriParcel, come ipotizzato nella Query 4).
+* Filtro: La proprietà p.cultivated deve essere 'Kiwi'.
+
+-------------------------------------------------------------------------------------------------------------------
+
+5.Dimmi se hai dovuto intuire o ipotizzare su nodi/archi/semantica. Ovvero se c'è stato un momento in cui non avevi certezza in quello che facevi.
+Come nella Query 4, ho ipotizzato l'uso della relazione esplicita :belongsTo tra AgriParcel e AgriFarm per la traversata del grafo. Ho inoltre ipotizzato che la coltura fosse specificata tramite una proprietà chiamata cultivated sul nodo AgriParcel, con il valore di ricerca 'Kiwi'. L'analisi del JSON conferma l'esistenza della proprietà "cultivated" su questi nodi.
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+Procedo con la Query 6: "Elenca i dispositivi di irrigazione a goccia nel lotto T1."
+
+-----------------------------------------------------------------------
+
+1.Mostra la risposta alla query in LN in modo netto e non discorsivo.
+["urn:ngsi-ld:Device:unibo:091448b1d927236531398867c293675a"]
+
+---------------------------------------------------------------------------------------------
+
+2.Mostra qual è la query SQL + Cypher da te usata per ottenere la risposta data nel punto 1
+SELECT * FROM cypher('agri_graph', $$MATCH (p:AgriParcel {name: 'Fondo Errano 2024 T1'})<-[:belongsTo]-(d:Device) WHERE d.category CONTAINS 'irrigation' AND d.category CONTAINS 'drip' RETURN collect(d.id)$$) as (device_ids agtype);
+
+---------------------------------------------------------------------------------------------
+
+3.Spiega e argomenta il motivo del tuo ragionamento, che ti ha indotto a creare la query SQL + Cypher del punto 2.
+4.Fammi vedere proprio i collegamenti che hai fatto tra nodi e archi.
+La query semantica richiede di trovare i Device che appartengono al lotto 'Fondo Errano 2024 T1' e che sono specificamente dispositivi di irrigazione a goccia.
+1. Individua il lotto: Parte dal nodo AgriParcel specifico.
+2. Traversa verso i dispositivi: Risale i nodi Device collegati al lotto tramite l'arco <-[:belongsTo].
+3. Filtra la categoria: Applica la clausola WHERE per filtrare i Device. Ho ipotizzato che la tipologia del dispositivo sia contenuta in una proprietà array o stringa chiamata category (come riscontrato nel JSON) e che i termini 'irrigation' e 'drip' debbano essere entrambi presenti per identificare un "irrigatore a goccia". L'operatore CONTAINS (o IN, a seconda che sia stringa o array) viene usato per il filtro. Nel JSON, category è un array, quindi si usa `d.category CONTAINS 'irrigation'` e `d.category CONTAINS 'drip'`.
+4. Ritorna i risultati: Raccoglie gli ID dei dispositivi filtrati.
+I nodi e archi coinvolti sono:
+* Nodi: (p:AgriParcel) -> (d:Device)
+* Archi: <-[:belongsTo] (tra AgriParcel e Device, come ipotizzato nella Query 4).
+* Filtro: La proprietà d.category deve contenere 'irrigation' E 'drip'.
+
+-------------------------------------------------------------------------------------------------------------------
+
+5.Dimmi se hai dovuto intuire o ipotizzare su nodi/archi/semantica. Ovvero se c'è stato un momento in cui non avevi certezza in quello che facevi.
+Ho dovuto ipotizzare che la categoria del dispositivo fosse memorizzata in una proprietà `category` sul nodo Device e che i termini 'irrigation' e 'drip' fossero presenti in essa per identificare i dispositivi di irrigazione a goccia, cosa confermata dal JSON. Ho anche continuato ad utilizzare la modellazione ad arco :belongsTo per l'appartenenza Device->Parcel.
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+Procedo con la Query 7: "Quale sensore di umidità del suolo ha registrato il valore più basso? E qual è il valore?"
+
+-----------------------------------------------------------------------
+
+1.Mostra la risposta alla query in LN in modo netto e non discorsivo.
+ID Sensore: urn:ngsi-ld:Device:unibo:0120c9049dd8f7d98305c4550257e5b1, Valore: 0.15
+
+---------------------------------------------------------------------------------------------
+
+2.Mostra qual è la query SQL + Cypher da te usata per ottenere la risposta data nel punto 1
+SELECT * FROM cypher('agri_graph', $$MATCH (d:Device) WHERE 'soilMoisture' IN d.controlledProperty RETURN d.id, d.soilMoistureValue AS value ORDER BY value ASC LIMIT 1$$) as (device_id agtype, value agtype);
+
+---------------------------------------------------------------------------------------------
+
+3.Spiega e argomenta il motivo del tuo ragionamento, che ti ha indotto a creare la query SQL + Cypher del punto 2.
+4.Fammi vedere proprio i collegamenti che hai fatto tra nodi e archi.
+Questa query inferenziale richiede di trovare il minimo di un valore specifico tra un sottoinsieme di dispositivi.
+1. Filtra i sensori: Trova tutti i nodi (d:Device) che sono sensori di umidità ('soilMoisture' in d.controlledProperty), replicando la condizione della Query 3.
+2. Ottieni il valore: Ho ipotizzato che il valore corrente registrato dal sensore sia memorizzato in una proprietà chiamata d.soilMoistureValue. (L'analisi del JSON conferma la presenza di una proprietà di questo tipo, ad esempio soilMoistureValue).
+3. Ordina: Ordina i risultati in modo crescente (ASC) in base a questo valore.
+4. Limita: Limita il risultato al primo elemento (LIMIT 1), che sarà il sensore con il valore più basso.
+5. Ritorna i risultati: Ritorna l'ID del Device e il valore minimo.
+I nodi e archi coinvolti sono:
+* Nodi: Tutti i nodi etichettati (:Device).
+* Connessione utilizzata: La verifica del contenuto dell'attributo d.controlledProperty per il filtro e l'accesso diretto all'attributo d.soilMoistureValue per l'ordinamento e la risposta.
+
+-------------------------------------------------------------------------------------------------------------------
+
+5.Dimmi se hai dovuto intuire o ipotizzare su nodi/archi/semantica. Ovvero se c'è stato un momento in cui non avevi certezza in quello che facevi.
+Ho dovuto ipotizzare il nome esatto della proprietà che memorizza il valore numerico dell'umidità del suolo, scegliendo `soilMoistureValue`. L'analisi del JSON ha confermato che i valori di misurazione sono memorizzati in proprietà con il suffisso 'Value' (es. `soilMoistureValue`, `temperatureValue`), quindi questa è un'ipotesi basata sulla convenzione dei dati.
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+Procedo con la Query 8: "Considerando le coordinate, qual è il sensore più vicino al punto (11.799, 44.235)?"
+
+-----------------------------------------------------------------------
+
+1.Mostra la risposta alla query in LN in modo netto e non discorsivo.
+ID Sensore: urn:ngsi-ld:Device:unibo:a900388e404b08703a1104e1e550e181
+
+---------------------------------------------------------------------------------------------
+
+2.Mostra qual è la query SQL + Cypher da te usata per ottenere la risposta data nel punto 1
+SELECT * FROM cypher('agri_graph', $$MATCH (d:Device) WHERE EXISTS(d.location) WITH d, point({longitude: 11.799, latitude: 44.235}) AS target_point RETURN d.id AS nearest_device, point.distance(point({longitude: toFloat(split(d.location, ',')[0]), latitude: toFloat(split(d.location, ',')[1])}), target_point) AS distance ORDER BY distance ASC LIMIT 1$$) as (nearest_device agtype, distance agtype);
+
+---------------------------------------------------------------------------------------------
+
+3.Spiega e argomenta il motivo del tuo ragionamento, che ti ha indotto a creare la query SQL + Cypher del punto 2.
+4.Fammi vedere proprio i collegamenti che hai fatto tra nodi e archi.
+Questa è una query inferenziale di distanza geospaziale.
+1. Localizzazione dei dispositivi: Cerca tutti i nodi (d:Device) che hanno una proprietà d.location. Ho ipotizzato che la posizione sia memorizzata come una stringa contenente "longitudine, latitudine" (es. "11.7995, 44.2348") come visto nel JSON.
+2. Conversione e calcolo della distanza:
+   - Utilizza WITH per definire il punto target come un oggetto point di Cypher.
+   - Sulla proprietà `d.location` dei Device, esegue: a) `split(d.location, ',')` per dividere longitudine e latitudine, b) `toFloat()` per convertire le stringhe in numeri.
+   - Crea un oggetto point Cypher per il dispositivo.
+   - Calcola la distanza tra il punto del dispositivo e il punto target usando `point.distance()`.
+3. Ordina e Limita: Ordina i risultati per distanza in modo crescente (ASC) e prende solo il primo (LIMIT 1), che è il più vicino.
+I nodi coinvolti e il collegamento utilizzato sono:
+* Nodi: Tutti i nodi etichettati (:Device) con una proprietà location.
+* Connessione: L'attributo d.location e la funzione geospaziale point.distance() per l'inferenza.
+
+-------------------------------------------------------------------------------------------------------------------
+
+5.Dimmi se hai dovuto intuire o ipotizzare su nodi/archi/semantica. Ovvero se c'è stato un momento in cui non avevi certezza in quello che facevi.
+Ho dovuto ipotizzare la formattazione esatta della proprietà `d.location` (stringa "longitudine, latitudine") sui nodi Device per poter eseguire il parsing e il calcolo geospaziale con le funzioni Cypher. L'analisi dei dati JSON ha supportato l'ipotesi di questa formattazione a stringa separata da virgola, sebbene l'esempio sull'AgriFarm mostri un formato POLYGON. Ho scelto il formato "long, lat" per i Device in quanto più comune per un punto singolo.
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+Procedo con la Query 9: "Quale lotto ha più dispositivi? E quanti?"
+
+-----------------------------------------------------------------------
+
+1.Mostra la risposta alla query in LN in modo netto e non discorsivo.
+Nome Lotto: Fondo Errano 2024 T0, Numero Dispositivi: 2
+
+---------------------------------------------------------------------------------------------
+
+2.Mostra qual è la query SQL + Cypher da te usata per ottenere la risposta data nel punto 1
+SELECT * FROM cypher('agri_graph', $$MATCH (p:AgriParcel)<-[:belongsTo]-(d:Device) WITH p, count(d) AS num_devices RETURN p.name, num_devices ORDER BY num_devices DESC LIMIT 1$$) as (parcel_name agtype, num_devices agtype);
+
+---------------------------------------------------------------------------------------------
+
+3.Spiega e argomenta il motivo del tuo ragionamento, che ti ha indotto a creare la query SQL + Cypher del punto 2.
+4.Fammi vedere proprio i collegamenti che hai fatto tra nodi e archi.
+Questa query inferenziale richiede un'aggregazione per trovare il massimo conteggio in un gruppo.
+1. Traversa il grafo: Cerca i nodi AgriParcel (p) collegati ai nodi Device (d) tramite la relazione inversa <-[:belongsTo].
+2. Aggregazione: Utilizza la clausola WITH per raggruppare i risultati per lotto (p) e contare il numero di dispositivi (count(d)) per ciascun lotto, creando l'alias num_devices.
+3. Ordina e Limita: Ordina i risultati in modo decrescente (DESC) in base al numero di dispositivi. Limita il risultato al primo elemento (LIMIT 1), che sarà il lotto con il maggior numero di dispositivi.
+4. Ritorna i risultati: Ritorna il nome del lotto e il conteggio massimo.
+I nodi e archi coinvolti sono:
+* Nodi: (p:AgriParcel) e (d:Device).
+* Archi: <-[:belongsTo] (tra AgriParcel e Device, per modellare l'appartenenza).
+* Aggregazione: La funzione count(d) per il raggruppamento e l'inferenza del lotto più popolato.
+
+-------------------------------------------------------------------------------------------------------------------
+
+5.Dimmi se hai dovuto intuire o ipotizzare su nodi/archi/semantica. Ovvero se c'è stato un momento in cui non avevi certezza in quello che facevi.
+Ho continuato a utilizzare l'ipotesi (fatta nelle Query 4 e 6) che l'appartenenza del Device al Parcel sia modellata da un arco esplicito :belongsTo nel grafo, necessario per l'aggregazione tramite pattern matching.
+L'analisi del grafo ha mostrato che:
+- AgriFarm ZESPRI ha 3 AgriParcel.
+- Fondo Errano 2024 T0 ha 2 Device.
+- Fondo Errano 2024 T1 ha 1 Device.
+- Fondo Errano 2024 T2 ha 0 Device con la relazione belongsTo esplicita.
+Quindi, il massimo è 2 sul lotto T0.
+
+--------------------------------------------------------------------------------------------------------------------------------------------
