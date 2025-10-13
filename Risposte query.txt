@@ -1,120 +1,79 @@
-Ecco le risposte complete alle nove query con tutti i dispositivi elencati e separati da linee tratteggiate:
-
----
-
 QUERY 1: Quanti AgriParcel appartengono alla AgriFarm con nome 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'?
 RISPOSTA: 3 AgriParcel
----
-Fondo Errano 2024 T0
----
-Fondo Errano 2024 T1
----
-Fondo Errano 2024 T2
----
 
----
+Fondo Errano 2024 T0
+
+Fondo Errano 2024 T1
+
+Fondo Errano 2024 T2
 
 QUERY 2: Quali sono gli ID dei Device che appartengono all'AgriParcel 'Fondo Errano 2024 T0'?
-RISPOSTA: 3 dispositivi diretti
----
-urn:ngsi-ld:Device:unibo:133a623a4e1cd32cdeaa7303d38f8333
----
-urn:ngsi-ld:Device:unibo:a316ef4f55a925842cca39af7280f4d8 (Dripper)
----
-urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6 (Soil moisture sensor grid)
----
+RISPOSTA: 2 dispositivi diretti
 
----
+urn:ngsi-ld:Device:unibo:a316ef4f55a925842cca39af7280f4d8 (Dripper)
+
+urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6 (Soil moisture sensor grid)
 
 QUERY 3: Quali Device hanno controlledProperty 'soilMoisture'?
-RISPOSTA: 44 sensori di umidità del suolo
----
+RISPOSTA: 56 sensori di umidità del suolo
+
 LOTTO T0 - 12 sensori:
 Ges v20_0, Ges v20_26, Ges v20_52, Ges v20_80, Ges v40_0, Ges v40_26, Ges v40_52, Ges v40_80, Ges v60_0, Ges v60_26, Ges v60_52, Ges v60_80
----
+
 LOTTO T1 ALTO - 12 sensori:
 Ges v20_0, Ges v20_-26, Ges v20_-80, Ges v20_80, Ges v40_0, Ges v40_-26, Ges v40_-80, Ges v40_80, Ges v60_0, Ges v60_26_SX, Ges v60_-80, Ges v60_80
----
+
 LOTTO T1 BASSO - 8 sensori:
 Ges v20_0, Ges v20_26, Ges v20_52, Ges v20_80, Ges v60_0, Ges v60_26, Ges v60_52, Ges v60_80
----
+
 LOTTO T2 ALTO - 12 sensori:
 Ges v20_0, Ges v20_33, Ges v20_66, Ges v20_100, Ges v40_0, Ges v40_33, Ges v40_66, Ges v40_100, Ges v60_0, Ges v60_33, Ges v60_66, Ges v60_100
----
+
 LOTTO T2 BASSO - 12 sensori:
 Ges v20_0, Ges v20_33, Ges v20_66, Ges v20_100, Ges v40_0, Ges v40_33, Ges v40_66, Ges v40_100, Ges v60_0, Ges v60_33, Ges v60_66, Ges v60_100
----
-
----
 
 QUERY 4: Trova tutti i sensori di umidità del suolo nell'azienda agricola ZESPRI.
-RISPOSTA: Stessi 44 sensori della Query 3
----
-
----
+RISPOSTA: 56 sensori di umidità del suolo (stessi della Query 3)
 
 QUERY 5: Quali sono i lotti dell'azienda che coltivano kiwi?
 RISPOSTA: Tutti e 3 i lotti coltivano Kiwi G3
----
-Fondo Errano 2024 T0 - Kiwi G3
----
-Fondo Errano 2024 T1 - Kiwi G3
----
-Fondo Errano 2024 T2 - Kiwi G3
----
 
----
+Fondo Errano 2024 T0 - Kiwi G3
+
+Fondo Errano 2024 T1 - Kiwi G3
+
+Fondo Errano 2024 T2 - Kiwi G3
 
 QUERY 6: Elenca i dispositivi di irrigazione a goccia nel lotto T1.
 RISPOSTA: 2 dispositivi di irrigazione
----
-urn:ngsi-ld:Device:unibo:e0a35eede1bd643062e7e83011896ef2 - Dripper Fondo Errano 2024 T1 T1 alto
----
-urn:ngsi-ld:Device:unibo:4706ab32adba82399acb21d45489535c - Dripper Fondo Errano 2024 T1 T1 basso
----
 
----
+urn:ngsi-ld:Device:unibo:e0a35eede1bd643062e7e83011896ef2 - Dripper Fondo Errano 2024 T1 T1 alto
+
+urn:ngsi-ld:Device:unibo:4706ab32adba82399acb21d45489535c - Dripper Fondo Errano 2024 T1 T1 basso
 
 QUERY 7: Quale sensore di umidità del suolo ha registrato il valore più basso? E qual è il valore?
-RISPOSTA: 
----
-Sensore: Ges v20_0 nel lotto T1 Alto
----
-Valore: -2022.07
----
+RISPOSTA:
 
----
+Sensore: Ges v20_0 nel lotto T1 Alto (grid T1 alto)
+
+Valore: -2022.073776
 
 QUERY 8: Considerando le coordinate, qual è il sensore più vicino al punto (11.799, 44.235)?
 RISPOSTA:
----
-Sensore: Dripper Fondo Errano 2024 T0 T0
----
-Posizione: POINT (11.798998 44.235024)
----
 
----
+Sensore: Dripper Fondo Errano 2024 T0 T0
+
+Posizione: POINT (11.798998 44.235024)
 
 QUERY 9: Quale lotto ha più dispositivi? E quanti?
 RISPOSTA:
----
-Lotto: Fondo Errano 2024 T1 e Fondo Errano 2024 T2 (pari merito)
----
-Numero dispositivi diretti: 6 dispositivi per ciascun lotto
----
-DISPOSITIVI T1:
-urn:ngsi-ld:Device:unibo:18dcacfd086f936b0eeefb315f674597
-urn:ngsi-ld:Device:unibo:b249a835fe350f38d120e2b1d1e3ed0d
-urn:ngsi-ld:Device:unibo:e0a35eede1bd643062e7e83011896ef2
-urn:ngsi-ld:Device:unibo:4706ab32adba82399acb21d45489535c
-urn:ngsi-ld:Device:unibo:a4f623ee3a7cec264df7af733c3b58e4
-urn:ngsi-ld:Device:unibo:ace4b1adb69da4c71c3e02e6509e859e
----
-DISPOSITIVI T2:
-urn:ngsi-ld:Device:unibo:5cf4faaf5edc8b63d1f573b2e02acc3d
-urn:ngsi-ld:Device:unibo:66c18326d560f8cfd92ac27919df7155
-urn:ngsi-ld:Device:unibo:bc8f7461962ba09c7d9574a068c8780a
-urn:ngsi-ld:Device:unibo:aaaa7adc8f8a91bcaee40f7528877b53
-urn:ngsi-ld:Device:unibo:584cdee35107b5f7d9774433be67a661
-urn:ngsi-ld:Device:unibo:2d6b0e0c8c57f720c48fcb40563b4401
----
+
+Lotto: Fondo Errano 2024 T2
+
+Numero totale dispositivi: 28 dispositivi
+
+Dettaglio:
+
+4 dispositivi diretti (2 dripper + 2 grid)
+
+24 sensori nei grid (12 + 12)
