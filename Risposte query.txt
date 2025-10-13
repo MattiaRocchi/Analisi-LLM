@@ -7,12 +7,16 @@ Fondo Errano 2024 T1
 
 Fondo Errano 2024 T2
 
+SELECT COUNT(*) AS num_parcels FROM cypher('agri_graph', $$ MATCH (farm:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'}) MATCH (parcel:AgriParcel)-[:belongsTo]->(farm) RETURN parcel $$) AS (parcel agtype);
+
 QUERY 2: Quali sono gli ID dei Device che appartengono all'AgriParcel 'Fondo Errano 2024 T0'?
 RISPOSTA: 2 dispositivi diretti
 
 urn:ngsi-ld:Device:unibo:a316ef4f55a925842cca39af7280f4d8 (Dripper)
 
 urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6 (Soil moisture sensor grid)
+
+SELECT device_id FROM cypher('agri_graph', $$ MATCH (parcel:AgriParcel {name: 'Fondo Errano 2024 T0'}) MATCH (device:Device)-[:belongsTo]->(parcel) RETURN device.id $$) AS (device_id text);
 
 QUERY 3: Quali Device hanno controlledProperty 'soilMoisture'?
 RISPOSTA: 56 sensori di umidità del suolo
@@ -32,8 +36,12 @@ Ges v20_0, Ges v20_33, Ges v20_66, Ges v20_100, Ges v40_0, Ges v40_33, Ges v40_6
 LOTTO T2 BASSO - 12 sensori:
 Ges v20_0, Ges v20_33, Ges v20_66, Ges v20_100, Ges v40_0, Ges v40_33, Ges v40_66, Ges v40_100, Ges v60_0, Ges v60_33, Ges v60_66, Ges v60_100
 
+SELECT device_id, device_name FROM cypher('agri_graph', $$ MATCH (device:Device) WHERE 'soilMoisture' IN device.controlledProperty AND device.name STARTS WITH 'Ges v' RETURN device.id AS device_id, device.name AS device_name $$) AS (device_id text, device_name text);
+
 QUERY 4: Trova tutti i sensori di umidità del suolo nell'azienda agricola ZESPRI.
 RISPOSTA: 56 sensori di umidità del suolo (stessi della Query 3)
+
+SELECT device_id, device_name FROM cypher('agri_graph', $$ MATCH (farm:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'}) MATCH (parcel:AgriParcel)-[:belongsTo]->(farm) MATCH (grid:Device)-[:belongsTo]->(parcel) WHERE grid.name CONTAINS 'Soil moisture sensor grid' UNWIND grid.hasDevice AS sensor_data WITH sensor_data WHERE sensor_data.name STARTS WITH 'Ges v' RETURN sensor_data.id AS device_id, sensor_data.name AS device_name $$) AS (device_id text, device_name text);
 
 QUERY 5: Quali sono i lotti dell'azienda che coltivano kiwi?
 RISPOSTA: Tutti e 3 i lotti coltivano Kiwi G3
@@ -44,12 +52,16 @@ Fondo Errano 2024 T1 - Kiwi G3
 
 Fondo Errano 2024 T2 - Kiwi G3
 
+SELECT parcel_name, colture FROM cypher('agri_graph', $$ MATCH (farm:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'}) MATCH (parcel:AgriParcel)-[:belongsTo]->(farm) WHERE parcel.colture = 'Kiwi G3' RETURN parcel.name AS parcel_name, parcel.colture AS colture $$) AS (parcel_name text, colture text);
+
 QUERY 6: Elenca i dispositivi di irrigazione a goccia nel lotto T1.
 RISPOSTA: 2 dispositivi di irrigazione
 
 urn:ngsi-ld:Device:unibo:e0a35eede1bd643062e7e83011896ef2 - Dripper Fondo Errano 2024 T1 T1 alto
 
 urn:ngsi-ld:Device:unibo:4706ab32adba82399acb21d45489535c - Dripper Fondo Errano 2024 T1 T1 basso
+
+SELECT device_id, device_name FROM cypher('agri_graph', $$ MATCH (parcel:AgriParcel {name: 'Fondo Errano 2024 T1'}) MATCH (device:Device)-[:belongsTo]->(parcel) WHERE 'dripper' IN device.controlledProperty RETURN device.id AS device_id, device.name AS device_name $$) AS (device_id text, device_name text);
 
 QUERY 7: Quale sensore di umidità del suolo ha registrato il valore più basso? E qual è il valore?
 RISPOSTA:
@@ -58,12 +70,16 @@ Sensore: Ges v20_0 nel lotto T1 Alto (grid T1 alto)
 
 Valore: -2022.073776
 
+SELECT device_name, value FROM cypher('agri_graph', $$ MATCH (sensor:Device) WHERE 'soilMoisture' IN sensor.controlledProperty AND sensor.name STARTS WITH 'Ges v' AND sensor.value IS NOT NULL AND sensor.value[0] <> -2500 WITH sensor, toFloat(sensor.value[0]) AS numeric_value WHERE numeric_value IS NOT NULL RETURN sensor.name AS device_name, numeric_value AS value ORDER BY numeric_value ASC LIMIT 1 $$) AS (device_name text, value float);
+
 QUERY 8: Considerando le coordinate, qual è il sensore più vicino al punto (11.799, 44.235)?
 RISPOSTA:
 
 Sensore: Dripper Fondo Errano 2024 T0 T0
 
 Posizione: POINT (11.798998 44.235024)
+
+SELECT device_name, location FROM cypher('agri_graph', $$ MATCH (device:Device) WHERE device.location IS NOT NULL AND device.location STARTS WITH 'POINT' WITH device, split(replace(replace(device.location, 'POINT (', ''), ')', ''), ' ') as coords WITH device, toFloat(coords[0]) as lon, toFloat(coords[1]) as lat WITH device, lon, lat, sqrt((lon - 11.799)^2 + (lat - 44.235)^2) AS distance RETURN device.name AS device_name, device.location AS location ORDER BY distance ASC LIMIT 1 $$) AS (device_name text, location text);
 
 QUERY 9: Quale lotto ha più dispositivi? E quanti?
 RISPOSTA:
@@ -77,3 +93,5 @@ Dettaglio:
 4 dispositivi diretti (2 dripper + 2 grid)
 
 24 sensori nei grid (12 + 12)
+
+SELECT parcel_name, total_devices FROM cypher('agri_graph', $$ MATCH (farm:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'}) MATCH (parcel:AgriParcel)-[:belongsTo]->(farm) // Conta dispositivi diretti MATCH (direct:Device)-[:belongsTo]->(parcel) WITH parcel, COUNT(direct) AS direct_count // Conta dispositivi annidati nei grid MATCH (grid:Device)-[:belongsTo]->(parcel) WHERE grid.name CONTAINS 'Soil moisture sensor grid' WITH parcel, direct_count, grid WITH parcel, direct_count, CASE WHEN grid.hasDevice IS NOT NULL THEN size(grid.hasDevice) ELSE 0 END AS grid_sensors // Raggruppa e somma manualmente WITH parcel, direct_count, COLLECT(grid_sensors) AS sensors_list WITH parcel, direct_count, sensors_list, size(sensors_list) AS num_grids WITH parcel, direct_count, CASE WHEN num_grids = 0 THEN direct_count WHEN num_grids = 1 THEN direct_count + sensors_list[0] WHEN num_grids = 2 THEN direct_count + sensors_list[0] + sensors_list[1] ELSE direct_count + sensors_list[0] + sensors_list[1] + sensors_list[2] END AS total_devices RETURN parcel.name AS parcel_name, total_devices ORDER BY total_devices DESC LIMIT 1 $$) AS (parcel_name text, total_devices int);
