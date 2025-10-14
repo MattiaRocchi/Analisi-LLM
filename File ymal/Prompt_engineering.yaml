@@ -1,0 +1,39 @@
+query_set:
+  level_1:  # QUERY ISTANZE
+    - id: Q1
+      description: "Quanti AgriParcel appartengono alla AgriFarm con nome 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'?"
+      goal: "Restituire il numero totale di istanze di AgriParcel associate all'entità AgriFarm specificata."
+
+    - id: Q2
+      description: "Quali sono gli ID dei Device che appartengono all'AgriParcel 'Fondo Errano 2024 T0'?"
+      goal: "Restituire la lista degli identificativi univoci (deviceID) dei dispositivi collegati all'AgriParcel indicato."
+
+    - id: Q3
+      description: "Quali Device hanno controlledProperty 'soilMoisture'?"
+      goal: "Restituire l'elenco dei dispositivi che monitorano la proprietà controllata 'soilMoisture' (umidità del suolo)."
+
+  level_2:  # QUERY SEMANTICHE
+    - id: Q4
+      description: "Trova tutti i sensori di umidità del suolo nell'azienda agricola ZESPRI."
+      goal: "Identificare tutti i dispositivi di tipo sensore collegati alla proprietà 'soilMoisture' e appartenenti alla AgriFarm ZESPRI."
+
+    - id: Q5
+      description: "Quali sono i lotti dell'azienda che coltivano kiwi?"
+      goal: "Restituire la lista degli AgriParcel (lotti) appartenenti alla AgriFarm ZESPRI in cui la coltura principale è 'kiwi'."
+
+    - id: Q6
+      description: "Elenca i dispositivi di irrigazione a goccia nel lotto T1."
+      goal: "Restituire i dispositivi classificati come 'irrigationDevice' o con tipo 'drip irrigation' associati al lotto T1."
+
+  level_3:  # QUERY INFERENZIALI
+    - id: Q7
+      description: "Quale sensore di umidità del suolo ha registrato il valore più basso? E qual è il valore?"
+      goal: "Analizzare le misurazioni registrate dai sensori di tipo 'soilMoisture' e individuare il minimo valore rilevato con il relativo dispositivo."
+
+    - id: Q8
+      description: "Considerando le coordinate, qual è il sensore più vicino al punto (11.799, 44.235)?"
+      goal: "Calcolare la distanza geografica tra le coordinate note dei sensori e il punto fornito, restituendo il sensore con la distanza minima."
+
+    - id: Q9
+      description: "Quale lotto ha più dispositivi? E quanti?"
+      goal: "Determinare quale AgriParcel possiede il numero più alto di dispositivi associati e restituire il conteggio."
