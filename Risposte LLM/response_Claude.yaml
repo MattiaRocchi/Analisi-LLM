@@ -9,7 +9,7 @@ response_template: &response_template
     - eventuali filtri, aggregazioni o inferenze applicate.
 
 query_set:
-  - id: Q1
+  - id: Q1 # OK
     description: "Quanti AgriParcel appartengono alla AgriFarm con nome 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'?"
     query: |
       SELECT * FROM cypher('agri_graph', $$
@@ -25,7 +25,7 @@ query_set:
       - COUNT(parcel) aggrega e conta tutti i nodi AgriParcel trovati.
       - Nel grafo ci sono 3 AgriParcel: T0, T1, T2.
 
-  - id: Q2
+  - id: Q2 # OK
     description: "Quali sono gli ID dei Device che appartengono all'AgriParcel 'Fondo Errano 2024 T0'?"
     query: |
       SELECT * FROM cypher('agri_graph', $$
@@ -40,7 +40,7 @@ query_set:
       - Ritorno solo la proprietà id dei device trovati.
       - Dal grafo, T0 ha: il dripper principale e la grid di sensori di umidità del suolo.
 
-  - id: Q3
+  - id: Q3 # OK
     description: "Quali Device hanno controlledProperty 'soilMoisture'?"
     query: |
       SELECT * FROM cypher('agri_graph', $$
@@ -56,7 +56,7 @@ query_set:
       - Ritorno sia l'ID che il nome per identificare meglio i dispositivi.
       - Nel grafo ci sono molti sensori "Ges" che misurano soilMoisture a diverse profondità (v20, v40, v60) e posizioni.
 
-  - id: Q4
+  - id: Q4 # Non funziona
     description: "Trova tutti i sensori di umidità del suolo nell'azienda agricola ZESPRI."
     query: |
       SELECT * FROM cypher('agri_graph', $$
@@ -73,7 +73,7 @@ query_set:
       - Ritorno ID, nome e valore corrente dell'umidità.
       - Questa query combina navigazione del grafo (path multi-hop) con filtro su proprietà.
 
-  - id: Q5
+  - id: Q5 # OK
     description: "Quali sono i lotti dell'azienda che coltivano kiwi?"
     query: |
       SELECT * FROM cypher('agri_graph', $$
@@ -90,7 +90,7 @@ query_set:
       - Nel grafo tutti e 3 i lotti (T0, T1, T2) coltivano "Kiwi G3".
       - Ritorno ID, nome e tipo di coltura per completezza.
 
-  - id: Q6
+  - id: Q6 # OK
     description: "Elenca i dispositivi di irrigazione a goccia nel lotto T1."
     query: |
       SELECT * FROM cypher('agri_graph', $$
@@ -108,7 +108,7 @@ query_set:
       - Nel lotto T1 ci sono due dripper: "T1 alto" e "T1 basso" (posizionati in punti diversi del lotto).
       - Ritorno anche location per vedere dove sono posizionati geograficamente.
 
-  - id: Q7
+  - id: Q7 # Query funzionante bisognerebbe comunicare l'esclusione dei -2500
     description: "Quale sensore di umidità del suolo ha registrato il valore più basso? E qual è il valore?"
     query: |
       SELECT * FROM cypher('agri_graph', $$
@@ -133,7 +133,7 @@ query_set:
       - Nel grafo i valori sono negativi (probabilmente tensione del suolo in kPa), quindi il "più basso" è il più negativo.
       - Il valore più basso dovrebbe essere circa -2500 (sensori con problemi/fuori range).
 
-  - id: Q8
+  - id: Q8 # NON FUNZIONANTE : Function distance does not exist
     description: "Considerando le coordinate, qual è il sensore più vicino al punto (11.799, 44.235)?"
     query: |
       SELECT * FROM cypher('agri_graph', $$
@@ -164,7 +164,7 @@ query_set:
       - ORDER BY distanza ASC + LIMIT 1 per trovare il più vicino.
       - Le coordinate (11.799, 44.235) sono vicine all'area dei lotti T0/T1.
 
-  - id: Q9
+  - id: Q9 # RISULTATO ERRATO: Conta solo i dispositivi collegati alla Agriparcel senza andare ad indagare nel  grid
     description: "Quale lotto ha più dispositivi? E quanti?"
     query: |
       SELECT * FROM cypher('agri_graph', $$
