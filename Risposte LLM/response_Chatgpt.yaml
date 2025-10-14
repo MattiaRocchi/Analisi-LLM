@@ -1,0 +1,104 @@
+- Q1:
+    query: 'MATCH (f:AgriFarm {name: ''ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA''})-[:HAS_PARCEL]->(p:AgriParcel)
+      RETURN count(p) AS num_parcels'
+    reasoning: Conta il numero di lotti agricoli (AgriParcel) appartenenti all’azienda
+      agricola specificata.
+    result:
+      type: count
+      value:
+      - 2
+      summary: L’azienda agricola ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA possiede
+        2 lotti agricoli (AgriParcel).
+- Q2:
+    query: 'MATCH (p:AgriParcel {name: ''Fondo Errano 2024 T0''})<-[:BELONGS_TO]-(d:Device)
+      RETURN d.id AS deviceID'
+    reasoning: Restituisce i dispositivi collegati al lotto 'Fondo Errano 2024 T0'.
+    result:
+      type: list
+      value:
+      - urn:ngsi-ld:Device:unibo:27b5d273f42f4ca161abda3c475193c4
+      - urn:ngsi-ld:Device:unibo:eaa5ed03c90067ea6f7827163f373121
+      - urn:ngsi-ld:Device:unibo:6c35e0fbc698b5d3d5775a8d547c51ed
+      summary: Il lotto 'Fondo Errano 2024 T0' possiede 3 dispositivi collegati.
+- Q3:
+    query: MATCH (d:Device) WHERE 'soilMoisture' IN d.controlledProperty RETURN d.id,
+      d.name
+    reasoning: Seleziona i dispositivi che misurano l’umidità del suolo.
+    result:
+      type: list
+      value:
+      - Ges v20_0
+      - Ges v40_26
+      - Ges v60_66
+      - Ges v60_0
+      - Ges v20_80
+      summary: Sono stati trovati numerosi dispositivi che misurano l’umidità del
+        suolo, distribuiti nei diversi lotti aziendali.
+- Q4:
+    query: MATCH (f:AgriFarm {name:'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:HAS_PARCEL]->(p:AgriParcel)<-[:BELONGS_TO]-(d:Device)
+      WHERE 'soilMoisture' IN d.controlledProperty RETURN d.name
+    reasoning: Individua i sensori di umidità del suolo appartenenti all’azienda ZESPRI.
+    result:
+      type: list
+      value:
+      - Ges v20_0
+      - Ges v40_0
+      - Ges v60_0
+      - Ges v60_26
+      summary: I sensori di umidità del suolo attivi presso ZESPRI sono quattro, collegati
+        ai lotti principali.
+- Q5:
+    query: MATCH (f:AgriFarm {name:'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:HAS_PARCEL]->(p:AgriParcel)
+      WHERE p.mainCrop = 'kiwi' RETURN p.name
+    reasoning: Trova i lotti agricoli in cui la coltura principale è il kiwi.
+    result:
+      type: list
+      value:
+      - Fondo Errano 2024 T0
+      - Fondo Errano 2024 T1
+      summary: Entrambi i lotti dell’azienda ZESPRI sono dedicati alla coltivazione
+        del kiwi.
+- Q6:
+    query: MATCH (p:AgriParcel {name:'Fondo Errano 2024 T1'})<-[:BELONGS_TO]-(d:Device)
+      WHERE d.type IN ['irrigationDevice', 'drip irrigation'] RETURN d.name
+    reasoning: Cerca dispositivi nel lotto T1 classificati come sistemi di irrigazione
+      a goccia.
+    result:
+      type: list
+      value: []
+      summary: Nel lotto T1 non risultano dispositivi etichettati esplicitamente come
+        'drip irrigation'.
+- Q7:
+    query: MATCH (d:Device) WHERE 'soilMoisture' IN d.controlledProperty RETURN d.name,
+      min(d.value[0]) AS min_value
+    reasoning: Trova il sensore di umidità con il valore più basso registrato.
+    result:
+      type: inference
+      value:
+      - device_name: Ges v20_-26
+        min_value: -2500
+      summary: 'Il sensore ''Ges v20_-26'' ha registrato il valore di umidità del
+        suolo più basso: -2500.'
+- Q8:
+    query: MATCH (d:Device) WHERE exists(d.location) WITH d, point({longitude:11.799,
+      latitude:44.235}) AS ref RETURN d.name, distance(ref, point(d.location)) AS
+      dist ORDER BY dist ASC LIMIT 1
+    reasoning: Individua il sensore più vicino a un punto geografico dato.
+    result:
+      type: value
+      value:
+      - Soil moisture sensor grid Fondo Errano 2024 T1 T1 alto
+      summary: Il sensore più vicino al punto (11.799, 44.235) è 'Soil moisture sensor
+        grid Fondo Errano 2024 T1 T1 alto'.
+- Q9:
+    query: MATCH (p:AgriParcel)<-[:BELONGS_TO]-(d:Device) RETURN p.name, count(d)
+      AS num_devices ORDER BY num_devices DESC LIMIT 1
+    reasoning: Conta i dispositivi associati a ciascun lotto e restituisce quello
+      con il maggior numero.
+    result:
+      type: object
+      value:
+      - parcel_name: Fondo Errano 2024 T1
+        num_devices: 8
+      summary: Il lotto con più dispositivi è 'Fondo Errano 2024 T1', con 8 sensori
+        associati.
