@@ -1,0 +1,176 @@
+In base al grafo nel file json, svolgi le seguenti domande:
+Livello 1 - Query Istanze
+1."Quanti AgriParcel appartengono alla AgriFarm con nome 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'?"
+2."Quali sono gli ID dei Device che appartengono all'AgriParcel 'Fondo Errano 2024 T0'?"
+3."Quali Device hanno controlledProperty 'soilMoisture'?"
+Livello 2 - Query Semantiche
+4."Trova tutti i sensori di umidità del suolo nell'azienda agricola ZESPRI."
+5."Quali sono i lotti dell'azienda che coltivano kiwi?"
+6."Elenca i dispositivi di irrigazione a goccia nel lotto T1."
+Livello 3 - Query Inferenziali
+7."Quale sensore di umidità del suolo ha registrato il valore più basso? E qual è il valore?"
+8."Considerando le coordinate, qual è il sensore più vicino al punto (11.799, 44.235)?"
+9."Quale lotto ha più dispositivi? E quanti?"
+
+Per ogni test, registreremo:
+
+LLM
+
+Rappresentazione del grafo usata
+
+Query
+
+Risposta
+
+Accuratezza
+
+Qualità del ragionamento (1-5/5)
+
+Note
+
+Poiché non posso eseguire direttamente gli LLM, ti fornirò la struttura e tu potrai eseguire i test.
+
+Ecco la tabella vuota in formato markdown:
+
+markdown
+# Risultati Sperimentazione LLM
+
+## Test 1: Query Letterale 1
+**Query:** "Quanti AgriParcel appartengono alla AgriFarm con nome 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'?"
+
+| LLM | Rappresentazione | Risposta | Accuratezza | Ragionamento | Note |
+|-----|------------------|----------|-------------|--------------|------|
+
+Stiamo per iniziare una sperimentazione con diversi LLM. Useremo un grafo semplificato e un set di query predefinite. Dovrò valutare le risposte degli LLM in base a accuratezza e qualità del ragionamento.
+
+Poiché non posso interagire direttamente con gli LLM, mi baserò sulle risposte che mi fornirai. Per ogni risposta, avrò bisogno di:
+
+La query specifica
+
+La rappresentazione del grafo usata (Graph-as-Text, Graph Summary, FIWARE, Hybrid)
+
+Il nome dell'LLM (ChatGPT, Gemini, Claude, Copilot)
+
+La risposta testuale dell'LLM
+
+In base a queste informazioni, compilerò la tabella di valutazione, assegnando:
+
+Accuratezza: ✅ Corretto, ❌ Errato, ⚠️ Parziale
+
+Ragionamento: un punteggio da 1 a 5 (1=povero, 5=eccellente)
+
+Spiegazione dei criteri:
+
+Let me define the mapping from test to query type on the final table:
+Test 1: Conteggio
+Test 2: Gerarchica
+Test 3: Filtro
+Test 4: Inventario
+Test 5: Identificazione
+Test 6: Mappatura? But in the image, there is Mappatura and Identificazione. Test 5 is Identificazione, Test 6 might be Mappatura or something else.
+Test 7: Analisi Valori
+Test 8: Geospaziale
+Test 9: Aggregazione
+
+Accuratezza:
+"Eccellente" per risposte completamente corrette (✅)
+"Parziale" per risposte parzialmente corrette o con omissioni minori (⚠️)
+"Scarsa" per risposte errate o con errori gravi (❌)
+
+Valori Ragionamento:
+5/5: Ragionamento eccellente. Spiega chiaramente il processo, usa il contesto in modo appropriato, e la risposta è ben giustificata.
+4/5: Ragionamento buono. La risposta è corretta e il ragionamento è solido, ma potrebbe mancare di dettagli esplicativi.
+3/5: Ragionamento medio. La risposta è parzialmente corretta o il ragionamento è presente ma con qualche lacuna.
+2/5: Ragionamento povero. La risposta è errata o il ragionamento è confuso e incoerente.
+1/5: Ragionamento molto povero. La risposta è completamente errata o il ragionamento è assente o molto fuori strada.
+
+
+Note: commenti qualitativi su pattern, errori, halluzinazioni, ecc.
+
+Iniziamo con le prime query. Per ogni query, userò le rappresentazioni del grafo che hai definito:
+
+Per ogni combinazione query/rappresentazione, valuterò le risposte degli LLM che mi fornirai.
+
+Per agevolare il processo, per favore forniscimi le risposte degli LLM nel seguente formato:
+
+text
+Query: [testo della query]
+Rappresentazione: [Graph-as-Text/Graph Summary/FIWARE/Hybrid]
+LLM: [ChatGPT/Gemini/Claude/Copilot]
+Risposta: [risposta testuale dell'LLM]
+
+
+📊 CALCOLO METRICHE AGGREGATE - Metodologia Corretta
+Base del Calcolo:
+✅ Eccellente = 1 punto
+
+⚠️ Parziale = 0.5 punti
+
+❌ Scarsa = 0 punti
+
+Categoria per Categoria:
+1. QUERY LETTERALI (Test 1-3)
+Test 1: ✅ = 1
+
+Test 2: ⚠️ = 0.5
+
+Test 3: ❌ = 0
+
+Totale: 
+
+2. QUERY SEMANTICHE (Test 4-6)
+Test 4: ⚠️ = 0.5
+
+Test 5: ✅ = 1
+
+Test 6: ✅ = 1
+
+Totale: 
+
+3. QUERY INFERENZIALI (Test 7-9)
+Test 7: ✅ = 1
+
+Test 8: ❌ = 0
+
+Test 9: ✅ = 1
+
+Totale:
+
+Pattern Recognition Guidato
+Ecco cosa osservare specificamente:
+
+Pattern Positivi da Cercare:
+✅ LLM che riconosce la gerarchia Farm → Parcel → Device
+
+✅ Capisce le coordinate spaziali e le relazioni di prossimità
+
+✅ Interpreta correttamente i controlledProperty
+
+✅ Gestisce gli array di valori e timestamp
+
+Pattern Negativi/Problemi:
+❌ Confusione tra entità simili (Device vs AgriParcel)
+
+❌ Misunderstanding delle relazioni spaziali
+
+❌ Hallucination di attributi inesistenti
+
+❌ Incapacità di fare join tra entità correlate
+
+
+Ciò che ti ho mandato sono le linee guida di quello che stavamo gia facendo...ovvero analisi del comportamento delle llm. Tu conoscendo il grafico e le risposte giuste a quelle query dovrai valutare le risposte delle altre llm.
+
+Queste risposte le invio in un altro file.txt.
+
+E tu dovrai analizzare e rispondermi con le regole scritte nel prompt_valutazione.txt.
+
+Sotto a alle due tabelle trovate, ovvero quella riguardante l'analisi e una riguardante le metriche a percentuale, voglio che vengano scritti in modo discorsivo preci/criticità/conclusioni.
+
+Ricorda che alla fine voglio che tu unisca le tabelle fatte per ogni query in una unica, e fare lo stesso per le metriche aggregate.
+
+
+
+
+
+
+
