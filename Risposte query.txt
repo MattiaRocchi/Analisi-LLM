@@ -94,4 +94,13 @@ Dettaglio:
 
 24 sensori nei grid (12 + 12)
 
-SELECT parcel_name, total_devices FROM cypher('agri_graph', $$ MATCH (farm:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'}) MATCH (parcel:AgriParcel)-[:belongsTo]->(farm) // Conta dispositivi diretti MATCH (direct:Device)-[:belongsTo]->(parcel) WITH parcel, COUNT(direct) AS direct_count // Conta dispositivi annidati nei grid MATCH (grid:Device)-[:belongsTo]->(parcel) WHERE grid.name CONTAINS 'Soil moisture sensor grid' WITH parcel, direct_count, grid WITH parcel, direct_count, CASE WHEN grid.hasDevice IS NOT NULL THEN size(grid.hasDevice) ELSE 0 END AS grid_sensors // Raggruppa e somma manualmente WITH parcel, direct_count, COLLECT(grid_sensors) AS sensors_list WITH parcel, direct_count, sensors_list, size(sensors_list) AS num_grids WITH parcel, direct_count, CASE WHEN num_grids = 0 THEN direct_count WHEN num_grids = 1 THEN direct_count + sensors_list[0] WHEN num_grids = 2 THEN direct_count + sensors_list[0] + sensors_list[1] ELSE direct_count + sensors_list[0] + sensors_list[1] + sensors_list[2] END AS total_devices RETURN parcel.name AS parcel_name, total_devices ORDER BY total_devices DESC LIMIT 1 $$) AS (parcel_name text, total_devices int);
+SELECT parcel_name, total_devices
+FROM cypher('agri_graph', $$
+MATCH (parcel:AgriParcel)-[:belongsTo]->(farm:AgriFarm)
+WHERE farm.name = 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'
+    OPTIONAL MATCH (parcel)<-[:belongsTo]-(direct_device:Device)
+    OPTIONAL MATCH (parcel)<-[:belongsTo]-(grid:Device)-[:hasDevice]->(grid_device:Device)
+WITH parcel.name AS parcel_name,
+COUNT(DISTINCT direct_device) + COUNT(DISTINCT grid_device) AS total_devices
+RETURN parcel_name, total_devices
+ORDER BY total_devices DESC LIMIT 1 $$) AS (parcel_name agtype, total_devices agtype);
