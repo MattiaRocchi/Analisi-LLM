@@ -1,0 +1,189 @@
+response_template: &response_template
+  query: |
+    -- Inserisci qui la query Cypher/SQL ibrida compatibile con db PostgreSQL che usa Apache AGE e postgres
+  reasoning: |
+    Spiega in modo chiaro e conciso:
+    - come hai interpretato la domanda in linguaggio naturale;
+    - quali nodi e relazioni del grafo hai usato (AgriFarm, AgriParcel, Device, ecc.);
+    - perché hai scelto quella sintassi Cypher/SQL;
+    - eventuali filtri, aggregazioni o inferenze applicate.
+
+query_set:
+  - id: Q1
+    description: "Quanti AgriParcel appartengono alla AgriFarm con nome 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'?"
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH (farm:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})<-[:belongsTo]-(parcel:AgriParcel)
+        RETURN COUNT(parcel) as numero_parcelle
+      $$) as (numero_parcelle agtype);
+    reasoning: |
+      - Ho interpretato la domanda come: contare tutti i nodi AgriParcel collegati alla AgriFarm specifica.
+      - Nodi usati: AgriFarm (con proprietà name) e AgriParcel.
+      - Relazione usata: belongsTo (che va da AgriParcel verso AgriFarm).
+      - Ho usato MATCH per trovare il pattern: AgriParcel -[:belongsTo]-> AgriFarm con il nome specificato.
+      - La freccia "<-" indica che la relazione va verso la farm (AgriParcel appartiene a AgriFarm).
+      - COUNT(parcel) aggrega e conta tutti i nodi AgriParcel trovati.
+      - Nel grafo ci sono 3 AgriParcel: T0, T1, T2.
+
+  - id: Q2
+    description: "Quali sono gli ID dei Device che appartengono all'AgriParcel 'Fondo Errano 2024 T0'?"
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH (parcel:AgriParcel {name: 'Fondo Errano 2024 T0'})<-[:belongsTo]-(device:Device)
+        RETURN device.id as device_id
+      $$) as (device_id agtype);
+    reasoning: |
+      - Domanda: trovare tutti gli ID dei Device collegati a uno specifico AgriParcel.
+      - Nodi usati: AgriParcel (filtrato per nome) e Device.
+      - Relazione: belongsTo (Device appartiene a AgriParcel).
+      - Pattern: Device -[:belongsTo]-> AgriParcel con name = 'Fondo Errano 2024 T0'.
+      - Ritorno solo la proprietà id dei device trovati.
+      - Dal grafo, T0 ha: il dripper principale e la grid di sensori di umidità del suolo.
+
+  - id: Q3
+    description: "Quali Device hanno controlledProperty 'soilMoisture'?"
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH (device:Device)
+        WHERE 'soilMoisture' IN device.controlledProperty
+        RETURN device.id as device_id, device.name as device_name
+      $$) as (device_id agtype, device_name agtype);
+    reasoning: |
+      - Domanda: trovare tutti i Device che monitorano l'umidità del suolo.
+      - Nodo usato: Device (senza relazioni specifiche, cerco in tutti i Device).
+      - Proprietà filtrata: controlledProperty (è un array).
+      - Uso WHERE con l'operatore IN perché controlledProperty è un array di valori.
+      - Ritorno sia l'ID che il nome per identificare meglio i dispositivi.
+      - Nel grafo ci sono molti sensori "Ges" che misurano soilMoisture a diverse profondità (v20, v40, v60) e posizioni.
+
+  - id: Q4
+    description: "Trova tutti i sensori di umidità del suolo nell'azienda agricola ZESPRI."
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH (farm:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})<-[:belongsTo*]-(device:Device)
+        WHERE 'soilMoisture' IN device.controlledProperty
+        RETURN device.id as device_id, device.name as device_name, device.value as valore_umidita
+      $$) as (device_id agtype, device_name agtype, valore_umidita agtype);
+    reasoning: |
+      - Domanda più complessa: trovare sensori di umidità del suolo MA solo quelli nell'azienda ZESPRI.
+      - Nodi: AgriFarm, AgriParcel (implicito nel path), Device.
+      - Relazione: belongsTo* (con asterisco per indicare path di lunghezza variabile).
+      - Il path è: Device -> AgriParcel -> AgriFarm (due hop di belongsTo).
+      - Filtro aggiuntivo: WHERE per controllare che controlledProperty contenga 'soilMoisture'.
+      - Ritorno ID, nome e valore corrente dell'umidità.
+      - Questa query combina navigazione del grafo (path multi-hop) con filtro su proprietà.
+
+  - id: Q5
+    description: "Quali sono i lotti dell'azienda che coltivano kiwi?"
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH (farm:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})<-[:belongsTo]-(parcel:AgriParcel)
+        WHERE parcel.colture CONTAINS 'Kiwi'
+        RETURN parcel.id as parcel_id, parcel.name as parcel_name, parcel.colture as coltura
+      $$) as (parcel_id agtype, parcel_name agtype, coltura agtype);
+    reasoning: |
+      - Domanda: identificare quali lotti (AgriParcel) coltivano kiwi.
+      - Nodi: AgriFarm e AgriParcel.
+      - Relazione: belongsTo (da parcel a farm).
+      - Filtro: WHERE con CONTAINS sulla proprietà colture (stringa che contiene 'Kiwi').
+      - CONTAINS è case-sensitive in Cypher, quindi cerco 'Kiwi' con la K maiuscola.
+      - Nel grafo tutti e 3 i lotti (T0, T1, T2) coltivano "Kiwi G3".
+      - Ritorno ID, nome e tipo di coltura per completezza.
+
+  - id: Q6
+    description: "Elenca i dispositivi di irrigazione a goccia nel lotto T1."
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH (parcel:AgriParcel)<-[:belongsTo]-(device:Device)
+        WHERE parcel.name CONTAINS 'T1' 
+          AND device.name CONTAINS 'Dripper'
+        RETURN device.id as device_id, device.name as device_name, device.location as posizione
+      $$) as (device_id agtype, device_name agtype, posizione agtype);
+    reasoning: |
+      - Domanda: trovare i dispositivi di irrigazione (dripper) in un lotto specifico (T1).
+      - Nodi: AgriParcel e Device.
+      - Relazione: belongsTo (Device appartiene a AgriParcel).
+      - Doppio filtro WHERE: nome del lotto contiene 'T1' E nome del device contiene 'Dripper'.
+      - I dripper sono dispositivi di irrigazione a goccia nel sistema.
+      - Nel lotto T1 ci sono due dripper: "T1 alto" e "T1 basso" (posizionati in punti diversi del lotto).
+      - Ritorno anche location per vedere dove sono posizionati geograficamente.
+
+  - id: Q7
+    description: "Quale sensore di umidità del suolo ha registrato il valore più basso? E qual è il valore?"
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH (device:Device)
+        WHERE 'soilMoisture' IN device.controlledProperty
+          AND device.value IS NOT NULL
+        WITH device, device.value[0] as first_value
+        RETURN device.id as device_id, 
+               device.name as device_name, 
+               first_value as valore_minimo
+        ORDER BY first_value ASC
+        LIMIT 1
+      $$) as (device_id agtype, device_name agtype, valore_minimo agtype);
+    reasoning: |
+      - Domanda: trovare il sensore con il valore più basso di umidità del suolo.
+      - Nodo: Device (solo quelli con controlledProperty = soilMoisture).
+      - Filtro: WHERE per escludere device senza valore o non-soilMoisture.
+      - La proprietà value è un array, quindi uso value[0] per estrarre il primo elemento.
+      - WITH clause per creare una variabile intermedia (first_value) più facile da ordinare.
+      - ORDER BY first_value ASC: ordino in modo crescente (valore più basso prima).
+      - LIMIT 1: prendo solo il primo risultato (il minimo).
+      - Nel grafo i valori sono negativi (probabilmente tensione del suolo in kPa), quindi il "più basso" è il più negativo.
+      - Il valore più basso dovrebbe essere circa -2500 (sensori con problemi/fuori range).
+
+  - id: Q8
+    description: "Considerando le coordinate, qual è il sensore più vicino al punto (11.799, 44.235)?"
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH (device:Device)
+        WHERE device.location IS NOT NULL
+          AND 'soilMoisture' IN device.controlledProperty
+        WITH device,
+             point({longitude: 11.799, latitude: 44.235}) as target_point,
+             point({longitude: toFloat(split(replace(device.location, 'POINT (', ''), ')')[0]), 
+                    latitude: toFloat(split(replace(device.location, 'POINT (', ''), ')')[1])}) as device_point
+        RETURN device.id as device_id,
+               device.name as device_name,
+               device.location as location,
+               distance(target_point, device_point) as distanza_metri
+        ORDER BY distanza_metri ASC
+        LIMIT 1
+      $$) as (device_id agtype, device_name agtype, location agtype, distanza_metri agtype);
+    reasoning: |
+      - Domanda: calcolare il sensore più vicino a coordinate GPS specifiche.
+      - Nodo: Device (solo quelli con location e che misurano soilMoisture).
+      - Uso funzioni geospaziali di Cypher: point() e distance().
+      - Parsing della proprietà location (formato "POINT (lon lat)"):
+        * replace() per rimuovere "POINT (" e ")"
+        * split() per separare longitudine e latitudine
+        * toFloat() per convertire stringhe in numeri
+      - Creo due punti: target_point (coordinate richieste) e device_point (coordinate del sensore).
+      - distance() calcola la distanza geodetica in metri tra i due punti.
+      - ORDER BY distanza ASC + LIMIT 1 per trovare il più vicino.
+      - Le coordinate (11.799, 44.235) sono vicine all'area dei lotti T0/T1.
+
+  - id: Q9
+    description: "Quale lotto ha più dispositivi? E quanti?"
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH (parcel:AgriParcel)<-[:belongsTo]-(device:Device)
+        WITH parcel, COUNT(device) as num_dispositivi
+        RETURN parcel.id as parcel_id,
+               parcel.name as parcel_name,
+               num_dispositivi
+        ORDER BY num_dispositivi DESC
+        LIMIT 1
+      $$) as (parcel_id agtype, parcel_name agtype, num_dispositivi agtype);
+    reasoning: |
+      - Domanda: trovare il lotto con il maggior numero di device collegati.
+      - Nodi: AgriParcel e Device.
+      - Relazione: belongsTo (Device appartiene a AgriParcel).
+      - Pattern MATCH: tutti i device che appartengono a ciascun parcel.
+      - WITH per aggregazione: raggruppo per parcel e conto i device con COUNT().
+      - ORDER BY num_dispositivi DESC: ordino per numero decrescente.
+      - LIMIT 1: prendo solo il primo (quello con più device).
+      - Nel grafo, ogni lotto ha: 1 dripper + 1 grid di sensori (che a sua volta contiene molti sensori individuali).
+      - I lotti T1 e T2 hanno 2 device "top-level" ciascuno (2 dripper o 1 dripper + 1 grid in posizioni diverse).
+      - La risposta dipende da come sono strutturati i dati: se contiamo i device "contenuti" nelle grid, T0/T1/T2 hanno numeri simili.
