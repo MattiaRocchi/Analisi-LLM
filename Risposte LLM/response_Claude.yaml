@@ -56,7 +56,8 @@ query_set:
       - Ritorno sia l'ID che il nome per identificare meglio i dispositivi.
       - Nel grafo ci sono molti sensori "Ges" che misurano soilMoisture a diverse profondità (v20, v40, v60) e posizioni.
 
-  - id: Q4 # Non funziona
+  - id: Q4 # Non funziona perché non capisce di dover andare ancora di un grado sotto attraverso:
+           # MATCH (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})<-[:belongsTo]-(p:AgriParcel)<-[:belongsTo]-(d_grid:Device)-[:hasDevice]->(d:Device)
     description: "Trova tutti i sensori di umidità del suolo nell'azienda agricola ZESPRI."
     query: |
       SELECT * FROM cypher('agri_graph', $$

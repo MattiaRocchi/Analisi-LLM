@@ -1,5 +1,5 @@
 query_set:
-  - id: Q1
+  - id: Q1 #Compreso ma uso sbagliato della proprietà ovvero sarebbe stata necessaria belongsTo
     description: "Quanti AgriParcel appartengono alla AgriFarm con nome 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'?"
     response_structure:
       query: |
@@ -13,7 +13,7 @@ query_set:
         - La sintassi Cypher è ottimale per navigare le relazioni nel grafo
         - Applico un filtro sul nome dell'azienda e conto i risultati
 
-  - id: Q2
+  - id: Q2 #OK Comprensione struttura corretto/ giusta semantica.
     description: "Quali sono gli ID dei Device che appartengono all'AgriParcel 'Fondo Errano 2024 T0'?"
     response_structure:
       query: |
@@ -26,7 +26,7 @@ query_set:
         - Uso nodi AgriParcel e Device con relazione belongsTo
         - Filtro per il nome del lotto e recupero gli ID dei dispositivi associati
 
-  - id: Q3
+  - id: Q3 #OK per specifiche più dettagliate sarebbe stato perfetto il controllo aggiuntivo con l'inizio del nome per avere solo i sensori
     description: "Quali Device hanno controlledProperty 'soilMoisture'?"
     response_structure:
       query: |
@@ -40,7 +40,8 @@ query_set:
         - Uso solo nodi Device con filtro sull'array delle proprietà controllate
         - Controllo l'appartenenza all'array con l'operatore IN
 
-  - id: Q4
+  - id: Q4 # Non funziona perché non capisce di dover andare ancora di un grado sotto attraverso:
+           # MATCH (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})<-[:belongsTo]-(p:AgriParcel)<-[:belongsTo]-(d_grid:Device)-[:hasDevice]->(d:Device)
     description: "Trova tutti i sensori di umidità del suolo nell'azienda agricola ZESPRI."
     response_structure:
       query: |
@@ -54,7 +55,7 @@ query_set:
         - Filtro per sensori di umidità del suolo (soilMoisture)
         - Restituisco informazioni complete su dispositivo e lotto di appartenenza
 
-  - id: Q5
+  - id: Q5 #Non funziona: <-[:belongsTo]-(p:AgriParcel) 
     description: "Quali sono i lotti dell'azienda che coltivano kiwi?"
     response_structure:
       query: |
@@ -68,7 +69,7 @@ query_set:
         - Uso relazione hasAgriParcel e filtro sulla coltura
         - Uso CONTAINS per cercare la stringa 'Kiwi' nel campo colture
 
-  - id: Q6
+  - id: Q6 #OK
     description: "Elenca i dispositivi di irrigazione a goccia nel lotto T1."
     response_structure:
       query: |
@@ -82,7 +83,7 @@ query_set:
         - Uso relazione belongsTo e filtro sul tipo di dispositivo
         - Filtro per il lotto specifico e per la proprietà 'dripper'
 
-  - id: Q7
+  - id: Q7 # Query funzionante bisognerebbe comunicare l'esclusione dei -2500
     description: "Quale sensore di umidità del suolo ha registrato il valore più basso? E qual è il valore?"
     response_structure:
       query: |
@@ -99,7 +100,7 @@ query_set:
         - Ordino in modo ascendente e prendo il primo risultato (valore più basso)
         - Uso LIMIT 1 per ottenere solo il sensore con valore minimo
 
-  - id: Q8
+  - id: Q8 # NON FUNZIONANTE : Function distance does not exist (WITH device, lon, lat, sqrt((lon - 11.799)^2 + (lat - 44.235)^2) AS distance)
     description: "Considerando le coordinate, qual è il sensore più vicino al punto (11.799, 44.235)?"
     response_structure:
       query: |
