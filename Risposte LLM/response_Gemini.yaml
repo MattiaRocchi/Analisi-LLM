@@ -9,7 +9,7 @@ response_template: &response_template
     - eventuali filtri, aggregazioni o inferenze applicate.
 
 query_set:
-  - id: Q1
+  - id: Q1 # OK
     description: "Quanti AgriParcel appartengono alla AgriFarm con nome 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'?"
     response_structure:
       query: |
@@ -24,7 +24,7 @@ query_set:
         - **Sintassi**: La clausola `MATCH` identifica il pattern: un `AgriParcel` (alias `p`) collegato a un `AgriFarm` (alias `f`). Il nodo `AgriFarm` è filtrato direttamente per la proprietà `name`.
         - **Aggregazione**: La funzione `count(p)` viene utilizzata per aggregare i risultati e restituire il conteggio totale dei lotti che soddisfano il pattern.
 
-  - id: Q2
+  - id: Q2 # OK
     description: "Quali sono gli ID dei Device che appartengono all'AgriParcel 'Fondo Errano 2024 T0'?"
     response_structure:
       query: |
@@ -39,7 +39,7 @@ query_set:
         - **Sintassi**: Si utilizza `MATCH` per trovare i `Device` (alias `d`) che puntano a un `AgriParcel` (alias `p`). Il lotto è filtrato per la sua proprietà `name`. La clausola `RETURN d.id` seleziona solo la proprietà `id` dei dispositivi trovati.
         - **Filtri**: È stato applicato un filtro sulla proprietà `name` del nodo `AgriParcel` per isolare solo il lotto di interesse.
 
-  - id: Q3
+  - id: Q3 # OK
     description: "Quali Device hanno controlledProperty 'soilMoisture'?"
     response_structure:
       query: |
@@ -55,7 +55,7 @@ query_set:
         - **Sintassi**: Un semplice `MATCH` seleziona tutti i nodi con etichetta `Device`. La clausola `WHERE` è usata per filtrare questi nodi, verificando la presenza dell'elemento 'soilMoisture' all'interno della lista `controlledProperty` tramite l'operatore `IN`.
         - **Filtri**: Il filtro applicato è sulla proprietà `controlledProperty` per selezionare esclusivamente i sensori di umidità del suolo.
 
-  - id: Q4
+  - id: Q4 #Ottimo uno dei pochi ad aver compreso bene la struttura e usare hasDevice
     description: "Trova tutti i sensori di umidità del suolo nell'azienda agricola ZESPRI."
     response_structure:
       query: |
@@ -71,7 +71,7 @@ query_set:
         - **Sintassi**: La query definisce un `MATCH` con un percorso a catena per collegare l'azienda ai singoli sensori. Le griglie di sensori (`grid`) sono collegate ai lotti, e i sensori individuali (`sensor`) sono collegati alle griglie.
         - **Filtri**: Vengono applicati due filtri: uno sul `name` dell' `AgriFarm` per iniziare la ricerca dal punto giusto e uno sulla `controlledProperty` del nodo `sensor` per identificare solo i sensori di umidità.
 
-  - id: Q5
+  - id: Q5 #OK
     description: "Quali sono i lotti dell'azienda che coltivano kiwi?"
     response_structure:
       query: |
@@ -87,7 +87,7 @@ query_set:
         - **Sintassi**: La query parte con un `MATCH` per trovare i lotti collegati all'azienda agricola. La clausola `WHERE p.colture CONTAINS 'Kiwi'` filtra i lotti in base a una sottostringa presente nella loro proprietà `colture`, rendendo la ricerca flessibile.
         - **Filtri**: Filtro sul nome dell'azienda e sulla coltura del lotto.
 
-  - id: Q6
+  - id: Q6 #ok
     description: "Elenca i dispositivi di irrigazione a goccia nel lotto T1."
     response_structure:
       query: |

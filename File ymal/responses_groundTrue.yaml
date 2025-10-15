@@ -64,15 +64,11 @@ responses_results:
         total: 56
         note: "Gli stessi 56 sensori di umidità del suolo della Query 3."
       query_sql_cypher: |
-        SELECT device_id, device_name FROM cypher('agri_graph', $$
-          MATCH (farm:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})
-          MATCH (parcel:AgriParcel)-[:belongsTo]->(farm)
-          MATCH (grid:Device)-[:belongsTo]->(parcel)
-          WHERE grid.name CONTAINS 'Soil moisture sensor grid'
-          UNWIND grid.hasDevice AS sensor_data
-          WITH sensor_data WHERE sensor_data.name STARTS WITH 'Ges v'
-          RETURN sensor_data.id AS device_id, sensor_data.name AS device_name
-        $$) AS (device_id text, device_name text);
+        SELECT * FROM cypher('agri_graph', $$
+          MATCH (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})<-[:belongsTo]-(p:AgriParcel)<-[:belongsTo]-(d_grid:Device)-[:hasDevice]->(d:Device)
+          WHERE 'soilMoisture' IN d.controlledProperty
+          RETURN d.id as device_id, d.name as device_name, p.name as parcel_name
+        $$) as (device_id agtype, device_name agtype, parcel_name agtype);
 
   - query_id: Q5
     query: "Quali sono i lotti dell'azienda che coltivano kiwi?"
