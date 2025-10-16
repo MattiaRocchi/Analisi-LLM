@@ -1,0 +1,74 @@
+{
+  "metadata": {
+    "source_file": "C:\\Users\\mattia.rocchi2\\Desktop\\Analisi-LLM\\Risposte LLM\\response_Chatgpt.yaml",
+    "execution_timestamp": "2025-10-16T11:33:09.532938",
+    "database": "test_postgres_graphs",
+    "host": "137.204.70.156",
+    "total_queries": 9
+  },
+  "queries": [
+    {
+      "query_id": "unknown",
+      "description": "",
+      "status": "skipped",
+      "error": "Query vuota o non trovata",
+      "results": []
+    },
+    {
+      "query_id": "unknown",
+      "description": "",
+      "status": "skipped",
+      "error": "Query vuota o non trovata",
+      "results": []
+    },
+    {
+      "query_id": "unknown",
+      "description": "",
+      "status": "skipped",
+      "error": "Query vuota o non trovata",
+      "results": []
+    },
+    {
+      "query_id": "unknown",
+      "description": "",
+      "status": "skipped",
+      "error": "Query vuota o non trovata",
+      "results": []
+    },
+    {
+      "query_id": "unknown",
+      "description": "",
+      "status": "skipped",
+      "error": "Query vuota o non trovata",
+      "results": []
+    },
+    {
+      "query_id": "unknown",
+      "description": "",
+      "status": "skipped",
+      "error": "Query vuota o non trovata",
+      "results": []
+    },
+    {
+      "query_id": "unknown",
+      "description": "",
+      "status": "skipped",
+      "error": "Query vuota o non trovata",
+      "results": []
+    },
+    {
+      "query_id": "unknown",
+      "description": "",
+      "status": "skipped",
+      "error": "Query vuota o non trovata",
+      "results": []
+    },
+    {
+      "query_id": "unknown",
+      "description": "",
+      "status": "skipped",
+      "error": "Query vuota o non trovata",
+      "results": []
+    }
+  ]
+}
