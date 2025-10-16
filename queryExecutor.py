@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import yaml
 import json
 import psycopg2
@@ -211,11 +214,36 @@ class QueryExecutor:
         # Carica il YAML
         yaml_data = self.load_yaml_file(yaml_path)
         
-        # Estrai il query_set
-        query_set = yaml_data.get('query_set', [])
+        # ============================================================
+        # FIX: Gestisci diverse strutture YAML
+        # ============================================================
+        
+        # Caso 1: Il YAML è già una lista (ChatGPT)
+        if isinstance(yaml_data, list):
+            query_set = yaml_data
+            print("Struttura YAML rilevata: Lista diretta")
+        
+        # Caso 2: Il YAML è un dizionario con chiave 'query_set' (Gemini, Claude, ecc.)
+        elif isinstance(yaml_data, dict):
+            query_set = yaml_data.get('query_set', [])
+            print("Struttura YAML rilevata: Dizionario con 'query_set'")
+            
+            # Caso 2b: Chiave diversa da 'query_set'
+            if not query_set:
+                # Prova altre chiavi comuni
+                for key in ['queries', 'query_list', 'results', 'responses']:
+                    if key in yaml_data:
+                        query_set = yaml_data[key]
+                        print(f"Struttura YAML rilevata: Dizionario con chiave '{key}'")
+                        break
+        
+        else:
+            raise ValueError(f"Formato YAML non supportato: tipo {type(yaml_data)}")
+        
+        # ============================================================
         
         if not query_set:
-            raise ValueError("Nessun query_set trovato nel file YAML")
+            raise ValueError("Nessuna query trovata nel file YAML")
         
         print(f"\n Trovate {len(query_set)} query nel file YAML")
         
@@ -342,7 +370,7 @@ Esempi:
     
     # Esegui il processo
     try:
-        executor = AGEQueryExecutor(db_config)
+        executor = QueryExecutor(db_config)
         executor.process_yaml_and_execute(
             args.yaml_file, 
             args.output_file,
