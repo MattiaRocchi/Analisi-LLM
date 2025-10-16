@@ -8,7 +8,7 @@ import argparse
 from datetime import datetime
 
 
-class AGEQueryExecutor:
+class QueryExecutor:
     """
     Esegue query Apache AGE su PostgreSQL e salva il risultato in JSON
     Gestisce file YAML con struttura query_set
@@ -42,9 +42,9 @@ class AGEQueryExecutor:
             self.cursor.execute("LOAD 'age';")
             self.cursor.execute("SET search_path = ag_catalog, '$user', public;")
             
-            print("✓ Connessione al database stabilita")
+            print("Connessione al database stabilita")
         except Exception as e:
-            print(f"✗ Errore nella connessione al database: {e}")
+            print(f"Errore nella connessione al database: {e}")
             raise
     
     def disconnect(self):
@@ -53,7 +53,7 @@ class AGEQueryExecutor:
             self.cursor.close()
         if self.connection:
             self.connection.close()
-        print("✓ Connessione chiusa")
+        print("Connessione chiusa")
     
     def execute_query(self, query: str, query_id: Optional[str] = None) -> Dict[str, Any]:
         """
@@ -70,9 +70,9 @@ class AGEQueryExecutor:
             query_clean = query.strip()
             
             if query_id:
-                print(f"\n📊 Esecuzione query {query_id}...")
+                print(f"\n Esecuzione query {query_id}...")
             else:
-                print(f"\n📊 Esecuzione query...")
+                print(f"\n Esecuzione query...")
             
             print(f"Query:\n{query_clean[:200]}{'...' if len(query_clean) > 200 else ''}\n")
             
@@ -97,7 +97,7 @@ class AGEQueryExecutor:
                     column_names = [desc[0] for desc in self.cursor.description]
             except (psycopg2.ProgrammingError, AttributeError) as e:
                 # La query non restituisce risultati o c'è un errore nel fetch
-                print(f"  ⚠ Nessun risultato da fetchare: {e}")
+                print(f" Nessun risultato da fetchare: {e}")
                 results = []
                 column_names = []
             
@@ -119,15 +119,15 @@ class AGEQueryExecutor:
                 "results": parsed_results
             }
             
-            print(f"✓ Query eseguita con successo")
-            print(f"  Righe restituite: {len(parsed_results)}")
-            print(f"  Tempo di esecuzione: {execution_time:.3f}s")
+            print(f" Query eseguita con successo")
+            print(f" Righe restituite: {len(parsed_results)}")
+            print(f" Tempo di esecuzione: {execution_time:.3f}s")
             
             return result_data
             
         except Exception as e:
             error_msg = str(e)
-            print(f"✗ Errore nell'esecuzione della query: {error_msg}")
+            print(f"Errore nell'esecuzione della query: {error_msg}")
             
             return {
                 "query_id": query_id,
@@ -167,10 +167,10 @@ class AGEQueryExecutor:
         try:
             with open(yaml_path, 'r', encoding='utf-8') as f:
                 data = yaml.safe_load(f)
-            print(f"✓ File YAML caricato: {yaml_path}")
+            print(f"File YAML caricato: {yaml_path}")
             return data
         except Exception as e:
-            print(f"✗ Errore nel caricamento del file YAML: {e}")
+            print(f"Errore nel caricamento del file YAML: {e}")
             raise
     
     def save_results_to_json(self, results: List[Dict], output_path: str, metadata: Optional[Dict] = None):
@@ -190,12 +190,12 @@ class AGEQueryExecutor:
             
             with open(output_path, 'w', encoding='utf-8') as f:
                 json.dump(output_data, f, indent=2, ensure_ascii=False)
-            print(f"\n✓ Risultati salvati in: {output_path}")
-            print(f"  Query totali: {len(results)}")
+            print(f"\n Risultati salvati in: {output_path}")
+            print(f"Query totali: {len(results)}")
             successful = sum(1 for r in results if r.get('status') == 'success')
-            print(f"  Query riuscite: {successful}/{len(results)}")
+            print(f"Query riuscite: {successful}/{len(results)}")
         except Exception as e:
-            print(f"✗ Errore nel salvataggio del file JSON: {e}")
+            print(f"Errore nel salvataggio del file JSON: {e}")
             raise
     
     def process_yaml_and_execute(self, yaml_path: str, output_path: str, 
@@ -217,14 +217,14 @@ class AGEQueryExecutor:
         if not query_set:
             raise ValueError("Nessun query_set trovato nel file YAML")
         
-        print(f"\n📋 Trovate {len(query_set)} query nel file YAML")
+        print(f"\n Trovate {len(query_set)} query nel file YAML")
         
         # Filtra per ID se richiesto
         if query_id_filter:
             query_set = [q for q in query_set if q.get('id') == query_id_filter]
             if not query_set:
                 raise ValueError(f"Query con ID '{query_id_filter}' non trovata")
-            print(f"   Filtro applicato: esecuzione solo query {query_id_filter}")
+            print(f"Filtro applicato: esecuzione solo query {query_id_filter}")
         
         # Connetti al database
         self.connect()
@@ -250,7 +250,7 @@ class AGEQueryExecutor:
                     reasoning = query_item.get('reasoning', '')
                 
                 if not query or not query.strip():
-                    print(f"\n⚠ Query {query_id}: nessuna query trovata, skip")
+                    print(f"\n Query {query_id}: nessuna query trovata, skip")
                     all_results.append({
                         "query_id": query_id,
                         "description": description,
@@ -330,14 +330,14 @@ Esempi:
     }
     
     print("=" * 70)
-    print("🚀 AGE Query Executor per FIWARE")
+    print("AGE Query Executor per FIWARE")
     print("=" * 70)
-    print(f"📡 Server: {args.host}:{args.port}")
-    print(f"🗄️  Database: {args.database}")
-    print(f"📂 Input: {args.yaml_file}")
-    print(f"💾 Output: {args.output_file}")
+    print(f" Server: {args.host}:{args.port}")
+    print(f" Database: {args.database}")
+    print(f" Input: {args.yaml_file}")
+    print(f" Output: {args.output_file}")
     if args.query_id:
-        print(f"🔍 Filtro: Query {args.query_id} solamente")
+        print(f"Filtro: Query {args.query_id} solamente")
     print("=" * 70)
     
     # Esegui il processo
@@ -350,11 +350,11 @@ Esempi:
         )
         
         print("\n" + "=" * 70)
-        print("✅ Processo completato con successo!")
+        print(" Processo completato con successo!")
         print("=" * 70)
     except Exception as e:
         print("\n" + "=" * 70)
-        print(f"❌ Errore durante l'esecuzione: {e}")
+        print(f" Errore durante l'esecuzione: {e}")
         print("=" * 70)
         raise
 

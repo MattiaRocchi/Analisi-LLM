@@ -1,0 +1,642 @@
+{
+  "metadata": {
+    "source_file": "C:\\Users\\mattia.rocchi2\\Desktop\\Analisi-LLM\\Risposte LLM\\response_Gemini.yaml",
+    "execution_timestamp": "2025-10-16T10:20:04.637495",
+    "database": "test_postgres_graphs",
+    "host": "137.204.70.156",
+    "total_queries": 9
+  },
+  "queries": [
+    {
+      "query_id": "Q1",
+      "status": "success",
+      "execution_time_seconds": 0.003876,
+      "row_count": 1,
+      "columns": [
+        "agriparcel_count"
+      ],
+      "results": [
+        {
+          "agriparcel_count": 3
+        }
+      ],
+      "description": "Quanti AgriParcel appartengono alla AgriFarm con nome 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'?",
+      "reasoning": "- **Interpretazione**: La richiesta è di contare il numero di nodi `AgriParcel` che hanno una relazione con il nodo `AgriFarm` denominato 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'.\n- **Nodi e Relazioni**: Sono stati utilizzati i nodi `AgriFarm` e `AgriParcel` e la relazione `:belongsTo` che collega un lotto all'azienda di cui fa parte.\n- **Sintassi**: La clausola `MATCH` identifica il pattern: un `AgriParcel` (alias `p`) collegato a un `AgriFarm` (alias `f`). Il nodo `AgriFarm` è filtrato direttamente per la proprietà `name`.\n- **Aggregazione**: La funzione `count(p)` viene utilizzata per aggregare i risultati e restituire il conteggio totale dei lotti che soddisfano il pattern.\n",
+      "query_text": "-- La query trova l'azienda agricola specificata e conta i lotti (AgriParcel) ad essa collegati.\nSELECT * FROM cypher('agri_graph', $$\n    MATCH (p:AgriParcel)-[:belongsTo]->(f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})\n    RETURN count(p)\n$$) as (agriparcel_count agtype);\n"
+    },
+    {
+      "query_id": "Q2",
+      "status": "success",
+      "execution_time_seconds": 0.003421,
+      "row_count": 2,
+      "columns": [
+        "device_id"
+      ],
+      "results": [
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:a316ef4f55a925842cca39af7280f4d8"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6"
+        }
+      ],
+      "description": "Quali sono gli ID dei Device che appartengono all'AgriParcel 'Fondo Errano 2024 T0'?",
+      "reasoning": "- **Interpretazione**: L'obiettivo è elencare gli identificativi (proprietà `id`) di tutti i nodi `Device` collegati al nodo `AgriParcel` con nome 'Fondo Errano 2024 T0'.\n- **Nodi e Relazioni**: Sono stati impiegati i nodi `Device` e `AgriParcel` e la relazione `:belongsTo` che lega un dispositivo a un lotto.\n- **Sintassi**: Si utilizza `MATCH` per trovare i `Device` (alias `d`) che puntano a un `AgriParcel` (alias `p`). Il lotto è filtrato per la sua proprietà `name`. La clausola `RETURN d.id` seleziona solo la proprietà `id` dei dispositivi trovati.\n- **Filtri**: È stato applicato un filtro sulla proprietà `name` del nodo `AgriParcel` per isolare solo il lotto di interesse.\n",
+      "query_text": "-- La query identifica il lotto agricolo specificato e restituisce l'ID di tutti i dispositivi direttamente collegati.\nSELECT * FROM cypher('agri_graph', $$\n    MATCH (d:Device)-[:belongsTo]->(p:AgriParcel {name: 'Fondo Errano 2024 T0'})\n    RETURN d.id\n$$) as (device_id agtype);\n"
+    },
+    {
+      "query_id": "Q3",
+      "status": "success",
+      "execution_time_seconds": 0.002454,
+      "row_count": 65,
+      "columns": [
+        "device_id",
+        "device_name"
+      ],
+      "results": [
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:09bf3c00cdb036951340bc3de59b401b",
+          "device_name": "Ges v60_52"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:7c9ac3b27115a41c509ad71d20db4a88",
+          "device_name": "Ges v60_80"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unipr:b64d9f6f-6b2e-4bd9-98e8-c7c03b0129a7",
+          "device_name": "Soil Line 3"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unipr:dd21d541-7ebe-4c00-8a31-759f6e2fedd8",
+          "device_name": "Soil Line 1"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unipr:5c2fd819-6ba6-41b1-9e1f-01c0d4769b1d",
+          "device_name": "Soil Line 2"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:33b784aa-d8ed-444a-9da7-ab7e38a56fd4",
+          "device_name": "Pinotech Soil Moisture 10_5"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:6fba17ce-4957-4aed-92e0-fc2543504bb7",
+          "device_name": "Pinotech Soil Moisture 30_5"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:2f187cc9-265d-4750-888a-cc36066eba51",
+          "device_name": "Pinotech Soil Moisture 10_15"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:656abfa3-95f6-4af2-8dfa-4ad927d3d738",
+          "device_name": "Pinotech Soil Moisture 30_15"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:7ac4e2e2-14cd-4394-975d-0beb6049b87f",
+          "device_name": "Pinotech Soil Moisture 10_25"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:9d9a9a02-6c5a-476a-9edf-067a18706bf4",
+          "device_name": "Pinotech Soil Moisture 30_25"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:5d929b1bde23c5f6ef1b70201195701b",
+          "device_name": "Ges v40_0"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:fabb65ec5178be7d3e0f7c1e8210cfdc",
+          "device_name": "Ges v20_0"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:7fb7b74c0b10ee2bc49659ef2fbfc17e",
+          "device_name": "Ges v20_26"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:2f2699dd8eb6bb75c0df757bfccc035f",
+          "device_name": "Ges v20_52"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:a3a5e76ca4431df1daa44ed824714bd2",
+          "device_name": "Ges v20_80"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:469041255c19a44e276333092dd4129a",
+          "device_name": "Ges v60_0"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:bbd0fc75da579af01a8e67b6de1ba64c",
+          "device_name": "Ges v60_26"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:aa330bc5e29463d601c1dad3ffc03121",
+          "device_name": "Ges v40_26"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:ea878798346b626a88d88e29b7f9ea34",
+          "device_name": "Ges v40_52"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:13e6e314d9b9c5eacfa444358261f077",
+          "device_name": "Ges v40_80"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:ef8500898bef0b14a32f8169edebac0b",
+          "device_name": "Ges v20_80"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:8480b7a7ac70dc1b7c6d16860c30a48c",
+          "device_name": "Ges v40_80"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:4b50a0bcfe3003f759ebf9822d1b417c",
+          "device_name": "Ges v20_0"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:ae1bab98fd2de2b3c1c19a094c624d00",
+          "device_name": "Ges v40_0"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:0879959787ef0bc019d60e0f276b20f5",
+          "device_name": "Ges v60_80"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:c80cee815bbe7005e7fe43ca566b42f5",
+          "device_name": "Ges v20_-80"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:abab65e58239b3eed4c4d393200f8969",
+          "device_name": "Ges v40_-26"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:a6f612ee6dbd43e6aa5b35e73077851b",
+          "device_name": "Ges v60_26_SX"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:eb8203a907270a596c71a18e10531889",
+          "device_name": "Ges v40_-80"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:6c35e0fbc698b5d3d5775a8d547c51ed",
+          "device_name": "Ges v60_-80"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:eaa5ed03c90067ea6f7827163f373121",
+          "device_name": "Ges v60_0"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:27b5d273f42f4ca161abda3c475193c4",
+          "device_name": "Ges v20_-26"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:1c23c1ae83fb4a17593f2c4a48df242a",
+          "device_name": "Ges v20_0"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:fc9eddab8396ceb7984269e6c4f64a37",
+          "device_name": "Ges v20_26"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:b9841b914bcbcef037e8228dfe0534c7",
+          "device_name": "Ges v20_52"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:73123080564803f933d53da932285009",
+          "device_name": "Ges v20_80"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:021603b7002a09a92f0b8c33b8cf58df",
+          "device_name": "Ges v60_52"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:3021f6ae554c290d29eed7a69794ebbf",
+          "device_name": "Ges v60_80"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:b75d85c1d0a8556889ed0edb2125254d",
+          "device_name": "Ges v60_0"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:b44e173125a6aec1d1ce19d4fa7a06f7",
+          "device_name": "Ges v60_26"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:ee01b6d5da860b9da2d401aff84f62b6",
+          "device_name": "Ges v40_0"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:a2160dfe09c426a5ffb59e5ed707225a",
+          "device_name": "Ges v40_100"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:b3fbebb223aeb083e6872342e799309d",
+          "device_name": "Ges v40_33"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:8c2e793562c0fa448edfa544c3358c68",
+          "device_name": "Ges v40_66"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:cc0bd900fd26648c528389c9bcec83c3",
+          "device_name": "Ges v20_0"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:3ca361bc617f7328f938d50ee72b924e",
+          "device_name": "Ges v20_100"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:95b749fe480dc357bb8be94c9a70ac8f",
+          "device_name": "Ges v20_33"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:41712974e0a32be25b58dd48aadf1993",
+          "device_name": "Ges v20_66"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:a24fe9ee3b1c1904adfde95ece8691e9",
+          "device_name": "Ges v60_100"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:aef26afa31492e7ae52fe8fb3e880f24",
+          "device_name": "Ges v60_33"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:982ebb7c2cded9794c60b636f726710b",
+          "device_name": "Ges v60_66"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:cd1164af506ac55a816e19370c9310dd",
+          "device_name": "Ges v60_0"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:5803479336682117345f280f4696df68",
+          "device_name": "Ges v20_100"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:5ae1780eac62ecc1dc428bca4bb1ed03",
+          "device_name": "Ges v20_33"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:218035d236661e6841738c8594b40692",
+          "device_name": "Ges v20_66"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:64f08a20f0bf561596a0c17d7e9b89a4",
+          "device_name": "Ges v20_0"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:72b4e32b32c26e2bdf09ac684e547053",
+          "device_name": "Ges v60_0"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:5acd0f9d7b680045dbc3253fd139d835",
+          "device_name": "Ges v60_100"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:0d3a505153a67ba5aeaa38fd76509a77",
+          "device_name": "Ges v60_33"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:e1bddbe97fb2250946afdff592536926",
+          "device_name": "Ges v60_66"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:42743b9cc2883d0d4d57db2d704c24ef",
+          "device_name": "Ges v40_0"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:5b3f1e17cb9a61bf709f43d2dfaa8c81",
+          "device_name": "Ges v40_100"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:43ef95eede19014fc817fdc81e0ff76e",
+          "device_name": "Ges v40_33"
+        },
+        {
+          "device_id": "urn:ngsi-ld:Device:unibo:578e326ffc1428e78fe44418300b816e",
+          "device_name": "Ges v40_66"
+        }
+      ],
+      "description": "Quali Device hanno controlledProperty 'soilMoisture'?",
+      "reasoning": "- **Interpretazione**: La richiesta è di trovare tutti i dispositivi la cui proprietà `controlledProperty` (che è una lista) contiene il valore 'soilMoisture'.\n- **Nodi e Relazioni**: Viene utilizzato solo il nodo `Device`, senza attraversare relazioni.\n- **Sintassi**: Un semplice `MATCH` seleziona tutti i nodi con etichetta `Device`. La clausola `WHERE` è usata per filtrare questi nodi, verificando la presenza dell'elemento 'soilMoisture' all'interno della lista `controlledProperty` tramite l'operatore `IN`.\n- **Filtri**: Il filtro applicato è sulla proprietà `controlledProperty` per selezionare esclusivamente i sensori di umidità del suolo.\n",
+      "query_text": "-- La query scansiona tutti i dispositivi nel grafo e filtra quelli che monitorano l'umidità del suolo.\nSELECT * FROM cypher('agri_graph', $$\n    MATCH (d:Device)\n    WHERE 'soilMoisture' IN d.controlledProperty\n    RETURN d.id, d.name\n$$) as (device_id agtype, device_name agtype);\n"
+    },
+    {
+      "query_id": "Q4",
+      "status": "success",
+      "execution_time_seconds": 0.003934,
+      "row_count": 56,
+      "columns": [
+        "sensor_id",
+        "sensor_name"
+      ],
+      "results": [
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:09bf3c00cdb036951340bc3de59b401b",
+          "sensor_name": "Ges v60_52"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:7c9ac3b27115a41c509ad71d20db4a88",
+          "sensor_name": "Ges v60_80"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:5d929b1bde23c5f6ef1b70201195701b",
+          "sensor_name": "Ges v40_0"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:fabb65ec5178be7d3e0f7c1e8210cfdc",
+          "sensor_name": "Ges v20_0"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:7fb7b74c0b10ee2bc49659ef2fbfc17e",
+          "sensor_name": "Ges v20_26"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:2f2699dd8eb6bb75c0df757bfccc035f",
+          "sensor_name": "Ges v20_52"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:a3a5e76ca4431df1daa44ed824714bd2",
+          "sensor_name": "Ges v20_80"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:469041255c19a44e276333092dd4129a",
+          "sensor_name": "Ges v60_0"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:bbd0fc75da579af01a8e67b6de1ba64c",
+          "sensor_name": "Ges v60_26"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:aa330bc5e29463d601c1dad3ffc03121",
+          "sensor_name": "Ges v40_26"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:ea878798346b626a88d88e29b7f9ea34",
+          "sensor_name": "Ges v40_52"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:13e6e314d9b9c5eacfa444358261f077",
+          "sensor_name": "Ges v40_80"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:ef8500898bef0b14a32f8169edebac0b",
+          "sensor_name": "Ges v20_80"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:8480b7a7ac70dc1b7c6d16860c30a48c",
+          "sensor_name": "Ges v40_80"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:4b50a0bcfe3003f759ebf9822d1b417c",
+          "sensor_name": "Ges v20_0"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:ae1bab98fd2de2b3c1c19a094c624d00",
+          "sensor_name": "Ges v40_0"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:0879959787ef0bc019d60e0f276b20f5",
+          "sensor_name": "Ges v60_80"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:c80cee815bbe7005e7fe43ca566b42f5",
+          "sensor_name": "Ges v20_-80"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:abab65e58239b3eed4c4d393200f8969",
+          "sensor_name": "Ges v40_-26"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:a6f612ee6dbd43e6aa5b35e73077851b",
+          "sensor_name": "Ges v60_26_SX"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:eb8203a907270a596c71a18e10531889",
+          "sensor_name": "Ges v40_-80"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:6c35e0fbc698b5d3d5775a8d547c51ed",
+          "sensor_name": "Ges v60_-80"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:eaa5ed03c90067ea6f7827163f373121",
+          "sensor_name": "Ges v60_0"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:27b5d273f42f4ca161abda3c475193c4",
+          "sensor_name": "Ges v20_-26"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:1c23c1ae83fb4a17593f2c4a48df242a",
+          "sensor_name": "Ges v20_0"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:fc9eddab8396ceb7984269e6c4f64a37",
+          "sensor_name": "Ges v20_26"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:b9841b914bcbcef037e8228dfe0534c7",
+          "sensor_name": "Ges v20_52"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:73123080564803f933d53da932285009",
+          "sensor_name": "Ges v20_80"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:021603b7002a09a92f0b8c33b8cf58df",
+          "sensor_name": "Ges v60_52"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:3021f6ae554c290d29eed7a69794ebbf",
+          "sensor_name": "Ges v60_80"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:b75d85c1d0a8556889ed0edb2125254d",
+          "sensor_name": "Ges v60_0"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:b44e173125a6aec1d1ce19d4fa7a06f7",
+          "sensor_name": "Ges v60_26"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:ee01b6d5da860b9da2d401aff84f62b6",
+          "sensor_name": "Ges v40_0"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:a2160dfe09c426a5ffb59e5ed707225a",
+          "sensor_name": "Ges v40_100"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:b3fbebb223aeb083e6872342e799309d",
+          "sensor_name": "Ges v40_33"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:8c2e793562c0fa448edfa544c3358c68",
+          "sensor_name": "Ges v40_66"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:cc0bd900fd26648c528389c9bcec83c3",
+          "sensor_name": "Ges v20_0"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:3ca361bc617f7328f938d50ee72b924e",
+          "sensor_name": "Ges v20_100"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:95b749fe480dc357bb8be94c9a70ac8f",
+          "sensor_name": "Ges v20_33"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:41712974e0a32be25b58dd48aadf1993",
+          "sensor_name": "Ges v20_66"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:a24fe9ee3b1c1904adfde95ece8691e9",
+          "sensor_name": "Ges v60_100"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:aef26afa31492e7ae52fe8fb3e880f24",
+          "sensor_name": "Ges v60_33"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:982ebb7c2cded9794c60b636f726710b",
+          "sensor_name": "Ges v60_66"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:cd1164af506ac55a816e19370c9310dd",
+          "sensor_name": "Ges v60_0"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:5803479336682117345f280f4696df68",
+          "sensor_name": "Ges v20_100"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:5ae1780eac62ecc1dc428bca4bb1ed03",
+          "sensor_name": "Ges v20_33"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:218035d236661e6841738c8594b40692",
+          "sensor_name": "Ges v20_66"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:64f08a20f0bf561596a0c17d7e9b89a4",
+          "sensor_name": "Ges v20_0"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:72b4e32b32c26e2bdf09ac684e547053",
+          "sensor_name": "Ges v60_0"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:5acd0f9d7b680045dbc3253fd139d835",
+          "sensor_name": "Ges v60_100"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:0d3a505153a67ba5aeaa38fd76509a77",
+          "sensor_name": "Ges v60_33"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:e1bddbe97fb2250946afdff592536926",
+          "sensor_name": "Ges v60_66"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:42743b9cc2883d0d4d57db2d704c24ef",
+          "sensor_name": "Ges v40_0"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:5b3f1e17cb9a61bf709f43d2dfaa8c81",
+          "sensor_name": "Ges v40_100"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:43ef95eede19014fc817fdc81e0ff76e",
+          "sensor_name": "Ges v40_33"
+        },
+        {
+          "sensor_id": "urn:ngsi-ld:Device:unibo:578e326ffc1428e78fe44418300b816e",
+          "sensor_name": "Ges v40_66"
+        }
+      ],
+      "description": "Trova tutti i sensori di umidità del suolo nell'azienda agricola ZESPRI.",
+      "reasoning": "- **Interpretazione**: La domanda richiede di localizzare tutti i sensori (`Device`) di tipo 'soilMoisture' che appartengono, anche indirettamente, all'azienda agricola ZESPRI.\n- **Nodi e Relazioni**: La query attraversa un percorso complesso: `AgriFarm` <-[:`belongsTo`]- `AgriParcel` <-[:`belongsTo`]- `Device` (la griglia di sensori) -[:`hasDevice`]-> `Device` (il sensore finale). Questo modella la gerarchia fisica dell'installazione.\n- **Sintassi**: La query definisce un `MATCH` con un percorso a catena per collegare l'azienda ai singoli sensori. Le griglie di sensori (`grid`) sono collegate ai lotti, e i sensori individuali (`sensor`) sono collegati alle griglie.\n- **Filtri**: Vengono applicati due filtri: uno sul `name` dell' `AgriFarm` per iniziare la ricerca dal punto giusto e uno sulla `controlledProperty` del nodo `sensor` per identificare solo i sensori di umidità.\n",
+      "query_text": "-- Partendo dall'azienda ZESPRI, la query naviga il grafo fino a trovare tutti i sensori di umidità del suolo.\nSELECT * FROM cypher('agri_graph', $$\n    MATCH (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})<-[:belongsTo]-(p:AgriParcel)<-[:belongsTo]-(grid:Device)-[:hasDevice]->(sensor:Device)\n    WHERE 'soilMoisture' IN sensor.controlledProperty\n    RETURN sensor.id AS sensor_id, sensor.name AS sensor_name\n$$) as (sensor_id agtype, sensor_name agtype);\n"
+    },
+    {
+      "query_id": "Q5",
+      "status": "success",
+      "execution_time_seconds": 0.00154,
+      "row_count": 3,
+      "columns": [
+        "parcel_name"
+      ],
+      "results": [
+        {
+          "parcel_name": "Fondo Errano 2024 T0"
+        },
+        {
+          "parcel_name": "Fondo Errano 2024 T2"
+        },
+        {
+          "parcel_name": "Fondo Errano 2024 T1"
+        }
+      ],
+      "description": "Quali sono i lotti dell'azienda che coltivano kiwi?",
+      "reasoning": "- **Interpretazione**: Si vogliono identificare i nomi degli `AgriParcel` (lotti) appartenenti a una specifica azienda agricola la cui proprietà `colture` indica la coltivazione di kiwi.\n- **Nodi e Relazioni**: Vengono usati i nodi `AgriParcel` e `AgriFarm` e la loro relazione `:belongsTo`.\n- **Sintassi**: La query parte con un `MATCH` per trovare i lotti collegati all'azienda agricola. La clausola `WHERE p.colture CONTAINS 'Kiwi'` filtra i lotti in base a una sottostringa presente nella loro proprietà `colture`, rendendo la ricerca flessibile.\n- **Filtri**: Filtro sul nome dell'azienda e sulla coltura del lotto.\n",
+      "query_text": "-- La query trova i lotti dell'azienda ZESPRI e li filtra in base alla coltura specificata.\nSELECT * FROM cypher('agri_graph', $$\n    MATCH (p:AgriParcel)-[:belongsTo]->(f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})\n    WHERE p.colture CONTAINS 'Kiwi'\n    RETURN p.name\n$$) as (parcel_name agtype);\n"
+    },
+    {
+      "query_id": "Q6",
+      "status": "success",
+      "execution_time_seconds": 0.002118,
+      "row_count": 2,
+      "columns": [
+        "device_name"
+      ],
+      "results": [
+        {
+          "device_name": "Dripper Fondo Errano 2024 T1 T1 alto"
+        },
+        {
+          "device_name": "Dripper Fondo Errano 2024 T1 T1 basso"
+        }
+      ],
+      "description": "Elenca i dispositivi di irrigazione a goccia nel lotto T1.",
+      "reasoning": "- **Interpretazione**: La richiesta è di trovare i dispositivi che agiscono come irrigatori a goccia (`dripper`) all'interno del lotto 'Fondo Errano 2024 T1'.\n- **Nodi e Relazioni**: Sono stati usati i nodi `AgriParcel` e `Device`, collegati dalla relazione `:belongsTo`.\n- **Sintassi**: La query trova prima il lotto tramite il suo nome e poi tutti i dispositivi ad esso collegati. Successivamente, applica un filtro `WHERE` per selezionare solo i dispositivi la cui `controlledProperty` è 'dripper'.\n- **Filtri**: Filtro sul `name` del `AgriParcel` e sulla `controlledProperty` del `Device`.\n",
+      "query_text": "-- La query cerca i dispositivi con la proprietà 'dripper' all'interno del lotto specificato.\nSELECT * FROM cypher('agri_graph', $$\n    MATCH (d:Device)-[:belongsTo]->(p:AgriParcel {name: 'Fondo Errano 2024 T1'})\n    WHERE 'dripper' IN d.controlledProperty\n    RETURN d.name\n$$) as (device_name agtype);\n"
+    },
+    {
+      "query_id": "Q7",
+      "status": "error",
+      "error": "could not find rte for moisture_value\nLINE 6:     ORDER BY moisture_value ASC\n                     ^\n",
+      "results": [],
+      "description": "Quale sensore di umidità del suolo ha registrato il valore più basso? E qual è il valore?",
+      "reasoning": "- **Interpretazione**: L'obiettivo è identificare il sensore di umidità del suolo con il valore numerico più basso e restituire sia il nome del sensore che tale valore.\n- **Nodi e Relazioni**: Si analizzano solo i nodi `Device`, senza bisogno di relazioni.\n- **Sintassi**: La query prima filtra tutti i `Device` per `controlledProperty` 'soilMoisture'. Poiché la proprietà `value` è una lista, si accede al primo elemento con `d.value[0]`. I risultati vengono poi ordinati in modo ascendente (`ASC`) in base a questo valore e la clausola `LIMIT 1` assicura che venga restituito solo il risultato più basso.\n- **Filtri e Aggregazioni**: Viene applicato un filtro su `controlledProperty`. L'aggregazione è ottenuta tramite ordinamento (`ORDER BY`) e limitazione del risultato (`LIMIT 1`).\n",
+      "query_text": "-- La query cerca tra tutti i sensori di umidità del suolo e trova quello con il valore minimo registrato.\nSELECT * FROM cypher('agri_graph', $$\n    MATCH (d:Device)\n    WHERE 'soilMoisture' IN d.controlledProperty\n    RETURN d.name, d.value[0] AS moisture_value\n    ORDER BY moisture_value ASC\n    LIMIT 1\n$$) as (device_name agtype, min_value agtype);\n"
+    },
+    {
+      "query_id": "Q8",
+      "status": "error",
+      "error": "function distance does not exist\nLINE 2: SELECT * FROM cypher('agri_graph', $$\n                                            ^\nHINT:  If the function is from an external extension, make sure the extension is installed and the function is in the search path.\n",
+      "results": [],
+      "description": "Considerando le coordinate, qual è il sensore più vicino al punto (11.799, 44.235)?",
+      "reasoning": "- **Interpretazione**: Si richiede di trovare il `Device` la cui posizione geografica è più vicina a un dato punto (longitudine 11.799, latitudine 44.235).\n- **Nodi e Relazioni**: Si utilizzano solo i nodi `Device` che possiedono una proprietà `location`.\n- **Sintassi**: La query prima di tutto filtra i dispositivi per assicurarsi che abbiano una coordinata (`WHERE d.location IS NOT NULL`). Successivamente, utilizza la funzione spaziale `distance()` per calcolare la distanza tra la posizione di ogni dispositivo e il punto di riferimento, creato con la funzione `point()`. I risultati sono ordinati per distanza crescente (`ORDER BY dist ASC`) e viene restituito solo il primo (`LIMIT 1`).\n- **Filtri e Funzioni**: Viene usato un filtro per escludere nodi senza coordinate. La funzione chiave è `distance()`, che permette l'inferenza spaziale.\n",
+      "query_text": "-- La query calcola la distanza tra ogni dispositivo geolocalizzato e un punto di riferimento, restituendo il più vicino.\nSELECT * FROM cypher('agri_graph', $$\n    MATCH (d:Device)\n    WHERE d.location IS NOT NULL\n    WITH d, distance(\n        d.location,\n        point({\n            longitude: 11.799,\n            latitude: 44.235\n        })\n    ) AS dist\n    RETURN d.name, d.id, dist\n    ORDER BY dist ASC\n    LIMIT 1\n$$) as (device_name agtype, device_id agtype, distance agtype);\n"
+    },
+    {
+      "query_id": "Q9",
+      "status": "success",
+      "execution_time_seconds": 0.00135,
+      "row_count": 1,
+      "columns": [
+        "parcel_name",
+        "count"
+      ],
+      "results": [
+        {
+          "parcel_name": "Fondo Errano 2024 T1",
+          "count": 4
+        }
+      ],
+      "description": "Quale lotto ha più dispositivi? E quanti?",
+      "reasoning": "- **Interpretazione**: La domanda è di determinare quale `AgriParcel` (lotto) è associato al maggior numero di `Device` e qual è questo numero.\n- **Nodi e Relazioni**: Vengono utilizzati `Device`, `AgriParcel` e la relazione `:belongsTo` che li connette.\n- **Sintassi**: La query identifica tutte le relazioni tra dispositivi e lotti. La clausola `WITH p, count(d) as deviceCount` è cruciale: raggruppa i risultati per lotto (`p`) e, per ciascun lotto, conta i dispositivi (`d`) associati. Infine, i risultati vengono ordinati in ordine decrescente (`DESC`) in base al conteggio e `LIMIT 1` seleziona solo il lotto con il numero più alto.\n- **Aggregazione**: La funzione `count()` viene usata per contare i dispositivi per ogni gruppo (lotto). L'ordinamento e `LIMIT` servono a trovare il massimo.",
+      "query_text": "-- La query raggruppa i dispositivi per lotto, li conta e identifica il lotto con il conteggio maggiore.\nSELECT * FROM cypher('agri_graph', $$\n    MATCH (d:Device)-[:belongsTo]->(p:AgriParcel)\n    WITH p, count(d) as deviceCount\n    RETURN p.name, deviceCount\n    ORDER BY deviceCount DESC\n    LIMIT 1\n$$) as (parcel_name agtype, count agtype);\n"
+    }
+  ]
+}
