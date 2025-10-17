@@ -1,104 +1,29 @@
-- Q1:
-    query: 'MATCH (f:AgriFarm {name: ''ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA''})-[:HAS_PARCEL]->(p:AgriParcel)
-      RETURN count(p) AS num_parcels'
-    reasoning: Conta il numero di lotti agricoli (AgriParcel) appartenenti all’azienda
-      agricola specificata.
-    result:
-      type: count
-      value:
-      - 2
-      summary: L’azienda agricola ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA possiede
-        2 lotti agricoli (AgriParcel).
-- Q2:
-    query: 'MATCH (p:AgriParcel {name: ''Fondo Errano 2024 T0''})<-[:BELONGS_TO]-(d:Device)
-      RETURN d.id AS deviceID'
-    reasoning: Restituisce i dispositivi collegati al lotto 'Fondo Errano 2024 T0'.
-    result:
-      type: list
-      value:
-      - urn:ngsi-ld:Device:unibo:27b5d273f42f4ca161abda3c475193c4
-      - urn:ngsi-ld:Device:unibo:eaa5ed03c90067ea6f7827163f373121
-      - urn:ngsi-ld:Device:unibo:6c35e0fbc698b5d3d5775a8d547c51ed
-      summary: Il lotto 'Fondo Errano 2024 T0' possiede 3 dispositivi collegati.
-- Q3:
-    query: MATCH (d:Device) WHERE 'soilMoisture' IN d.controlledProperty RETURN d.id,
-      d.name
-    reasoning: Seleziona i dispositivi che misurano l’umidità del suolo.
-    result:
-      type: list
-      value:
-      - Ges v20_0
-      - Ges v40_26
-      - Ges v60_66
-      - Ges v60_0
-      - Ges v20_80
-      summary: Sono stati trovati numerosi dispositivi che misurano l’umidità del
-        suolo, distribuiti nei diversi lotti aziendali.
-- Q4:
-    query: MATCH (f:AgriFarm {name:'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:HAS_PARCEL]->(p:AgriParcel)<-[:BELONGS_TO]-(d:Device)
-      WHERE 'soilMoisture' IN d.controlledProperty RETURN d.name
-    reasoning: Individua i sensori di umidità del suolo appartenenti all’azienda ZESPRI.
-    result:
-      type: list
-      value:
-      - Ges v20_0
-      - Ges v40_0
-      - Ges v60_0
-      - Ges v60_26
-      summary: I sensori di umidità del suolo attivi presso ZESPRI sono quattro, collegati
-        ai lotti principali.
-- Q5:
-    query: MATCH (f:AgriFarm {name:'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:HAS_PARCEL]->(p:AgriParcel)
-      WHERE p.mainCrop = 'kiwi' RETURN p.name
-    reasoning: Trova i lotti agricoli in cui la coltura principale è il kiwi.
-    result:
-      type: list
-      value:
-      - Fondo Errano 2024 T0
-      - Fondo Errano 2024 T1
-      summary: Entrambi i lotti dell’azienda ZESPRI sono dedicati alla coltivazione
-        del kiwi.
-- Q6:
-    query: MATCH (p:AgriParcel {name:'Fondo Errano 2024 T1'})<-[:BELONGS_TO]-(d:Device)
-      WHERE d.type IN ['irrigationDevice', 'drip irrigation'] RETURN d.name
-    reasoning: Cerca dispositivi nel lotto T1 classificati come sistemi di irrigazione
-      a goccia.
-    result:
-      type: list
-      value: []
-      summary: Nel lotto T1 non risultano dispositivi etichettati esplicitamente come
-        'drip irrigation'.
-- Q7:
-    query: MATCH (d:Device) WHERE 'soilMoisture' IN d.controlledProperty RETURN d.name,
-      min(d.value[0]) AS min_value
-    reasoning: Trova il sensore di umidità con il valore più basso registrato.
-    result:
-      type: inference
-      value:
-      - device_name: Ges v20_-26
-        min_value: -2500
-      summary: 'Il sensore ''Ges v20_-26'' ha registrato il valore di umidità del
-        suolo più basso: -2500.'
-- Q8:
-    query: MATCH (d:Device) WHERE exists(d.location) WITH d, point({longitude:11.799,
-      latitude:44.235}) AS ref RETURN d.name, distance(ref, point(d.location)) AS
-      dist ORDER BY dist ASC LIMIT 1
-    reasoning: Individua il sensore più vicino a un punto geografico dato.
-    result:
-      type: value
-      value:
-      - Soil moisture sensor grid Fondo Errano 2024 T1 T1 alto
-      summary: Il sensore più vicino al punto (11.799, 44.235) è 'Soil moisture sensor
-        grid Fondo Errano 2024 T1 T1 alto'.
-- Q9:
-    query: MATCH (p:AgriParcel)<-[:BELONGS_TO]-(d:Device) RETURN p.name, count(d)
-      AS num_devices ORDER BY num_devices DESC LIMIT 1
-    reasoning: Conta i dispositivi associati a ciascun lotto e restituisce quello
-      con il maggior numero.
-    result:
-      type: object
-      value:
-      - parcel_name: Fondo Errano 2024 T1
-        num_devices: 8
-      summary: Il lotto con più dispositivi è 'Fondo Errano 2024 T1', con 8 sensori
-        associati.
+response_set: responses generated for the agricultural graph ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA
+query_set:
+- id: Q1
+  description: Elenca tutte le parcelle (AgriParcel) appartenenti alla farm ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA.
+  query: "SELECT * FROM cypher('agri_graph', $$\n  MATCH (f:AgriFarm {name:'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:HAS_AGRIPARCEL]->(p:AgriParcel)\n  RETURN f.name AS farm_name, collect(p.name) AS parcels\n$$) AS (farm_name text, parcels agtype);"
+- id: Q2
+  description: Mostra per ogni AgriParcel il tipo di coltura e il sistema di irrigazione.
+  query: "SELECT * FROM cypher('agri_graph', $$\n  MATCH (p:AgriParcel)-[:BELONGS_TO]->(f:AgriFarm {name:'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})\n  RETURN p.name AS parcel_name, p.colture AS crop_type, p.irrigationSystemType AS irrigation_system\n$$) AS (parcel_name text, crop_type text, irrigation_system text);"
+- id: Q3
+  description: Trova tutti i dispositivi (Device) associati alle parcelle della farm.
+  query: "SELECT * FROM cypher('agri_graph', $$\n  MATCH (f:AgriFarm {name:'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:HAS_AGRIPARCEL]->(p:AgriParcel)-[:HAS_DEVICE]->(d:Device)\n  RETURN p.name AS parcel_name, collect(d.name) AS devices\n$$) AS (parcel_name text, devices agtype);"
+- id: Q4
+  description: Estrai tutti i sensori di tipo dripper e la parcella a cui appartengono.
+  query: "SELECT * FROM cypher('agri_graph', $$\n  MATCH (d:Device)-[:BELONGS_TO]->(p:AgriParcel)-[:BELONGS_TO]->(f:AgriFarm {name:'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})\n  WHERE 'dripper' IN d.controlledProperty\n  RETURN p.name AS parcel_name, d.name AS dripper_device, d.location AS position\n$$) AS (parcel_name text, dripper_device text, position text);"
+- id: Q5
+  description: Recupera la lista di sensori soilMoisture per ogni parcella e i relativi valori.
+  query: "SELECT * FROM cypher('agri_graph', $$\n  MATCH (p:AgriParcel)-[:HAS_DEVICE]->(grid:Device)-[:HAS_DEVICE]->(d:Device)\n  WHERE 'soilMoisture' IN d.controlledProperty\n  RETURN p.name AS parcel_name, collect({sensor:d.name, value:d.value}) AS soil_sensors\n$$) AS (parcel_name text, soil_sensors agtype);"
+- id: Q6
+  description: Calcola il valore medio dell'umidità del suolo per ciascuna parcella.
+  query: "SELECT * FROM cypher('agri_graph', $$\n  MATCH (p:AgriParcel)-[:HAS_DEVICE]->(grid:Device)-[:HAS_DEVICE]->(d:Device)\n  WHERE 'soilMoisture' IN d.controlledProperty AND d.value[0] > -1000\n  RETURN p.name AS parcel_name, avg(d.value[0]) AS avg_soil_moisture\n$$) AS (parcel_name text, avg_soil_moisture float8);"
+- id: Q7
+  description: Mostra la posizione geografica (POLYGON) di ogni parcella.
+  query: "SELECT * FROM cypher('agri_graph', $$\n  MATCH (p:AgriParcel)-[:BELONGS_TO]->(f:AgriFarm {name:'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})\n  RETURN p.name AS parcel_name, p.location AS geometry\n$$) AS (parcel_name text, geometry text);"
+- id: Q8
+  description: Recupera i dispositivi che hanno valori anomali (value < -1000) e la parcella di appartenenza.
+  query: "SELECT * FROM cypher('agri_graph', $$\n  MATCH (p:AgriParcel)-[:HAS_DEVICE]->(grid:Device)-[:HAS_DEVICE]->(d:Device)\n  WHERE d.value[0] < -1000\n  RETURN p.name AS parcel_name, d.name AS sensor_name, d.value[0] AS value\n$$) AS (parcel_name text, sensor_name text, value float8);"
+- id: Q9
+  description: Conta quanti sensori totali di soilMoisture sono installati per ogni parcella.
+  query: "SELECT * FROM cypher('agri_graph', $$\n  MATCH (p:AgriParcel)-[:HAS_DEVICE]->(grid:Device)-[:HAS_DEVICE]->(d:Device)\n  WHERE 'soilMoisture' IN d.controlledProperty\n  RETURN p.name AS parcel_name, count(d) AS num_sensors\n$$) AS (parcel_name text, num_sensors int);"

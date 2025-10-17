@@ -16,7 +16,7 @@ class QueryExecutor:
     Esegue query Apache AGE su PostgreSQL e salva il risultato in JSON
     Gestisce file YAML con struttura query_set
     """
-    
+
     def __init__(self, db_config: Dict[str, str]):
         """
         Inizializza la connessione al database
@@ -138,7 +138,7 @@ class QueryExecutor:
                 "error": error_msg,
                 "results": []
             }
-    
+            
     def _parse_agtype(self, agtype_value) -> Any:
         """
         Converte il tipo agtype di Apache AGE in oggetti Python
@@ -202,40 +202,55 @@ class QueryExecutor:
             raise
     
     def process_yaml_and_execute(self, yaml_path: str, output_path: str, 
-                                  query_id_filter: Optional[str] = None):
+                                query_id_filter: Optional[str] = None):
         """
         Processo completo: carica YAML, esegue query, salva JSON
-        
-        Args:
-            yaml_path: Percorso del file YAML input
-            output_path: Percorso del file JSON output
-            query_id_filter: Se specificato, esegue solo la query con questo ID
         """
         # Carica il YAML
         yaml_data = self.load_yaml_file(yaml_path)
         
         # ============================================================
-        # FIX: Gestisci diverse strutture YAML
+        # FIX MIGLIORATO: Gestisci diverse strutture YAML
         # ============================================================
         
-        # Caso 1: Il YAML è già una lista (ChatGPT)
-        if isinstance(yaml_data, list):
-            query_set = yaml_data
-            print("Struttura YAML rilevata: Lista diretta")
+        query_set = []
         
-        # Caso 2: Il YAML è un dizionario con chiave 'query_set' (Gemini, Claude, ecc.)
-        elif isinstance(yaml_data, dict):
-            query_set = yaml_data.get('query_set', [])
-            print("Struttura YAML rilevata: Dizionario con 'query_set'")
+        # Caso 1: Il YAML è già una lista
+        if isinstance(yaml_data, list):
+            print("Struttura YAML rilevata: Lista diretta")
             
-            # Caso 2b: Chiave diversa da 'query_set'
+            # CONTROLLO SPECIALE per struttura ChatGPT annidata
+            first_item = yaml_data[0] if yaml_data else {}
+            if (isinstance(first_item, dict) and 
+                len(first_item) == 1 and 
+                list(first_item.keys())[0].startswith('Q')):
+                
+                print("Rilevata struttura ChatGPT annidata - conversione in corso")
+                # Converti struttura annidata in struttura piatta
+                for item in yaml_data:
+                    for key, value in item.items():
+                        if isinstance(value, dict):
+                            # Crea un nuovo item con id e tutti i campi
+                            new_item = value.copy()
+                            new_item['id'] = key
+                            query_set.append(new_item)
+            else:
+                # Struttura lista normale
+                query_set = yaml_data
+        
+        # Caso 2: Il YAML è un dizionario con varie chiavi possibili
+        elif isinstance(yaml_data, dict):
+            # Prova varie chiavi comuni
+            for key in ['query_set', 'queries', 'query_list', 'results', 'responses']:
+                if key in yaml_data:
+                    query_set = yaml_data[key]
+                    print(f"Struttura YAML rilevata: Dizionario con chiave '{key}'")
+                    break
+            
+            # Se ancora vuoto, usa tutto il dizionario come unico elemento
             if not query_set:
-                # Prova altre chiavi comuni
-                for key in ['queries', 'query_list', 'results', 'responses']:
-                    if key in yaml_data:
-                        query_set = yaml_data[key]
-                        print(f"Struttura YAML rilevata: Dizionario con chiave '{key}'")
-                        break
+                query_set = [yaml_data]
+                print("Struttura YAML rilevata: Dizionario singolo")
         
         else:
             raise ValueError(f"Formato YAML non supportato: tipo {type(yaml_data)}")
@@ -247,6 +262,12 @@ class QueryExecutor:
         
         print(f"\n Trovate {len(query_set)} query nel file YAML")
         
+        # DEBUG: Stampa la struttura delle prime 2 query per verifica
+        print("\n Struttura prime query:")
+        for i, q in enumerate(query_set[:2]):
+            print(f"  Query {i}: {list(q.keys()) if isinstance(q, dict) else type(q)}")
+        
+        # Resto del codice rimane invariato...
         # Filtra per ID se richiesto
         if query_id_filter:
             query_set = [q for q in query_set if q.get('id') == query_id_filter]
@@ -269,13 +290,15 @@ class QueryExecutor:
                 query = None
                 reasoning = None
                 
-                if 'response_structure' in query_item:
+                # PRIMA cerca direttamente nel item
+                if 'query' in query_item:
+                    query = query_item['query']
+                    reasoning = query_item.get('reasoning', '')
+                # POI cerca in strutture annidate
+                elif 'response_structure' in query_item:
                     response_struct = query_item['response_structure']
                     query = response_struct.get('query', '')
                     reasoning = response_struct.get('reasoning', '')
-                elif 'query' in query_item:
-                    query = query_item['query']
-                    reasoning = query_item.get('reasoning', '')
                 
                 if not query or not query.strip():
                     print(f"\n Query {query_id}: nessuna query trovata, skip")
@@ -313,7 +336,6 @@ class QueryExecutor:
         finally:
             # Disconnetti sempre
             self.disconnect()
-
 
 def main():
     parser = argparse.ArgumentParser(
