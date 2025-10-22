@@ -1,15 +1,6 @@
 responses_results:
   - query_id: Q1
-    query: "Quanti AgriParcel appartengono alla AgriFarm con nome 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'?"
-    result:
-      type: "count"
-      value: 
-        count: 3
-        parcels:
-          - "Fondo Errano 2024 T0"
-          - "Fondo Errano 2024 T1"
-          - "Fondo Errano 2024 T2"
-      query_sql_cypher: |
+    query_sql_cypher: |
         SELECT COUNT(*) AS num_parcels FROM cypher('agri_graph', $$
           MATCH (farm:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})
           MATCH (parcel:AgriParcel)-[:belongsTo]->(farm)
@@ -17,15 +8,7 @@ responses_results:
         $$) AS (parcel agtype);
 
   - query_id: Q2
-    query: "Quali sono gli ID dei Device che appartengono all'AgriParcel 'Fondo Errano 2024 T0'?"
-    result:
-      type: "list"
-      value:
-        - id: "urn:ngsi-ld:Device:unibo:a316ef4f55a925842cca39af7280f4d8"
-          name: "Dripper"
-        - id: "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6"
-          name: "Soil moisture sensor grid"
-      query_sql_cypher: |
+    query_sql_cypher: |
         SELECT device_id FROM cypher('agri_graph', $$
           MATCH (parcel:AgriParcel {name: 'Fondo Errano 2024 T0'})
           MATCH (device:Device)-[:belongsTo]->(parcel)
@@ -33,23 +16,7 @@ responses_results:
         $$) AS (device_id text);
 
   - query_id: Q3
-    query: "Quali Device hanno controlledProperty 'soilMoisture'?"
-    result:
-      type: "list"
-      value:
-        total: 56
-        details:
-          - lotto: "Fondo Errano 2024 T0"
-            sensors: 12
-          - lotto: "T1 Alto"
-            sensors: 12
-          - lotto: "T1 Basso"
-            sensors: 8
-          - lotto: "T2 Alto"
-            sensors: 12
-          - lotto: "T2 Basso"
-            sensors: 12
-      query_sql_cypher: |
+    query_sql_cypher: |
         SELECT device_id, device_name FROM cypher('agri_graph', $$
           MATCH (device:Device)
           WHERE 'soilMoisture' IN device.controlledProperty AND device.name STARTS WITH 'Ges v'
@@ -57,13 +24,7 @@ responses_results:
         $$) AS (device_id text, device_name text);
 
   - query_id: Q4
-    query: "Trova tutti i sensori di umidità del suolo nell'azienda agricola ZESPRI."
-    result:
-      type: "list"
-      value:
-        total: 56
-        note: "Gli stessi 56 sensori di umidità del suolo della Query 3."
-      query_sql_cypher: |
+    query_sql_cypher: |
         SELECT * FROM cypher('agri_graph', $$
           MATCH (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})<-[:belongsTo]-(p:AgriParcel)<-[:belongsTo]-(d_grid:Device)-[:hasDevice]->(d:Device)
           WHERE 'soilMoisture' IN d.controlledProperty
@@ -71,17 +32,7 @@ responses_results:
         $$) as (device_id agtype, device_name agtype, parcel_name agtype);
 
   - query_id: Q5
-    query: "Quali sono i lotti dell'azienda che coltivano kiwi?"
-    result:
-      type: "list"
-      value:
-        - parcel: "Fondo Errano 2024 T0"
-          crop: "Kiwi G3"
-        - parcel: "Fondo Errano 2024 T1"
-          crop: "Kiwi G3"
-        - parcel: "Fondo Errano 2024 T2"
-          crop: "Kiwi G3"
-      query_sql_cypher: |
+    query_sql_cypher: |
         SELECT parcel_name, colture FROM cypher('agri_graph', $$
           MATCH (farm:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})
           MATCH (parcel:AgriParcel)-[:belongsTo]->(farm)
@@ -90,15 +41,7 @@ responses_results:
         $$) AS (parcel_name text, colture text);
 
   - query_id: Q6
-    query: "Elenca i dispositivi di irrigazione a goccia nel lotto T1."
-    result:
-      type: "list"
-      value:
-        - id: "urn:ngsi-ld:Device:unibo:e0a35eede1bd643062e7e83011896ef2"
-          name: "Dripper Fondo Errano 2024 T1 T1 alto"
-        - id: "urn:ngsi-ld:Device:unibo:4706ab32adba82399acb21d45489535c"
-          name: "Dripper Fondo Errano 2024 T1 T1 basso"
-      query_sql_cypher: |
+    query_sql_cypher: |
         SELECT device_id, device_name FROM cypher('agri_graph', $$
           MATCH (parcel:AgriParcel {name: 'Fondo Errano 2024 T1'})
           MATCH (device:Device)-[:belongsTo]->(parcel)
@@ -107,13 +50,7 @@ responses_results:
         $$) AS (device_id text, device_name text);
 
   - query_id: Q7
-    query: "Quale sensore di umidità del suolo ha registrato il valore più basso? E qual è il valore?"
-    result:
-      type: "inference"
-      value:
-        sensor: "Ges v20_0 (T1 Alto)"
-        value: -2022.073776
-      query_sql_cypher: |
+    query_sql_cypher: |
         SELECT device_name, value FROM cypher('agri_graph', $$
           MATCH (sensor:Device)
           WHERE 'soilMoisture' IN sensor.controlledProperty
@@ -127,13 +64,7 @@ responses_results:
         $$) AS (device_name text, value float);
 
   - query_id: Q8
-    query: "Considerando le coordinate, qual è il sensore più vicino al punto (11.799, 44.235)?"
-    result:
-      type: "inference"
-      value:
-        sensor: "Dripper Fondo Errano 2024 T0 T0"
-        location: "POINT (11.798998 44.235024)"
-      query_sql_cypher: |
+    query_sql_cypher: |
         SELECT device_name, location FROM cypher('agri_graph', $$
           MATCH (device:Device)
           WHERE device.location IS NOT NULL AND device.location STARTS WITH 'POINT'
@@ -145,16 +76,7 @@ responses_results:
         $$) AS (device_name text, location text);
 
   - query_id: Q9
-    query: "Quale lotto ha più dispositivi? E quanti?"
-    result:
-      type: "inference"
-      value:
-        parcel: "Fondo Errano 2024 T2"
-        total_devices: 28
-        details:
-          direct_devices: 4
-          grid_sensors: 24
-      query_sql_cypher: |
+    query_sql_cypher: |
         SELECT parcel_name, total_devices
         FROM cypher('agri_graph', $$
           MATCH (parcel:AgriParcel)-[:belongsTo]->(farm:AgriFarm)
