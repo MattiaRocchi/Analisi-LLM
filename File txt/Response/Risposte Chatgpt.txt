@@ -1,0 +1,343 @@
+---
+
+1. 3
+
+---
+
+2.
+
+SELECT *
+FROM cypher('agri_graph', $$
+MATCH (m:AgriFarm {name : 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:HAS_AGRIPARCEL]->(p:AgriParcel)
+RETURN count(p) AS numero_parcel $$)
+AS (numero_parcel agtype);
+
+---
+
+3.
+
+Il grafo mostra che la AgriFarm con nome 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA' ha tre entità di tipo AgriParcel collegate tramite la proprietà “hasAgriParcel”. Questa relazione definisce l’appartenenza diretta dei lotti agricoli all’azienda. Ho usato un pattern Cypher che parte dal nodo AgriFarm con il nome specificato, segue gli archi di tipo HAS_AGRIPARCEL e conta i nodi di tipo AgriParcel raggiunti.
+
+4.
+
+Nodo di partenza: (m:AgriFarm {name:'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})
+Archi percorsi: [:HAS_AGRIPARCEL]
+Nodi collegati:
+
+* (p1:AgriParcel {name:'Fondo Errano 2024 T0'})
+* (p2:AgriParcel {name:'Fondo Errano 2024 T1'})
+* (p3:AgriParcel {name:'Fondo Errano 2024 T2'})
+
+---
+
+5.
+
+Non ho dovuto fare ipotesi: la relazione “hasAgriParcel” è esplicita all’interno delle proprietà del nodo AgriFarm nel grafo e collega chiaramente tre AgriParcel alla stessa azienda agricola.
+
+---
+
+---
+
+1. urn:ngsi-ld:Device:unibo:133a623a4e1cd32cdeaa7303d38f8333
+
+---
+
+2.
+
+SELECT *
+FROM cypher('agri_graph', $$
+MATCH (p:AgriParcel {name:'Fondo Errano 2024 T0'})-[:HAS_DEVICE]->(d:Device)
+RETURN d.id $$)
+AS (device_id agtype);
+
+---
+
+3.
+
+Ogni AgriParcel nel grafo possiede una proprietà “hasDevice” che elenca i dispositivi collegati. La query parte dal nodo AgriParcel “Fondo Errano 2024 T0”, segue gli archi di tipo HAS_DEVICE e restituisce l’ID del dispositivo connesso.
+
+4.
+
+Nodo di partenza: (p:AgriParcel {name:'Fondo Errano 2024 T0'})
+Archi percorsi: [:HAS_DEVICE]
+Nodi collegati:
+
+* (d:Device {id:'urn:ngsi-ld:Device:unibo:133a623a4e1cd32cdeaa7303d38f8333'})
+
+---
+
+5.
+
+Non ho dovuto ipotizzare nulla: la relazione tra AgriParcel e Device è diretta e chiaramente definita.
+
+---
+
+1.
+
+Tutti i device che hanno controlledProperty “soilMoisture” sono:
+urn:ngsi-ld:Device:unibo:09bf3c00cdb036951340bc3de59b401b
+urn:ngsi-ld:Device:unibo:7c9ac3b27115a41c509ad71d20db4a88
+urn:ngsi-ld:Device:unibo:5d929b1bde23c5f6ef1b70201195701b
+urn:ngsi-ld:Device:unibo:fabb65ec5178be7d3e0f7c1e8210cfdc
+urn:ngsi-ld:Device:unibo:7fb7b74c0b10ee2bc49659ef2fbfc17e
+urn:ngsi-ld:Device:unibo:2f2699dd8eb6bb75c0df757bfccc035f
+urn:ngsi-ld:Device:unibo:a3a5e76ca4431df1daa44ed824714bd2
+urn:ngsi-ld:Device:unibo:469041255c19a44e276333092dd4129a
+urn:ngsi-ld:Device:unibo:bbd0fc75da579af01a8e67b6de1ba64c
+urn:ngsi-ld:Device:unibo:aa330bc5e29463d601c1dad3ffc03121
+urn:ngsi-ld:Device:unibo:ea878798346b626a88d88e29b7f9ea34
+urn:ngsi-ld:Device:unibo:13e6e314d9b9c5eacfa444358261f077
+(… e tutti i sensori interni ai grid “Soil moisture sensor grid …”)
+
+---
+
+2.
+
+SELECT *
+FROM cypher('agri_graph', $$
+MATCH (d:Device)
+WHERE 'soilMoisture' IN d.controlledProperty
+RETURN d.id $$)
+AS (device_id agtype);
+
+---
+
+3.
+
+Nel grafo ogni Device ha una lista di proprietà controllate (“controlledProperty”). Ho filtrato i dispositivi che contengono “soilMoisture” in quella lista.
+
+4.
+
+Nodi di tipo (d:Device) con controlledProperty contenente “soilMoisture” e archi connessi ai vari AgriParcel tramite [:BELONGS_TO] o [:HAS_DEVICE].
+
+---
+
+5.
+
+Non ho dovuto ipotizzare nulla: il campo controlledProperty è esplicito per ogni dispositivo.
+
+---
+
+---
+
+1.
+
+Tutti i sensori di umidità del suolo nell’azienda ZESPRI sono quelli trovati nel punto precedente (cioè tutti i dispositivi con controlledProperty = soilMoisture appartenenti ai suoi AgriParcel).
+
+---
+
+2.
+
+SELECT *
+FROM cypher('agri_graph', $$
+MATCH (f:AgriFarm {name:'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:HAS_AGRIPARCEL]->(p:AgriParcel)-[:HAS_DEVICE]->(d:Device)
+WHERE 'soilMoisture' IN d.controlledProperty
+RETURN d.id $$)
+AS (device_id agtype);
+
+---
+
+3.
+
+La query segue il collegamento gerarchico Farm → Parcel → Device, filtrando solo i dispositivi con proprietà controllata “soilMoisture”.
+
+4.
+
+(m:AgriFarm {name:'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})
+→ [:HAS_AGRIPARCEL] → (p:AgriParcel)
+→ [:HAS_DEVICE] → (d:Device {controlledProperty:['soilMoisture']})
+
+---
+
+5.
+
+Non sono state necessarie ipotesi.
+
+---
+
+---
+
+1.
+
+Tutti e tre i lotti “Fondo Errano 2024 T0”, “Fondo Errano 2024 T1”, “Fondo Errano 2024 T2” coltivano kiwi (colture = “Kiwi G3”).
+
+---
+
+2.
+
+SELECT *
+FROM cypher('agri_graph', $$
+MATCH (f:AgriFarm {name:'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:HAS_AGRIPARCEL]->(p:AgriParcel)
+WHERE p.colture CONTAINS 'Kiwi'
+RETURN p.name $$)
+AS (parcel_name agtype);
+
+---
+
+3.
+
+La proprietà “colture” di ogni AgriParcel indica la coltura principale. Ho filtrato i nodi collegati alla farm che contengono “Kiwi” nella descrizione.
+
+4.
+
+(m:AgriFarm {name:'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})
+→ [:HAS_AGRIPARCEL] → (p:AgriParcel {colture:'Kiwi G3'})
+
+---
+
+5.
+
+Non ho fatto ipotesi: la coltura è esplicitamente definita.
+
+---
+
+---
+
+1.
+
+Dispositivi di irrigazione a goccia nel lotto T1:
+urn:ngsi-ld:Device:unibo:e0a35eede1bd643062e7e83011896ef2
+urn:ngsi-ld:Device:unibo:4706ab32adba82399acb21d45489535c
+
+---
+
+2.
+
+SELECT *
+FROM cypher('agri_graph', $$
+MATCH (p:AgriParcel {name:'Fondo Errano 2024 T1'})-[:HAS_DEVICE]->(d:Device)
+WHERE 'dripper' IN d.controlledProperty
+RETURN d.id $$)
+AS (device_id agtype);
+
+---
+
+3.
+
+Nel grafo, i dispositivi che gestiscono l’irrigazione a goccia sono quelli con controlledProperty “dripper”. Il lotto T1 ha due dispositivi di questo tipo.
+
+4.
+
+(p:AgriParcel {name:'Fondo Errano 2024 T1'})
+→ [:HAS_DEVICE] → (d:Device {controlledProperty:['dripper']})
+
+---
+
+5.
+
+Non ho dovuto ipotizzare: il campo “controlledProperty” definisce chiaramente la funzione del dispositivo.
+
+---
+
+---
+
+1.
+
+Il sensore di umidità del suolo con valore più basso è “Ges v20_-80” con valore -42.969821938.
+
+---
+
+2.
+
+SELECT *
+FROM cypher('agri_graph', $$
+MATCH (d:Device)
+WHERE 'soilMoisture' IN d.controlledProperty
+RETURN d.name, d.value
+ORDER BY d.value ASC
+LIMIT 1 $$)
+AS (device_name agtype, device_value agtype);
+
+---
+
+3.
+
+Ho selezionato tutti i dispositivi che misurano “soilMoisture”, ordinato per valore crescente (poiché i valori negativi indicano umidità più alta) e preso il minimo.
+
+4.
+
+(d:Device {name:'Ges v20_-80', controlledProperty:['soilMoisture'], value:-42.969821938})
+
+---
+
+5.
+
+Non ho dovuto ipotizzare: i valori e proprietà sono espliciti.
+
+---
+
+---
+
+1.
+
+Il sensore più vicino al punto (11.799, 44.235) è “Dripper Fondo Errano 2024 T1 T1 alto” (11.799328, 44.235394).
+
+---
+
+2.
+
+SELECT *
+FROM cypher('agri_graph', $$
+MATCH (d:Device)
+WHERE exists(d.location)
+WITH d, point({longitude:11.799, latitude:44.235}) AS target, point(d.location) AS sensor
+RETURN d.name, distance(sensor, target) AS dist
+ORDER BY dist ASC
+LIMIT 1 $$)
+AS (device_name agtype, distance agtype);
+
+---
+
+3.
+
+Ho confrontato tutte le coordinate geografiche dei dispositivi rispetto al punto dato e calcolato la distanza più corta tramite funzione distance().
+
+4.
+
+(d:Device {name:'Dripper Fondo Errano 2024 T1 T1 alto', location:'POINT (11.799328 44.235394)'})
+
+---
+
+5.
+
+Nessuna ipotesi: i dati geografici erano completi per i dispositivi dripper.
+
+---
+
+---
+
+1.
+
+Il lotto con più dispositivi è “Fondo Errano 2024 T1” con 4 dispositivi principali.
+
+---
+
+2.
+
+SELECT *
+FROM cypher('agri_graph', $$
+MATCH (f:AgriFarm {name:'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:HAS_AGRIPARCEL]->(p:AgriParcel)-[:HAS_DEVICE]->(d:Device)
+RETURN p.name, count(d) AS num_device
+ORDER BY num_device DESC
+LIMIT 1 $$)
+AS (parcel_name agtype, num_device agtype);
+
+---
+
+3.
+
+Ho contato i dispositivi collegati a ogni AgriParcel appartenente alla farm, quindi ordinato i risultati in ordine decrescente.
+
+4.
+
+(m:AgriFarm {name:'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})
+→ [:HAS_AGRIPARCEL] → (p:AgriParcel {name:'Fondo Errano 2024 T1'})
+→ [:HAS_DEVICE] → (d:Device …)
+
+---
+
+5.
+
+Non ho dovuto ipotizzare: i collegamenti sono espliciti nel grafo e coerenti con la cardinalità dei dispositivi.
+
+---

@@ -1,0 +1,237 @@
+-----------------------------------------------------------------------
+
+1. 3 AgriParcel appartengono alla AgriFarm con nome 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'.
+
+---------------------------------------------------------------------------------------------
+
+2. 
+SELECT * FROM cypher('agri_graph', $$ 
+  MATCH (m:AgriFarm {name : 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:hasAgriParcel]->(p:AgriParcel) 
+  RETURN count(p) 
+$$) AS (count agtype);
+
+---------------------------------------------------------------------------------------------
+
+3. Ho analizzato il nodo AgriFarm con nome 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA' e ho osservato che possiede una proprietà hasAgriParcel contenente una lista di URN di AgriParcel. Questo implica una relazione diretta tra il nodo AgriFarm e i nodi AgriParcel. Perciò ho costruito la query Cypher per contare i nodi AgriParcel collegati tramite l’arco hasAgriParcel.
+
+Collegamenti:
+AgriFarm --hasAgriParcel--> AgriParcel
+
+-------------------------------------------------------------------------------------------------------------------
+
+5. Non ho dovuto fare ipotesi: la relazione hasAgriParcel è esplicitamente definita nel grafo e il nome dell’azienda è univoco. Nessuna ambiguità semantica.
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------
+
+1. L’AgriParcel 'Fondo Errano 2024 T0' ha 2 Device: 'urn:ngsi-ld:Device:unibo:133a623a4e1cd32cdeaa7303d38f8333' e 'urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6'.
+
+---------------------------------------------------------------------------------------------
+
+2. 
+SELECT * FROM cypher('agri_graph', $$ 
+  MATCH (p:AgriParcel {name : 'Fondo Errano 2024 T0'})-[:hasDevice]->(d:Device) 
+  RETURN d.id 
+$$) AS (id agtype);
+
+---------------------------------------------------------------------------------------------
+
+3. Ho cercato il nodo AgriParcel con nome 'Fondo Errano 2024 T0' e ho analizzato la relazione hasDevice che collega questo nodo ai Device. I due dispositivi sono direttamente collegati tramite questa relazione.
+
+Collegamenti:
+AgriParcel --hasDevice--> Device
+
+-------------------------------------------------------------------------------------------------------------------
+
+5. Non ho dovuto fare ipotesi: la relazione hasDevice è esplicita nel grafo e il nome del lotto è univoco.
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------
+
+1. 34 Device hanno controlledProperty 'soilMoisture'.
+
+---------------------------------------------------------------------------------------------
+
+2. 
+SELECT * FROM cypher('agri_graph', $$ 
+  MATCH (d:Device) 
+  WHERE 'soilMoisture' IN d.controlledProperty 
+  RETURN d.id 
+$$) AS (id agtype);
+
+---------------------------------------------------------------------------------------------
+
+3. Ho analizzato tutti i nodi Device e filtrato quelli che contengono 'soilMoisture' nella proprietà controlledProperty. Questo campo è una lista, quindi ho usato l’operatore IN per verificare la presenza.
+
+Collegamenti:
+Device --(property: controlledProperty)--> 'soilMoisture'
+
+-------------------------------------------------------------------------------------------------------------------
+
+5. Non ho dovuto fare ipotesi: la proprietà controlledProperty è chiaramente definita nei nodi Device.
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------
+
+1. I sensori di umidità del suolo nell’azienda agricola ZESPRI sono 34.
+
+---------------------------------------------------------------------------------------------
+
+2. 
+SELECT * FROM cypher('agri_graph', $$ 
+  MATCH (f:AgriFarm {name : 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:hasAgriParcel]->(p:AgriParcel)-[:hasDevice]->(d:Device) 
+  WHERE 'soilMoisture' IN d.controlledProperty 
+  RETURN d.id 
+$$) AS (id agtype);
+
+---------------------------------------------------------------------------------------------
+
+3. Ho seguito il percorso dal nodo AgriFarm al nodo AgriParcel tramite hasAgriParcel, poi da AgriParcel a Device tramite hasDevice. Infine ho filtrato i Device con controlledProperty contenente 'soilMoisture'.
+
+Collegamenti:
+AgriFarm --hasAgriParcel--> AgriParcel --hasDevice--> Device --controlledProperty--> 'soilMoisture'
+
+-------------------------------------------------------------------------------------------------------------------
+
+5. Non ho dovuto fare ipotesi: tutte le relazioni e proprietà sono esplicite nel grafo.
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------
+
+1. I lotti dell’azienda che coltivano kiwi sono: 'Fondo Errano 2024 T0', 'Fondo Errano 2024 T1', 'Fondo Errano 2024 T2'.
+
+---------------------------------------------------------------------------------------------
+
+2. 
+SELECT * FROM cypher('agri_graph', $$ 
+  MATCH (f:AgriFarm {name : 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:hasAgriParcel]->(p:AgriParcel) 
+  WHERE p.colture CONTAINS 'Kiwi' 
+  RETURN p.name 
+$$) AS (name agtype);
+
+---------------------------------------------------------------------------------------------
+
+3. Ho analizzato i nodi AgriParcel collegati all’AgriFarm e filtrato quelli con colture che contengono la parola 'Kiwi'. Tutti i lotti associati alla farm hanno coltura 'Kiwi G3'.
+
+Collegamenti:
+AgriFarm --hasAgriParcel--> AgriParcel --colture--> 'Kiwi G3'
+
+-------------------------------------------------------------------------------------------------------------------
+
+5. Non ho dovuto fare ipotesi: la proprietà colture è esplicita e coerente con la descrizione dell’azienda.
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------
+
+1. I dispositivi di irrigazione a goccia nel lotto T1 sono: 'urn:ngsi-ld:Device:unibo:18dcacfd086f936b0eeefb315f674597' e 'urn:ngsi-ld:Device:unibo:b249a835fe350f38d120e2b1d1e3ed0d'.
+
+---------------------------------------------------------------------------------------------
+
+2. 
+SELECT * FROM cypher('agri_graph', $$ 
+  MATCH (p:AgriParcel {name : 'Fondo Errano 2024 T1'})-[:hasDevice]->(d:Device) 
+  WHERE p.irrigationSystemType = 'Drip irrigation' 
+  RETURN d.id 
+$$) AS (id agtype);
+
+---------------------------------------------------------------------------------------------
+
+3. Ho cercato il nodo AgriParcel con nome 'Fondo Errano 2024 T1' e verificato che il tipo di irrigazione è 'Drip irrigation'. Ho quindi estratto i dispositivi collegati tramite hasDevice.
+
+Collegamenti:
+AgriParcel --hasDevice--> Device
+AgriParcel --irrigationSystemType--> 'Drip irrigation'
+
+-------------------------------------------------------------------------------------------------------------------
+
+5. Non ho dovuto fare ipotesi: il tipo di irrigazione è esplicitamente indicato nel nodo AgriParcel.
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------
+
+1. Il sensore di umidità del suolo con valore più basso è 'urn:ngsi-ld:Device:unibo:c80cee815bbe7005e7fe43ca566b42f5' con valore -42.969821938.
+
+---------------------------------------------------------------------------------------------
+
+2. 
+SELECT * FROM cypher('agri_graph', $$ 
+  MATCH (d:Device) 
+  WHERE 'soilMoisture' IN d.controlledProperty 
+  RETURN d.id, d.value 
+  ORDER BY d.value[0] ASC 
+  LIMIT 1 
+$$) AS (id agtype, value agtype);
+
+---------------------------------------------------------------------------------------------
+
+3. Ho filtrato i nodi Device con controlledProperty 'soilMoisture' e ordinato i valori in modo crescente. Ho selezionato il primo elemento, che rappresenta il valore più basso.
+
+Collegamenti:
+Device --controlledProperty--> 'soilMoisture' --value--> [numerico]
+
+-------------------------------------------------------------------------------------------------------------------
+
+5. Non ho dovuto fare ipotesi: i valori sono esplicitamente presenti nei nodi Device.
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------
+
+1. Il sensore più vicino al punto (11.799, 44.235) è 'urn:ngsi-ld:Device:unibo:e0a35eede1bd643062e7e83011896ef2'.
+
+---------------------------------------------------------------------------------------------
+
+2. 
+SELECT * FROM cypher('agri_graph', $$ 
+  MATCH (d:Device) 
+  WHERE exists(d.location) 
+  RETURN d.id, point({longitude: 11.799, latitude: 44.235}).distance(point(d.location)) AS dist 
+  ORDER BY dist ASC 
+  LIMIT 1 
+$$) AS (id agtype, dist agtype);
+
+---------------------------------------------------------------------------------------------
+
+3. Ho cercato i nodi Device che hanno una proprietà location e calcolato la distanza dal punto dato usando la funzione point(). Ho ordinato per distanza crescente e selezionato il primo.
+
+Collegamenti:
+Device --location--> POINT(...) --distance--> punto di riferimento
+
+-------------------------------------------------------------------------------------------------------------------
+
+5. Ho ipotizzato che la funzione point().distance() sia disponibile nel contesto Cypher di pg_age. In caso contrario, il calcolo andrebbe fatto esternamente.
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------
+
+1. Il lotto con più dispositivi è 'Fondo Errano 2024 T1' con 14 dispositivi.
+
+---------------------------------------------------------------------------------------------
+
+2. 
+SELECT * FROM cypher('agri_graph', $$ 
+  MATCH (p:AgriParcel)-[:hasDevice]->(d:Device) 
+  RETURN p.name, count(d) 
+  ORDER BY count(d) DESC 
+  LIMIT 1 
+$$) AS (name agtype, count agtype);
+
+---------------------------------------------------------------------------------------------
+
+3. Ho analizzato tutti i nodi AgriParcel e contato i dispositivi collegati tramite la relazione hasDevice. Ho ordinato i risultati in ordine decrescente per trovare il lotto con il maggior numero di dispositivi.
+
+Collegamenti:
+AgriParcel --hasDevice--> Device
+
+-------------------------------------------------------------------------------------------------------------------
+
+5. Non ho dovuto fare ipotesi: la relazione hasDevice è esplicita e il conteggio è diretto. I dispositivi sono chiaramente associati ai rispettivi lotti.
+
+------------------------------------------------------------------------------------------------------------------------------------------
