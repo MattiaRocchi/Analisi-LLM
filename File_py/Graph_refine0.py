@@ -2,31 +2,31 @@ import json
 
 def clean_graph(input_file='grafo_agricolo.json', output_file='grafo_pulito_v0.json'):
     """
-    Versione 0: Schema pulito del grafo
-    - Solo id URN
-    - Rimozione dati temporali e metadati
-    - Solo relazioni hasDevice (belongsTo convertiti in hasDevice nelle properties)
+    Version 0: Clean graph schema
+    - Only URN ids
+    - Remove temporal data and metadata
+    - Only hasDevice relationships (belongsTo converted to hasDevice in properties)
     """
     
     with open(input_file, 'r', encoding='utf-8') as f:
         graph_data = json.load(f)
     
-    # Campi da mantenere per ogni tipo di nodo
+    # Fields to keep for each node type
     fields_to_keep = {
-        'common': ['id', 'name'],
+        'common': ['id', 'name', 'type'],
         'AgriFarm': ['location'],
         'AgriParcel': ['location'],
         'Device': ['location']
     }
     
-    # Mappa da id numerico a URN
+    # Map from numeric id to URN
     node_id_map = {}
     for node in graph_data['nodes']:
         urn_id = node['properties'].get('id')
         if urn_id:
             node_id_map[node['id']] = urn_id
     
-    # Costruisci una mappa di hasDevice per ogni nodo
+    # Build a hasDevice map for each node
     has_device_map = {}  # {parent_urn: [child_urn1, child_urn2, ...]}
     
     for edge in graph_data['edges']:
@@ -36,21 +36,21 @@ def clean_graph(input_file='grafo_agricolo.json', output_file='grafo_pulito_v0.j
         if not start_urn or not end_urn:
             continue
         
-        # Se è belongsTo (A->B), aggiungi hasDevice (B->A)
+        # If it's belongsTo (A->B), add hasDevice (B->A)
         if edge['type'] == 'belongsTo':
             if end_urn not in has_device_map:
                 has_device_map[end_urn] = []
             if start_urn not in has_device_map[end_urn]:
                 has_device_map[end_urn].append(start_urn)
         
-        # Se è già hasDevice, mantienilo
+        # If it's already hasDevice, keep it
         elif edge['type'] == 'hasDevice':
             if start_urn not in has_device_map:
                 has_device_map[start_urn] = []
             if end_urn not in has_device_map[start_urn]:
                 has_device_map[start_urn].append(end_urn)
     
-    # Pulisci i nodi e aggiungi hasDevice nelle properties
+    # Clean nodes and add hasDevice to properties
     clean_nodes = []
     
     for node in graph_data['nodes']:
@@ -60,24 +60,24 @@ def clean_graph(input_file='grafo_agricolo.json', output_file='grafo_pulito_v0.j
         
         node_type = node['label']
         
-        # Costruisci il nodo pulito
+        # Build clean node
         clean_node = {
             'id': urn_id,
             'label': node_type,
             'properties': {}
         }
         
-        # Aggiungi solo i campi rilevanti
+        # Add only relevant fields
         common_fields = fields_to_keep['common']
         type_fields = fields_to_keep.get(node_type, [])
         allowed_fields = set(common_fields + type_fields)
         
         for key, value in node['properties'].items():
-            # Escludi campi temporali, domain, namespace, belongsTo, hasDevice originali
+            # Exclude temporal fields, domain, namespace, belongsTo, original hasDevice
             if key in ['dateCreated', 'dateModified', 'dateObserved', 'timestamp_kafka', 
                       'unixtimestampCreated', 'unixtimestampModified', 'timestamp_subscription',
                       'domain', 'namespace', 'belongsTo', 'hasDevice', 'hasAgriParcel', 'description',
-                      'irrigationSystemType', 'type', 'value',  'x', 'y', 'z','controlledProperty',
+                      'irrigationSystemType', 'value',  'x', 'y', 'z','controlledProperty',
                       'deviceCategory', 'colture']:
 
                 continue
@@ -85,13 +85,13 @@ def clean_graph(input_file='grafo_agricolo.json', output_file='grafo_pulito_v0.j
             if key in allowed_fields or key in common_fields:
                 clean_node['properties'][key] = value
         
-        # Aggiungi hasDevice dalle relazioni
+        # Add hasDevice from relationships
         if urn_id in has_device_map:
             clean_node['properties']['hasDevice'] = has_device_map[urn_id]
         
         clean_nodes.append(clean_node)
     
-    # Crea gli edge solo hasDevice (no duplicati)
+    # Create only hasDevice edges (no duplicates)
     edges_dict = {}
     
     for parent_urn, children_urns in has_device_map.items():
@@ -106,21 +106,21 @@ def clean_graph(input_file='grafo_agricolo.json', output_file='grafo_pulito_v0.j
     
     clean_edges = list(edges_dict.values())
     
-    # Crea il grafo pulito
+    # Create clean graph
     clean_graph_data = {
         'nodes': clean_nodes,
         'edges': clean_edges
     }
     
-    # Salva il file
+    # Save file
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(clean_graph_data, f, indent=2, ensure_ascii=False)
     
-    print(f"✓ Grafo pulito salvato in '{output_file}'")
-    print(f"  Nodi: {len(clean_nodes)}")
-    print(f"  Edge: {len(clean_edges)} (tutti 'hasDevice')")
+    print(f"Clean graph saved to '{output_file}'")
+    print(f"  Nodes: {len(clean_nodes)}")
+    print(f"  Edges: {len(clean_edges)} (all 'hasDevice')")
     
-    # Statistiche
+    # Statistics
     node_types = {}
     nodes_with_devices = 0
     for node in clean_nodes:
@@ -129,17 +129,17 @@ def clean_graph(input_file='grafo_agricolo.json', output_file='grafo_pulito_v0.j
         if 'hasDevice' in node['properties']:
             nodes_with_devices += 1
     
-    print(f"\n  Tipi di nodi:")
+    print(f"\n  Node types:")
     for node_type, count in node_types.items():
         print(f"    - {node_type}: {count}")
-    print(f"\n  Nodi con hasDevice: {nodes_with_devices}")
+    print(f"\n  Nodes with hasDevice: {nodes_with_devices}")
     
     return clean_graph_data
 
 if __name__ == "__main__":
     import sys
     
-    # Puoi passare i nomi dei file come argomenti
+    # You can pass file names as arguments
     input_file = sys.argv[1] if len(sys.argv) > 1 else 'grafo_agricolo.json'
     output_file = sys.argv[2] if len(sys.argv) > 2 else 'graph0.json'
     
@@ -149,7 +149,7 @@ if __name__ == "__main__":
     try:
         clean_graph(input_file, output_file)
     except FileNotFoundError:
-        print(f"❌ Errore: File '{input_file}' non trovato!")
-        print("Assicurati che il file sia nella stessa cartella dello script.")
+        print(f"Error: File '{input_file}' not found!")
+        print("Make sure the file is in the same folder as the script.")
     except Exception as e:
-        print(f"❌ Errore: {e}")
+        print(f"Error: {e}")
