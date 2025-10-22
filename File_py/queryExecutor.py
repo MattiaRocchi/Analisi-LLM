@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 import yaml
 import json
 import psycopg2
@@ -67,15 +64,15 @@ class QueryExecutor:
             query_id: ID della query per il tracking
             
         Returns:
-            Dizionario con risultati e metadati
+            Dizionario con solo query_id e results
         """
         try:
             query_clean = query.strip()
             
             if query_id:
-                print(f"\n Esecuzione query {query_id}...")
+                print(f"\nEsecuzione query {query_id}...")
             else:
-                print(f"\n Esecuzione query...")
+                print(f"\nEsecuzione query...")
             
             print(f"Query:\n{query_clean[:200]}{'...' if len(query_clean) > 200 else ''}\n")
             
@@ -100,7 +97,7 @@ class QueryExecutor:
                     column_names = [desc[0] for desc in self.cursor.description]
             except (psycopg2.ProgrammingError, AttributeError) as e:
                 # La query non restituisce risultati o c'è un errore nel fetch
-                print(f" Nessun risultato da fetchare: {e}")
+                print(f"Nessun risultato da fetchare: {e}")
                 results = []
                 column_names = []
             
@@ -113,18 +110,15 @@ class QueryExecutor:
                     row_dict[col_name] = self._parse_agtype(value)
                 parsed_results.append(row_dict)
             
+            # Ritorna solo query_id e results
             result_data = {
                 "query_id": query_id,
-                "status": "success",
-                "execution_time_seconds": execution_time,
-                "row_count": len(parsed_results),
-                "columns": column_names,
                 "results": parsed_results
             }
             
-            print(f" Query eseguita con successo")
-            print(f" Righe restituite: {len(parsed_results)}")
-            print(f" Tempo di esecuzione: {execution_time:.3f}s")
+            print(f"Query eseguita con successo")
+            print(f"Righe restituite: {len(parsed_results)}")
+            print(f"Tempo di esecuzione: {execution_time:.3f}s")
             
             return result_data
             
@@ -134,9 +128,8 @@ class QueryExecutor:
             
             return {
                 "query_id": query_id,
-                "status": "error",
-                "error": error_msg,
-                "results": []
+                "results": [],
+                "error": error_msg
             }
             
     def _parse_agtype(self, agtype_value) -> Any:
@@ -176,26 +169,20 @@ class QueryExecutor:
             print(f"Errore nel caricamento del file YAML: {e}")
             raise
     
-    def save_results_to_json(self, results: List[Dict], output_path: str, metadata: Optional[Dict] = None):
+    def save_results_to_json(self, results: List[Dict], output_path: str):
         """
-        Salva i risultati in un file JSON
+        Salva i risultati in un file JSON (solo lista di risultati, no metadata)
         
         Args:
             results: Lista dei risultati da salvare
             output_path: Percorso del file JSON di output
-            metadata: Metadati aggiuntivi da includere
         """
         try:
-            output_data = {
-                "metadata": metadata if metadata else {},
-                "queries": results
-            }
-            
             with open(output_path, 'w', encoding='utf-8') as f:
-                json.dump(output_data, f, indent=2, ensure_ascii=False)
-            print(f"\n Risultati salvati in: {output_path}")
+                json.dump(results, f, indent=2, ensure_ascii=False)
+            print(f"\n[OK] Risultati salvati in: {output_path}")
             print(f"Query totali: {len(results)}")
-            successful = sum(1 for r in results if r.get('status') == 'success')
+            successful = sum(1 for r in results if 'error' not in r)
             print(f"Query riuscite: {successful}/{len(results)}")
         except Exception as e:
             print(f"Errore nel salvataggio del file JSON: {e}")
@@ -209,65 +196,17 @@ class QueryExecutor:
         # Carica il YAML
         yaml_data = self.load_yaml_file(yaml_path)
         
-        # ============================================================
-        # FIX MIGLIORATO: Gestisci diverse strutture YAML
-        # ============================================================
+        # Leggi la struttura con query_set
+        if 'query_set' not in yaml_data:
+            raise ValueError("Il file YAML deve contenere una chiave 'query_set'")
         
-        query_set = []
-        
-        # Caso 1: Il YAML è già una lista
-        if isinstance(yaml_data, list):
-            print("Struttura YAML rilevata: Lista diretta")
-            
-            # CONTROLLO SPECIALE per struttura ChatGPT annidata
-            first_item = yaml_data[0] if yaml_data else {}
-            if (isinstance(first_item, dict) and 
-                len(first_item) == 1 and 
-                list(first_item.keys())[0].startswith('Q')):
-                
-                print("Rilevata struttura ChatGPT annidata - conversione in corso")
-                # Converti struttura annidata in struttura piatta
-                for item in yaml_data:
-                    for key, value in item.items():
-                        if isinstance(value, dict):
-                            # Crea un nuovo item con id e tutti i campi
-                            new_item = value.copy()
-                            new_item['id'] = key
-                            query_set.append(new_item)
-            else:
-                # Struttura lista normale
-                query_set = yaml_data
-        
-        # Caso 2: Il YAML è un dizionario con varie chiavi possibili
-        elif isinstance(yaml_data, dict):
-            # Prova varie chiavi comuni
-            for key in ['query_set', 'queries', 'query_list', 'results', 'responses']:
-                if key in yaml_data:
-                    query_set = yaml_data[key]
-                    print(f"Struttura YAML rilevata: Dizionario con chiave '{key}'")
-                    break
-            
-            # Se ancora vuoto, usa tutto il dizionario come unico elemento
-            if not query_set:
-                query_set = [yaml_data]
-                print("Struttura YAML rilevata: Dizionario singolo")
-        
-        else:
-            raise ValueError(f"Formato YAML non supportato: tipo {type(yaml_data)}")
-        
-        # ============================================================
+        query_set = yaml_data['query_set']
         
         if not query_set:
             raise ValueError("Nessuna query trovata nel file YAML")
         
-        print(f"\n Trovate {len(query_set)} query nel file YAML")
+        print(f"\nTrovate {len(query_set)} query nel file YAML")
         
-        # DEBUG: Stampa la struttura delle prime 2 query per verifica
-        print("\n Struttura prime query:")
-        for i, q in enumerate(query_set[:2]):
-            print(f"  Query {i}: {list(q.keys()) if isinstance(q, dict) else type(q)}")
-        
-        # Resto del codice rimane invariato...
         # Filtra per ID se richiesto
         if query_id_filter:
             query_set = [q for q in query_set if q.get('id') == query_id_filter]
@@ -284,58 +223,41 @@ class QueryExecutor:
             # Esegui ogni query nel set
             for query_item in query_set:
                 query_id = query_item.get('id', 'unknown')
-                description = query_item.get('description', '')
                 
-                # Cerca la query nelle possibili strutture
-                query = None
-                reasoning = None
+                # Estrai la query dalla struttura response
+                response = query_item.get('response', {})
+                query = response.get('query', '').strip()
                 
-                # PRIMA cerca direttamente nel item
-                if 'query' in query_item:
-                    query = query_item['query']
-                    reasoning = query_item.get('reasoning', '')
-                # POI cerca in strutture annidate
-                elif 'response_structure' in query_item:
-                    response_struct = query_item['response_structure']
-                    query = response_struct.get('query', '')
-                    reasoning = response_struct.get('reasoning', '')
-                
-                if not query or not query.strip():
-                    print(f"\n Query {query_id}: nessuna query trovata, skip")
+                if not query:
+                    print(f"\nQuery {query_id}: nessuna query trovata, skip")
                     all_results.append({
                         "query_id": query_id,
-                        "description": description,
-                        "status": "skipped",
-                        "error": "Query vuota o non trovata",
-                        "results": []
+                        "results": [],
+                        "error": "Query vuota o non trovata"
                     })
                     continue
                 
                 # Esegui la query
                 result = self.execute_query(query, query_id)
-                
-                # Aggiungi informazioni aggiuntive al risultato
-                result['description'] = description
-                result['reasoning'] = reasoning
-                result['query_text'] = query
-                
                 all_results.append(result)
             
-            # Prepara i metadati
-            metadata = {
-                "source_file": yaml_path,
-                "execution_timestamp": datetime.now().isoformat(),
-                "database": self.db_config['database'],
-                "host": self.db_config['host'],
-                "total_queries": len(all_results)
-            }
-            
-            # Salva i risultati
-            self.save_results_to_json(all_results, output_path, metadata)
+            # Salva i risultati (solo lista, no metadata)
+            self.save_results_to_json(all_results, output_path)
             
         finally:
             # Disconnetti sempre
             self.disconnect()
+
+
+# Configurazione database (modifica qui le credenziali)
+DB_CONFIG = {
+    'host': '137.204.70.156',
+    'port': 45432,
+    'database': 'test_postgres_graphs',
+    'user': 'postgres',
+    'password': 'psw'
+}
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -343,49 +265,30 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Esempi:
-  # Esegue tutte le query sul server FIWARE
+  # Esegue tutte le query
   python %(prog)s response_Gemini.yaml risultati.json
   
   # Esegue solo la query Q1
   python %(prog)s response_Gemini.yaml risultati_q1.json --query-id Q1
-  
-  # Usa parametri di connessione personalizzati
-  python %(prog)s queries.yaml results.json --host 192.168.1.100 --port 5432 --database mydb
         """
     )
     parser.add_argument('yaml_file', help='File YAML con le query')
     parser.add_argument('output_file', help='File JSON di output')
-    parser.add_argument('--host', default='137.204.70.156', 
-                        help='Host PostgreSQL (default: 137.204.70.156)')
-    parser.add_argument('--port', type=int, default=45432, 
-                        help='Porta PostgreSQL (default: 45432)')
-    parser.add_argument('--database', default='test_postgres_graphs', 
-                        help='Nome del database (default: test_postgres_graphs)')
-    parser.add_argument('--user', default='postgres', 
-                        help='Username PostgreSQL (default: postgres)')
-    parser.add_argument('--password', default='psw', 
-                        help='Password PostgreSQL (default: psw)')
     parser.add_argument('--query-id', 
                         help='Esegue solo la query con questo ID (es. Q1, Q2, ...)')
     
     args = parser.parse_args()
     
-    # Configurazione database
-    db_config = {
-        'host': args.host,
-        'port': args.port,
-        'database': args.database,
-        'user': args.user,
-        'password': args.password
-    }
+    # Usa la configurazione del database definita sopra
+    db_config = DB_CONFIG
     
     print("=" * 70)
     print("AGE Query Executor per FIWARE")
     print("=" * 70)
-    print(f" Server: {args.host}:{args.port}")
-    print(f" Database: {args.database}")
-    print(f" Input: {args.yaml_file}")
-    print(f" Output: {args.output_file}")
+    print(f"Server: {args.host}:{args.port}")
+    print(f"Database: {args.database}")
+    print(f"Input: {args.yaml_file}")
+    print(f"Output: {args.output_file}")
     if args.query_id:
         print(f"Filtro: Query {args.query_id} solamente")
     print("=" * 70)
@@ -400,11 +303,11 @@ Esempi:
         )
         
         print("\n" + "=" * 70)
-        print(" Processo completato con successo!")
+        print("Processo completato con successo!")
         print("=" * 70)
     except Exception as e:
         print("\n" + "=" * 70)
-        print(f" Errore durante l'esecuzione: {e}")
+        print(f"Errore durante l'esecuzione: {e}")
         print("=" * 70)
         raise
 
