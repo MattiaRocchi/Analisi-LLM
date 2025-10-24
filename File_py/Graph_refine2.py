@@ -1,6 +1,6 @@
 import json
 
-def clean_graph(input_file='grafo_agricolo.json', output_file='grafo_pulito_v0.json'):
+def clean_graph(input_file='grafo_agricolo.json', output_file='grafo_pulito_v1.json'):
     
     with open(input_file, 'r', encoding='utf-8') as f:
         graph_data = json.load(f)
@@ -10,20 +10,25 @@ def clean_graph(input_file='grafo_agricolo.json', output_file='grafo_pulito_v0.j
         'common': ['id', 'name', 'type'],
         'AgriFarm': ['location'],
         'AgriParcel': ['location', 'colture', 'irrigationSystemType'],
-        'Device': ['location', 'value', 'controlledProperty', 'deviceCategory', 'x', 'y', 'z'],
-        'Measurement': ['device_id', 'timestamp', 'controlled_property', 'location', 'value', 'raw_value']
+        'Device': ['location', 'value', 'controlledProperty', 'deviceCategory', 'x', 'y', 'z']
     }
     
     # Map from numeric id to URN
     node_id_map = {}
+    devices_with_measurements = set()
+    
     for node in graph_data['nodes']:
-        if node['label'] == 'Measurement':
-            # For Measurements use numeric id as key
-            node_id_map[node['id']] = node['properties'].get('id')
-        else:
+        if node['label'] != 'Measurement':
             urn_id = node['properties'].get('id')
             if urn_id:
                 node_id_map[node['id']] = urn_id
+    
+    # Check which devices have measurements
+    for edge in graph_data['edges']:
+        if edge['type'] == 'hasMeasurement':
+            device_urn = node_id_map.get(edge['start_id'])
+            if device_urn:
+                devices_with_measurements.add(device_urn)
     
     # Build a hasDevice map for each node
     has_device_map = {}  # {parent_urn: [child_urn1, child_urn2, ...]}
@@ -49,18 +54,17 @@ def clean_graph(input_file='grafo_agricolo.json', output_file='grafo_pulito_v0.j
             if end_urn not in has_device_map[start_urn]:
                 has_device_map[start_urn].append(end_urn)
     
-    # Clean nodes and add hasDevice/hasMeasurement to properties
+    # Clean nodes and add hasDevice to properties
     clean_nodes = []
     
     for node in graph_data['nodes']:
         node_type = node['label']
         
-        # For Measurement, use id from properties
+        # Skip Measurement nodes - we'll add a single table node later
         if node_type == 'Measurement':
-            urn_id = node['properties'].get('id')
-        else:
-            urn_id = node['properties'].get('id')
+            continue
         
+        urn_id = node['properties'].get('id')
         if not urn_id:
             continue
         
@@ -76,26 +80,41 @@ def clean_graph(input_file='grafo_agricolo.json', output_file='grafo_pulito_v0.j
         allowed_fields = set(common_fields + type_fields)
         
         for key, value in node['properties'].items():
-            # For Measurement, keep all specified fields
-            if node_type == 'Measurement':
-                if key in allowed_fields:
-                    clean_node['properties'][key] = value
-            else:
-                # For other nodes, exclude temporal fields, domain, namespace, etc.
-                if key in ['dateCreated', 'dateModified', 'dateObserved', 'timestamp_kafka', 
-                          'unixtimestampCreated', 'unixtimestampModified', 'timestamp_subscription',
-                          'domain', 'namespace', 'belongsTo', 'hasDevice', 'hasAgriParcel']:
-                    continue
-                
-                if key in allowed_fields or key in common_fields:
-                    clean_node['properties'][key] = value
+            # Exclude temporal fields, domain, namespace, etc.
+            if key in ['dateCreated', 'dateModified', 'dateObserved', 'timestamp_kafka', 
+                      'unixtimestampCreated', 'unixtimestampModified', 'timestamp_subscription',
+                      'domain', 'namespace', 'belongsTo', 'hasDevice', 'hasAgriParcel', 'hasMeasurement']:
+                continue
+            
+            if key in allowed_fields or key in common_fields:
+                clean_node['properties'][key] = value
         
         # Add hasDevice from relationships
         if urn_id in has_device_map:
             clean_node['properties']['hasDevice'] = has_device_map[urn_id]
         
+        # Add hasMeasurements flag for devices that have measurements
+        if node_type == 'Device' and urn_id in devices_with_measurements:
+            clean_node['properties']['hasMeasurements'] = True
+        
         clean_nodes.append(clean_node)
     
+    # Add a single node representing the measurements table
+    measurements_table_node = {
+        'id': 'table:public.measurements',
+        'name': 'public.measurements',
+        'columns': [
+            'id',
+            'device_id',
+            'timestamp',
+            'controlled_property',
+            'value',
+            'raw_value',
+            'location'
+        ]
+    }
+
+    clean_nodes.append(measurements_table_node)
     
     # Create clean graph
     clean_graph_data = {
@@ -109,31 +128,14 @@ def clean_graph(input_file='grafo_agricolo.json', output_file='grafo_pulito_v0.j
     print(f"Clean graph saved to '{output_file}'")
     print(f"  Nodes: {len(clean_nodes)}")
     
-    # Statistics
-    node_types = {}
-    nodes_with_devices = 0
-    
-    for node in clean_nodes:
-        label = node['label']
-        node_types[label] = node_types.get(label, 0) + 1
-        if 'hasDevice' in node['properties']:
-            nodes_with_devices += 1
-    
-    print(f"\n  Node types:")
-    for node_type, count in node_types.items():
-        print(f"  - {node_type}: {count}")
-    
-    print(f"\n  Nodes with hasDevice: {nodes_with_devices}")
-    
-    
     return clean_graph_data
 
 if __name__ == "__main__":
     import sys
     
     # You can pass file names as arguments
-    input_file = sys.argv[1] if len(sys.argv) > 1 else 'Agri_graph.json'
-    output_file = sys.argv[2] if len(sys.argv) > 2 else 'graphV2.json'
+    input_file = sys.argv[1] if len(sys.argv) > 1 else '../Graph/Agri_graph.json'
+    output_file = sys.argv[2] if len(sys.argv) > 2 else 'graphV2p.json'
     
     print(f"Input: {input_file}")
     print(f"Output: {output_file}\n")
