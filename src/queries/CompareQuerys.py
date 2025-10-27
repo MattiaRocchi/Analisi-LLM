@@ -37,7 +37,7 @@ def normalize_query(query):
     if query is None:
         return ""
     # Remove leading/trailing whitespace and normalize internal whitespace
-    return ' '.join(query.strip().split())
+    return ' '.join(query.strip().split()).lower()
 
 def compare_queries(ground_truth_file, llm_output_file, output_file='query_differences.txt'):
     """
