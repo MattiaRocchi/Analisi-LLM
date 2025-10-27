@@ -708,8 +708,7 @@
         ],
         "controlledProperty": [
           "soilMoisture"
-        ],
-        "hasMeasurements": true
+        ]
       }
     },
     {
