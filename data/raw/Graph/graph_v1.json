@@ -1,7 +1,6 @@
 {
   "nodes": [
     {
-      "label": "AgriFarm",
       "properties": {
         "id": "urn:ngsi-ld:AgriFarm:unibo:c29ee13f6e871b9588c9b3d58e43df23",
         "name": "ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA",
@@ -12,10 +11,10 @@
           "urn:ngsi-ld:AgriParcel:unibo:2de48d8524fbe1867ae9b7f1979e87ad",
           "urn:ngsi-ld:AgriParcel:unibo:102220a008cba90174069a0c12d5c212"
         ]
-      }
+      },
+      "label": "AgriFarm"
     },
     {
-      "label": "AgriParcel",
       "properties": {
         "id": "urn:ngsi-ld:AgriParcel:unibo:647c399b2188ff484f7416389f94885c",
         "name": "Fondo Errano 2024 T0",
@@ -27,10 +26,10 @@
           "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
           "urn:ngsi-ld:Device:unibo:a316ef4f55a925842cca39af7280f4d8"
         ]
-      }
+      },
+      "label": "AgriParcel"
     },
     {
-      "label": "AgriParcel",
       "properties": {
         "id": "urn:ngsi-ld:AgriParcel:unibo:2de48d8524fbe1867ae9b7f1979e87ad",
         "name": "Fondo Errano 2024 T2",
@@ -44,10 +43,10 @@
           "urn:ngsi-ld:Device:unibo:584cdee35107b5f7d9774433be67a661",
           "urn:ngsi-ld:Device:unibo:2d6b0e0c8c57f720c48fcb40563b4401"
         ]
-      }
+      },
+      "label": "AgriParcel"
     },
     {
-      "label": "AgriParcel",
       "properties": {
         "id": "urn:ngsi-ld:AgriParcel:unibo:102220a008cba90174069a0c12d5c212",
         "name": "Fondo Errano 2024 T1",
@@ -61,10 +60,10 @@
           "urn:ngsi-ld:Device:unibo:a4f623ee3a7cec264df7af733c3b58e4",
           "urn:ngsi-ld:Device:unibo:ace4b1adb69da4c71c3e02e6509e859e"
         ]
-      }
+      },
+      "label": "AgriParcel"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 50,
         "y": -60,
@@ -78,10 +77,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 80,
         "y": -60,
@@ -95,10 +94,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 0,
         "y": -40,
@@ -112,10 +111,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "id": "urn:ngsi-ld:Device:unibo:a316ef4f55a925842cca39af7280f4d8",
         "name": "Dripper Fondo Errano 2024 T0 T0",
@@ -130,10 +129,10 @@
         "controlledProperty": [
           "dripper"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "id": "urn:ngsi-ld:Device:unibo:e0a35eede1bd643062e7e83011896ef2",
         "name": "Dripper Fondo Errano 2024 T1 T1 alto",
@@ -148,10 +147,10 @@
         "controlledProperty": [
           "dripper"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "id": "urn:ngsi-ld:Device:unibo:4706ab32adba82399acb21d45489535c",
         "name": "Dripper Fondo Errano 2024 T1 T1 basso",
@@ -166,10 +165,10 @@
         "controlledProperty": [
           "dripper"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "id": "urn:ngsi-ld:Device:unibo:bc8f7461962ba09c7d9574a068c8780a",
         "name": "Dripper Fondo Errano 2024 T2 T2 alto",
@@ -184,10 +183,10 @@
         "controlledProperty": [
           "dripper"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "id": "urn:ngsi-ld:Device:unibo:aaaa7adc8f8a91bcaee40f7528877b53",
         "name": "Dripper Fondo Errano 2024 T2 T2 basso",
@@ -202,10 +201,10 @@
         "controlledProperty": [
           "dripper"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "id": "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
         "name": "Soil moisture sensor grid Fondo Errano 2024 T0 T0",
@@ -225,10 +224,10 @@
           "urn:ngsi-ld:Device:unibo:ea878798346b626a88d88e29b7f9ea34",
           "urn:ngsi-ld:Device:unibo:13e6e314d9b9c5eacfa444358261f077"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 0,
         "y": -20,
@@ -242,10 +241,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 25,
         "y": -20,
@@ -259,10 +258,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 50,
         "y": -20,
@@ -276,10 +275,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 80,
         "y": -20,
@@ -293,10 +292,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 0,
         "y": -60,
@@ -310,10 +309,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 25,
         "y": -60,
@@ -327,10 +326,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 25,
         "y": -40,
@@ -344,10 +343,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 50,
         "y": -40,
@@ -361,10 +360,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 80,
         "y": -40,
@@ -378,10 +377,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "id": "urn:ngsi-ld:Device:unibo:a4f623ee3a7cec264df7af733c3b58e4",
         "name": "Soil moisture sensor grid Fondo Errano 2024 T1 T1 alto",
@@ -401,10 +400,10 @@
           "urn:ngsi-ld:Device:unibo:eaa5ed03c90067ea6f7827163f373121",
           "urn:ngsi-ld:Device:unibo:27b5d273f42f4ca161abda3c475193c4"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 80,
         "y": -20,
@@ -418,10 +417,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 80,
         "y": -40,
@@ -435,10 +434,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 0,
         "y": -20,
@@ -452,10 +451,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 0,
         "y": -40,
@@ -469,10 +468,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 80,
         "y": -60,
@@ -486,10 +485,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": -80,
         "y": -20,
@@ -503,10 +502,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": -25,
         "y": -40,
@@ -520,10 +519,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 26,
         "y": -60,
@@ -537,10 +536,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": -80,
         "y": -40,
@@ -554,10 +553,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": -80,
         "y": -60,
@@ -571,10 +570,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 0,
         "y": -60,
@@ -588,10 +587,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": -25,
         "y": -20,
@@ -605,10 +604,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "id": "urn:ngsi-ld:Device:unibo:ace4b1adb69da4c71c3e02e6509e859e",
         "name": "Soil moisture sensor grid Fondo Errano 2024 T1 T1 basso",
@@ -624,10 +623,10 @@
           "urn:ngsi-ld:Device:unibo:b75d85c1d0a8556889ed0edb2125254d",
           "urn:ngsi-ld:Device:unibo:b44e173125a6aec1d1ce19d4fa7a06f7"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 0,
         "y": -20,
@@ -641,10 +640,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 25,
         "y": -20,
@@ -658,10 +657,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 50,
         "y": -20,
@@ -675,10 +674,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 80,
         "y": -20,
@@ -692,10 +691,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 50,
         "y": -60,
@@ -709,10 +708,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 80,
         "y": -60,
@@ -726,10 +725,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 0,
         "y": -60,
@@ -743,10 +742,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 25,
         "y": -60,
@@ -760,10 +759,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "id": "urn:ngsi-ld:Device:unibo:584cdee35107b5f7d9774433be67a661",
         "name": "Soil moisture sensor grid Fondo Errano 2024 T2 T2 alto",
@@ -783,10 +782,10 @@
           "urn:ngsi-ld:Device:unibo:982ebb7c2cded9794c60b636f726710b",
           "urn:ngsi-ld:Device:unibo:cd1164af506ac55a816e19370c9310dd"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 0,
         "y": -40,
@@ -800,10 +799,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 100,
         "y": -40,
@@ -817,10 +816,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 35,
         "y": -40,
@@ -834,10 +833,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 65,
         "y": -40,
@@ -851,10 +850,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 0,
         "y": -20,
@@ -868,10 +867,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 100,
         "y": -20,
@@ -885,10 +884,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 35,
         "y": -20,
@@ -902,10 +901,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 65,
         "y": -20,
@@ -919,10 +918,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 100,
         "y": -60,
@@ -936,10 +935,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 35,
         "y": -60,
@@ -953,10 +952,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 65,
         "y": -60,
@@ -970,10 +969,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 0,
         "y": -60,
@@ -987,10 +986,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "id": "urn:ngsi-ld:Device:unibo:2d6b0e0c8c57f720c48fcb40563b4401",
         "name": "Soil moisture sensor grid Fondo Errano 2024 T2 T2 basso",
@@ -1010,10 +1009,10 @@
           "urn:ngsi-ld:Device:unibo:43ef95eede19014fc817fdc81e0ff76e",
           "urn:ngsi-ld:Device:unibo:578e326ffc1428e78fe44418300b816e"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 100,
         "y": -20,
@@ -1027,10 +1026,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 35,
         "y": -20,
@@ -1044,10 +1043,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 65,
         "y": -20,
@@ -1061,10 +1060,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 0,
         "y": -20,
@@ -1078,10 +1077,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 0,
         "y": -60,
@@ -1095,10 +1094,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 100,
         "y": -60,
@@ -1112,10 +1111,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 35,
         "y": -60,
@@ -1129,10 +1128,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 65,
         "y": -60,
@@ -1146,10 +1145,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 0,
         "y": -40,
@@ -1163,10 +1162,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 100,
         "y": -40,
@@ -1180,10 +1179,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 35,
         "y": -40,
@@ -1197,10 +1196,10 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     },
     {
-      "label": "Device",
       "properties": {
         "x": 65,
         "y": -40,
@@ -1214,7 +1213,8 @@
         "controlledProperty": [
           "soilMoisture"
         ]
-      }
+      },
+      "label": "Device"
     }
   ],
   "edges": [

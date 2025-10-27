@@ -1,18 +1,11 @@
 import yaml
 import argparse
 from difflib import unified_diff
-import os
 from datetime import datetime
 
 def load_yaml_file(file_path):
     """
     Load and parse a YAML file
-    
-    Args:
-        file_path: Path to the YAML file
-    
-    Returns:
-        Parsed YAML content as a dictionary
     """
     try:
         with open(file_path, 'r', encoding='utf-8') as file:
@@ -27,12 +20,6 @@ def load_yaml_file(file_path):
 def normalize_query(query):
     """
     Normalize a query string for comparison by removing extra whitespace
-    
-    Args:
-        query: SQL/Cypher query string
-    
-    Returns:
-        Normalized query string
     """
     if query is None:
         return ""
@@ -42,11 +29,6 @@ def normalize_query(query):
 def compare_queries(ground_truth_file, llm_output_file, output_file='query_differences.txt'):
     """
     Compare queries from LLM output with ground truth and generate a difference report
-    
-    Args:
-        ground_truth_file: Path to the ground truth YAML file
-        llm_output_file: Path to the LLM generated YAML file
-        output_file: Path for the output difference report
     """
     # Load both YAML files
     ground_truth = load_yaml_file(ground_truth_file)
@@ -74,7 +56,7 @@ def compare_queries(ground_truth_file, llm_output_file, output_file='query_diffe
         out_file.write(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
         out_file.write(f"Ground Truth File: {ground_truth_file}\n")
         out_file.write(f"LLM Output File: {llm_output_file}\n")
-        out_file.write("=" * 80 + "\n\n")
+        out_file.write("=" * 80 + "\n")
         
         # Get all unique query IDs
         all_ids = sorted(set(list(gt_queries.keys()) + list(llm_queries.keys())))
@@ -166,12 +148,7 @@ def main():
     """
     parser = argparse.ArgumentParser(
         description='Compare LLM generated queries with ground truth queries',
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="""
-Examples:
-  python compare_queries.py llm_output.yaml
-  python compare_queries.py llm_output.yaml -o custom_report.txt
-        """
+        formatter_class=argparse.RawDescriptionHelpFormatter
     )
     
     parser.add_argument(
@@ -183,14 +160,14 @@ Examples:
     parser.add_argument(
         '-o', '--output',
         type=str,
-        default='query_differences.txt',
+        default='../../output/queries/query_differences.txt',
         help='Path for the output difference report (default: query_differences.txt)'
     )
     
     args = parser.parse_args()
     
     # Ground truth file is fixed
-    ground_truth_file = '../File yaml/responses_groundTrue.yaml'
+    ground_truth_file = '../../prompts/queries/responses_groundTrue.yaml'
     
     # Display configuration
     print("=" * 80)
@@ -202,7 +179,7 @@ Examples:
     print("=" * 80 + "\n")
     
     # Run comparison
-    compare_queries(ground_truth_file, args.llm_file, args.output)
+    compare_queries(ground_truth_file, '../../output/responses/'+args.llm_file, args.output)
 
 if __name__ == "__main__":
     main()
