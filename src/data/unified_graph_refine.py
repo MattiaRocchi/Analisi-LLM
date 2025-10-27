@@ -49,8 +49,6 @@ def clean_graph_v0(graph_data):
             continue
         
         clean_node = {
-            'id': urn_id,
-            'label': node_type,
             'properties': {}
         }
         
@@ -144,7 +142,6 @@ def clean_graph_v1(graph_data):
             continue
         
         clean_node = {
-            'id': urn_id,
             'label': node_type,
             'properties': {}
         }
@@ -318,7 +315,7 @@ def process_all_graphs(input_file='Agri_graph.json',
     print(f" Saved to '{output_v2}'")
     print(f"    Nodes: {len(clean_v2['nodes'])}")
     
-    print("\n✓ All graphs generated successfully!")
+    print("\nAll graphs generated successfully!")
     
 
 if __name__ == "__main__":

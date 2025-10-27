@@ -1,0 +1,64 @@
+query_descriptions:
+  - id: Q1
+    nl_query: "Quanti AgriParcel appartengono alla AgriFarm con nome 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'?"
+
+  - id: Q2
+    nl_query: "Quali sono gli ID dei Device che appartengono all'AgriParcel 'Fondo Errano 2024 T0'?"
+
+  - id: Q3
+    nl_query: "Quali Device hanno controlledProperty 'soilMoisture'?"
+
+  - id: Q4
+    nl_query: "Trova tutti i sensori di umidità del suolo nell'azienda agricola ZESPRI."
+
+  - id: Q5
+    nl_query: "Quali sono i lotti dell'azienda che coltivano kiwi?"
+
+  - id: Q6
+    nl_query: "Elenca i dispositivi di irrigazione a goccia nel lotto T1."
+
+  - id: Q7
+    nl_query: "Quale sensore di umidità del suolo ha registrato il valore più basso? E qual è il valore?"
+
+  - id: Q8
+    nl_query: "Considerando le coordinate, qual è il sensore più vicino al punto (11.799, 44.235)?"
+
+  - id: Q9
+    nl_query: "Quale lotto ha più dispositivi? E quanti?"
+
+responses:
+  - id: Q1
+    query: |
+      -- Inserisci qui la query Cypher/SQL ibrida compatibile con db PostgreSQL che usa Apache AGE e postgres
+
+  - id: Q2
+    query: |
+      -- Inserisci qui la query Cypher/SQL ibrida compatibile con db PostgreSQL che usa Apache AGE e postgres
+
+  - id: Q3
+    query: |
+      -- Inserisci qui la query Cypher/SQL ibrida compatibile con db PostgreSQL che usa Apache AGE e postgres
+
+  - id: Q4
+    query: |
+      -- Inserisci qui la query Cypher/SQL ibrida compatibile con db PostgreSQL che usa Apache AGE e postgres
+
+  - id: Q5
+    query: |
+      -- Inserisci qui la query Cypher/SQL ibrida compatibile con db PostgreSQL che usa Apache AGE e postgres
+
+  - id: Q6
+    query: |
+      -- Inserisci qui la query Cypher/SQL ibrida compatibile con db PostgreSQL che usa Apache AGE e postgres
+
+  - id: Q7
+    query: |
+      -- Inserisci qui la query Cypher/SQL ibrida compatibile con db PostgreSQL che usa Apache AGE e postgres
+
+  - id: Q8
+    query: |
+      -- Inserisci qui la query Cypher/SQL ibrida compatibile con db PostgreSQL che usa Apache AGE e postgres
+
+  - id: Q9
+    query: |
+      -- Inserisci qui la query Cypher/SQL ibrida compatibile con db PostgreSQL che usa Apache AGE e postgres
