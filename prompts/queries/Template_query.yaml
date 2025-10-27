@@ -27,38 +27,6 @@ query_descriptions:
     nl_query: "Quale lotto ha più dispositivi? E quanti?"
 
 responses:
-  - id: Q1
-    query: |
-      -- Inserisci qui la query Cypher/SQL ibrida compatibile con db PostgreSQL che usa Apache AGE e postgres
-
-  - id: Q2
-    query: |
-      -- Inserisci qui la query Cypher/SQL ibrida compatibile con db PostgreSQL che usa Apache AGE e postgres
-
-  - id: Q3
-    query: |
-      -- Inserisci qui la query Cypher/SQL ibrida compatibile con db PostgreSQL che usa Apache AGE e postgres
-
-  - id: Q4
-    query: |
-      -- Inserisci qui la query Cypher/SQL ibrida compatibile con db PostgreSQL che usa Apache AGE e postgres
-
-  - id: Q5
-    query: |
-      -- Inserisci qui la query Cypher/SQL ibrida compatibile con db PostgreSQL che usa Apache AGE e postgres
-
-  - id: Q6
-    query: |
-      -- Inserisci qui la query Cypher/SQL ibrida compatibile con db PostgreSQL che usa Apache AGE e postgres
-
-  - id: Q7
-    query: |
-      -- Inserisci qui la query Cypher/SQL ibrida compatibile con db PostgreSQL che usa Apache AGE e postgres
-
-  - id: Q8
-    query: |
-      -- Inserisci qui la query Cypher/SQL ibrida compatibile con db PostgreSQL che usa Apache AGE e postgres
-
-  - id: Q9
+  - id: "Q numero id query"
     query: |
       -- Inserisci qui la query Cypher/SQL ibrida compatibile con db PostgreSQL che usa Apache AGE e postgres
