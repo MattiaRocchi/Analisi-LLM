@@ -1,0 +1,79 @@
+responses:
+  - id: Q1
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:hasDevice]->(p:AgriParcel)
+        RETURN count(p) as num_parcels
+      $$) as (num_parcels agtype);
+
+  - id: Q2
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH (p:AgriParcel {name: 'Fondo Errano 2024 T0'})-[:hasDevice]->(d:Device)
+        RETURN d.id as device_id
+      $$) as (device_id agtype);
+
+  - id: Q3
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH (d:Device)
+        WHERE 'soilMoisture' IN d.controlledProperty
+        RETURN d
+      $$) as (d agtype);
+
+  - id: Q4
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:hasDevice*]->(d:Device)
+        WHERE 'soilMoisture' IN d.controlledProperty
+        RETURN d
+      $$) as (d agtype);
+
+  - id: Q5
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:hasDevice]->(p:AgriParcel)
+        WHERE p.colture = 'Kiwi G3'
+        RETURN p
+      $$) as (p agtype);
+
+  - id: Q6
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH (p:AgriParcel)-[:hasDevice]->(d:Device)
+        WHERE p.name CONTAINS 'T1' AND 'dripper' IN d.controlledProperty
+        RETURN d
+      $$) as (d agtype);
+
+  - id: Q7
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH (d:Device)
+        WHERE 'soilMoisture' IN d.controlledProperty AND d.value IS NOT NULL
+        WITH d, d.value[0] as moisture_value
+        ORDER BY moisture_value ASC
+        LIMIT 1
+        RETURN d.id as sensor_id, moisture_value
+      $$) as (sensor_id agtype, moisture_value agtype);
+
+  - id: Q8
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH (d:Device)
+        WHERE d.location IS NOT NULL
+        WITH d, point({longitude: 11.799, latitude: 44.235}) as target_point
+        WITH d, target_point, point.distance(point({longitude: split(replace(replace(d.location, 'POINT (', ''), ')', ''), ' ')[0]::float, latitude: split(replace(replace(d.location, 'POINT (', ''), ')', ''), ' ')[1]::float}), target_point) as distance
+        ORDER BY distance ASC
+        LIMIT 1
+        RETURN d.id as sensor_id, distance
+      $$) as (sensor_id agtype, distance agtype);
+
+  - id: Q9
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH (p:AgriParcel)-[:hasDevice]->(d:Device)
+        WITH p, count(d) as device_count
+        ORDER BY device_count DESC
+        LIMIT 1
+        RETURN p.name as parcel_name, device_count
+      $$) as (parcel_name agtype, device_count agtype);
