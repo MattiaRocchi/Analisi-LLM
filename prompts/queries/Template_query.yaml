@@ -25,6 +25,9 @@ query_descriptions:
 
   - id: Q9
     nl_query: "Quale lotto ha più dispositivi? E quanti?"
+    
+  - id: Q10
+    description: "Trova la temperatura minima, e dimmi a che device appartiene!"
 
 responses:
   - id: "Q numero id query"
