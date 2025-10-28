@@ -1,0 +1,381 @@
+================================================================================
+QUERY COMPARISON REPORT
+Generated: 2025-10-28 09:20:47
+Ground Truth File: ../../prompts/queries/responses_groundTrue.yaml
+LLM Output File: ../../output/responses/Claude.yaml
+================================================================================
+
+================================================================================
+DIFFERENCE FOUND - Query ID: Q1
+================================================================================
+
+GROUND TRUTH QUERY:
+--------------------------------------------------------------------------------
+SELECT COUNT(*) AS num_parcels FROM cypher('agri_graph', $$
+  MATCH (farm:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:hasDevice]->(parcel:AgriParcel)
+  RETURN COUNT(parcel) AS num_parcels
+$$) AS (num_parcels agtype);
+
+LLM GENERATED QUERY:
+--------------------------------------------------------------------------------
+SELECT * FROM cypher('agri_graph', $$
+  MATCH (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:hasDevice]->(p:AgriParcel)
+  RETURN count(p) as num_parcels
+$$) as (num_parcels agtype);
+
+DETAILED DIFF:
+--------------------------------------------------------------------------------
+--- Ground Truth
++++ LLM Output
+@@ -1,4 +1,4 @@
+-SELECT COUNT(*) AS num_parcels FROM cypher('agri_graph', $$
+-  MATCH (farm:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:hasDevice]->(parcel:AgriParcel)
+-  RETURN COUNT(parcel) AS num_parcels
+-$$) AS (num_parcels agtype);
++SELECT * FROM cypher('agri_graph', $$
++  MATCH (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:hasDevice]->(p:AgriParcel)
++  RETURN count(p) as num_parcels
++$$) as (num_parcels agtype);
+
+
+================================================================================
+DIFFERENCE FOUND - Query ID: Q2
+================================================================================
+
+GROUND TRUTH QUERY:
+--------------------------------------------------------------------------------
+SELECT device_id FROM cypher('agri_graph', $$
+  MATCH (parcel:AgriParcel {name: 'Fondo Errano 2024 T0'})-[:hasDevice]->(device:Device)
+  RETURN device.id AS device_id
+$$) AS (device_id agtype);
+
+LLM GENERATED QUERY:
+--------------------------------------------------------------------------------
+SELECT * FROM cypher('agri_graph', $$
+  MATCH (p:AgriParcel {name: 'Fondo Errano 2024 T0'})-[:hasDevice]->(d:Device)
+  RETURN d.id as device_id
+$$) as (device_id agtype);
+
+DETAILED DIFF:
+--------------------------------------------------------------------------------
+--- Ground Truth
++++ LLM Output
+@@ -1,4 +1,4 @@
+-SELECT device_id FROM cypher('agri_graph', $$
+-  MATCH (parcel:AgriParcel {name: 'Fondo Errano 2024 T0'})-[:hasDevice]->(device:Device)
+-  RETURN device.id AS device_id
+-$$) AS (device_id agtype);
++SELECT * FROM cypher('agri_graph', $$
++  MATCH (p:AgriParcel {name: 'Fondo Errano 2024 T0'})-[:hasDevice]->(d:Device)
++  RETURN d.id as device_id
++$$) as (device_id agtype);
+
+
+================================================================================
+DIFFERENCE FOUND - Query ID: Q3
+================================================================================
+
+GROUND TRUTH QUERY:
+--------------------------------------------------------------------------------
+SELECT device_id, device_name FROM cypher('agri_graph', $$
+  MATCH (device:Device)
+  WHERE device.name CONTAINS 'Ges v' OR device.name CONTAINS 'Soil moisture'
+  RETURN device.id AS device_id, device.name AS device_name
+$$) AS (device_id agtype, device_name agtype);
+
+LLM GENERATED QUERY:
+--------------------------------------------------------------------------------
+SELECT * FROM cypher('agri_graph', $$
+  MATCH (d:Device)
+  WHERE 'soilMoisture' IN d.controlledProperty
+  RETURN d
+$$) as (d agtype);
+
+DETAILED DIFF:
+--------------------------------------------------------------------------------
+--- Ground Truth
++++ LLM Output
+@@ -1,5 +1,5 @@
+-SELECT device_id, device_name FROM cypher('agri_graph', $$
+-  MATCH (device:Device)
+-  WHERE device.name CONTAINS 'Ges v' OR device.name CONTAINS 'Soil moisture'
+-  RETURN device.id AS device_id, device.name AS device_name
+-$$) AS (device_id agtype, device_name agtype);
++SELECT * FROM cypher('agri_graph', $$
++  MATCH (d:Device)
++  WHERE 'soilMoisture' IN d.controlledProperty
++  RETURN d
++$$) as (d agtype);
+
+
+================================================================================
+DIFFERENCE FOUND - Query ID: Q4
+================================================================================
+
+GROUND TRUTH QUERY:
+--------------------------------------------------------------------------------
+SELECT device_id, device_name, parcel_name FROM cypher('agri_graph', $$
+  MATCH (farm:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:hasDevice]->(parcel:AgriParcel)-[:hasDevice]->(sensor:Device)
+  WHERE sensor.name CONTAINS 'Ges v' OR sensor.name CONTAINS 'Soil moisture'
+  RETURN sensor.id AS device_id, sensor.name AS device_name, parcel.name AS parcel_name
+$$) AS (device_id agtype, device_name agtype, parcel_name agtype);
+
+LLM GENERATED QUERY:
+--------------------------------------------------------------------------------
+SELECT * FROM cypher('agri_graph', $$
+  MATCH (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:hasDevice*]->(d:Device)
+  WHERE 'soilMoisture' IN d.controlledProperty
+  RETURN d
+$$) as (d agtype);
+
+DETAILED DIFF:
+--------------------------------------------------------------------------------
+--- Ground Truth
++++ LLM Output
+@@ -1,5 +1,5 @@
+-SELECT device_id, device_name, parcel_name FROM cypher('agri_graph', $$
+-  MATCH (farm:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:hasDevice]->(parcel:AgriParcel)-[:hasDevice]->(sensor:Device)
+-  WHERE sensor.name CONTAINS 'Ges v' OR sensor.name CONTAINS 'Soil moisture'
+-  RETURN sensor.id AS device_id, sensor.name AS device_name, parcel.name AS parcel_name
+-$$) AS (device_id agtype, device_name agtype, parcel_name agtype);
++SELECT * FROM cypher('agri_graph', $$
++  MATCH (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:hasDevice*]->(d:Device)
++  WHERE 'soilMoisture' IN d.controlledProperty
++  RETURN d
++$$) as (d agtype);
+
+
+================================================================================
+DIFFERENCE FOUND - Query ID: Q5
+================================================================================
+
+GROUND TRUTH QUERY:
+--------------------------------------------------------------------------------
+SELECT parcel_name FROM cypher('agri_graph', $$
+  MATCH (farm:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:hasDevice]->(parcel:AgriParcel)
+  RETURN parcel.name AS parcel_name
+$$) AS (parcel_name agtype);
+
+LLM GENERATED QUERY:
+--------------------------------------------------------------------------------
+SELECT * FROM cypher('agri_graph', $$
+  MATCH (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:hasDevice]->(p:AgriParcel)
+  WHERE p.colture = 'Kiwi G3'
+  RETURN p
+$$) as (p agtype);
+
+DETAILED DIFF:
+--------------------------------------------------------------------------------
+--- Ground Truth
++++ LLM Output
+@@ -1,4 +1,5 @@
+-SELECT parcel_name FROM cypher('agri_graph', $$
+-  MATCH (farm:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:hasDevice]->(parcel:AgriParcel)
+-  RETURN parcel.name AS parcel_name
+-$$) AS (parcel_name agtype);
++SELECT * FROM cypher('agri_graph', $$
++  MATCH (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:hasDevice]->(p:AgriParcel)
++  WHERE p.colture = 'Kiwi G3'
++  RETURN p
++$$) as (p agtype);
+
+
+================================================================================
+DIFFERENCE FOUND - Query ID: Q6
+================================================================================
+
+GROUND TRUTH QUERY:
+--------------------------------------------------------------------------------
+SELECT device_id, device_name FROM cypher('agri_graph', $$
+  MATCH (parcel:AgriParcel {name: 'Fondo Errano 2024 T1'})-[:hasDevice]->(device:Device)
+  WHERE device.name CONTAINS 'Dripper'
+  RETURN device.id AS device_id, device.name AS device_name
+$$) AS (device_id agtype, device_name agtype);
+
+LLM GENERATED QUERY:
+--------------------------------------------------------------------------------
+SELECT * FROM cypher('agri_graph', $$
+  MATCH (p:AgriParcel)-[:hasDevice]->(d:Device)
+  WHERE p.name CONTAINS 'T1' AND 'dripper' IN d.controlledProperty
+  RETURN d
+$$) as (d agtype);
+
+DETAILED DIFF:
+--------------------------------------------------------------------------------
+--- Ground Truth
++++ LLM Output
+@@ -1,5 +1,5 @@
+-SELECT device_id, device_name FROM cypher('agri_graph', $$
+-  MATCH (parcel:AgriParcel {name: 'Fondo Errano 2024 T1'})-[:hasDevice]->(device:Device)
+-  WHERE device.name CONTAINS 'Dripper'
+-  RETURN device.id AS device_id, device.name AS device_name
+-$$) AS (device_id agtype, device_name agtype);
++SELECT * FROM cypher('agri_graph', $$
++  MATCH (p:AgriParcel)-[:hasDevice]->(d:Device)
++  WHERE p.name CONTAINS 'T1' AND 'dripper' IN d.controlledProperty
++  RETURN d
++$$) as (d agtype);
+
+
+================================================================================
+DIFFERENCE FOUND - Query ID: Q7
+================================================================================
+
+GROUND TRUTH QUERY:
+--------------------------------------------------------------------------------
+SELECT device_id, device_name FROM cypher('agri_graph', $$
+  MATCH (sensor:Device)
+  WHERE sensor.name CONTAINS 'Ges v' OR sensor.name CONTAINS 'Soil moisture'
+  RETURN sensor.id AS device_id, sensor.name AS device_name
+  LIMIT 1
+$$) AS (device_id agtype, device_name agtype);
+
+LLM GENERATED QUERY:
+--------------------------------------------------------------------------------
+SELECT * FROM cypher('agri_graph', $$
+  MATCH (d:Device)
+  WHERE 'soilMoisture' IN d.controlledProperty AND d.value IS NOT NULL
+  WITH d, d.value[0] as moisture_value
+  ORDER BY moisture_value ASC
+  LIMIT 1
+  RETURN d.id as sensor_id, moisture_value
+$$) as (sensor_id agtype, moisture_value agtype);
+
+DETAILED DIFF:
+--------------------------------------------------------------------------------
+--- Ground Truth
++++ LLM Output
+@@ -1,6 +1,8 @@
+-SELECT device_id, device_name FROM cypher('agri_graph', $$
+-  MATCH (sensor:Device)
+-  WHERE sensor.name CONTAINS 'Ges v' OR sensor.name CONTAINS 'Soil moisture'
+-  RETURN sensor.id AS device_id, sensor.name AS device_name
++SELECT * FROM cypher('agri_graph', $$
++  MATCH (d:Device)
++  WHERE 'soilMoisture' IN d.controlledProperty AND d.value IS NOT NULL
++  WITH d, d.value[0] as moisture_value
++  ORDER BY moisture_value ASC
+   LIMIT 1
+-$$) AS (device_id agtype, device_name agtype);
++  RETURN d.id as sensor_id, moisture_value
++$$) as (sensor_id agtype, moisture_value agtype);
+
+
+================================================================================
+DIFFERENCE FOUND - Query ID: Q8
+================================================================================
+
+GROUND TRUTH QUERY:
+--------------------------------------------------------------------------------
+SELECT device_id, device_name, location FROM cypher('agri_graph', $$
+  MATCH (device:Device)
+  WHERE device.location IS NOT NULL
+  WITH device, 
+       split(split(device.location, '(')[1], ' ')[0] AS lon_str,
+       split(split(split(device.location, '(')[1], ' ')[1], ')')[0] AS lat_str
+  WITH device, 
+       toFloat(lon_str) AS lon, 
+       toFloat(lat_str) AS lat,
+       sqrt((lon - 11.799)^2 + (lat - 44.235)^2) AS distance
+  RETURN device.id AS device_id, device.name AS device_name, device.location AS location
+  ORDER BY distance ASC 
+  LIMIT 1
+$$) AS (device_id agtype, device_name agtype, location agtype);
+
+LLM GENERATED QUERY:
+--------------------------------------------------------------------------------
+SELECT * FROM cypher('agri_graph', $$
+  MATCH (d:Device)
+  WHERE d.location IS NOT NULL
+  WITH d, point({longitude: 11.799, latitude: 44.235}) as target_point
+  WITH d, target_point, point.distance(point({longitude: split(replace(replace(d.location, 'POINT (', ''), ')', ''), ' ')[0]::float, latitude: split(replace(replace(d.location, 'POINT (', ''), ')', ''), ' ')[1]::float}), target_point) as distance
+  ORDER BY distance ASC
+  LIMIT 1
+  RETURN d.id as sensor_id, distance
+$$) as (sensor_id agtype, distance agtype);
+
+DETAILED DIFF:
+--------------------------------------------------------------------------------
+--- Ground Truth
++++ LLM Output
+@@ -1,14 +1,9 @@
+-SELECT device_id, device_name, location FROM cypher('agri_graph', $$
+-  MATCH (device:Device)
+-  WHERE device.location IS NOT NULL
+-  WITH device, 
+-       split(split(device.location, '(')[1], ' ')[0] AS lon_str,
+-       split(split(split(device.location, '(')[1], ' ')[1], ')')[0] AS lat_str
+-  WITH device, 
+-       toFloat(lon_str) AS lon, 
+-       toFloat(lat_str) AS lat,
+-       sqrt((lon - 11.799)^2 + (lat - 44.235)^2) AS distance
+-  RETURN device.id AS device_id, device.name AS device_name, device.location AS location
+-  ORDER BY distance ASC 
++SELECT * FROM cypher('agri_graph', $$
++  MATCH (d:Device)
++  WHERE d.location IS NOT NULL
++  WITH d, point({longitude: 11.799, latitude: 44.235}) as target_point
++  WITH d, target_point, point.distance(point({longitude: split(replace(replace(d.location, 'POINT (', ''), ')', ''), ' ')[0]::float, latitude: split(replace(replace(d.location, 'POINT (', ''), ')', ''), ' ')[1]::float}), target_point) as distance
++  ORDER BY distance ASC
+   LIMIT 1
+-$$) AS (device_id agtype, device_name agtype, location agtype);
++  RETURN d.id as sensor_id, distance
++$$) as (sensor_id agtype, distance agtype);
+
+
+================================================================================
+DIFFERENCE FOUND - Query ID: Q9
+================================================================================
+
+GROUND TRUTH QUERY:
+--------------------------------------------------------------------------------
+SELECT parcel_name, device_count
+FROM cypher('agri_graph', $$
+  MATCH (farm:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:hasDevice]->(parcel:AgriParcel)
+  OPTIONAL MATCH (parcel)-[:hasDevice]->(device:Device)
+  WITH parcel, COUNT(device) AS device_count
+  RETURN parcel.name AS parcel_name, device_count
+  ORDER BY device_count DESC 
+  LIMIT 1
+$$) AS (parcel_name agtype, device_count agtype);
+
+LLM GENERATED QUERY:
+--------------------------------------------------------------------------------
+SELECT * FROM cypher('agri_graph', $$
+  MATCH (p:AgriParcel)-[:hasDevice]->(d:Device)
+  WITH p, count(d) as device_count
+  ORDER BY device_count DESC
+  LIMIT 1
+  RETURN p.name as parcel_name, device_count
+$$) as (parcel_name agtype, device_count agtype);
+
+DETAILED DIFF:
+--------------------------------------------------------------------------------
+--- Ground Truth
++++ LLM Output
+@@ -1,9 +1,7 @@
+-SELECT parcel_name, device_count
+-FROM cypher('agri_graph', $$
+-  MATCH (farm:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:hasDevice]->(parcel:AgriParcel)
+-  OPTIONAL MATCH (parcel)-[:hasDevice]->(device:Device)
+-  WITH parcel, COUNT(device) AS device_count
+-  RETURN parcel.name AS parcel_name, device_count
+-  ORDER BY device_count DESC 
++SELECT * FROM cypher('agri_graph', $$
++  MATCH (p:AgriParcel)-[:hasDevice]->(d:Device)
++  WITH p, count(d) as device_count
++  ORDER BY device_count DESC
+   LIMIT 1
+-$$) AS (parcel_name agtype, device_count agtype);
++  RETURN p.name as parcel_name, device_count
++$$) as (parcel_name agtype, device_count agtype);
+
+
+================================================================================
+SUMMARY
+================================================================================
+Total queries compared: 9
+Queries in ground truth: 9
+Queries in LLM output: 9
+
+Differences detected - see details above
