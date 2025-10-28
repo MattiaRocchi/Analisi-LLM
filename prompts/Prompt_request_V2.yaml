@@ -1,0 +1,11 @@
+request: |
+  Questo è il grafo preso in esame, voglio che tu risponda alla seguenti query NL presenti nel file Template_query,
+  la risposta deve seguire la struttura del "responses" e deve essere la query ottenuta non il risultato della sua applicazione,
+  attenzione il testo deve essere pulito. Il grafo è stato ottenuto da questa query:
+  SELECT * FROM cypher('agri_graph', $$ match (m:AgriFarm {name : 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'}) - [r*] - (n) RETURN m, r, n $$) as (m agtype, r agtype, n agtype);
+  Questa query Cypher/SQL ibrida compatibile con db PostgreSQL che usa Apache AGE e postgres, cosi capisci bene come stiamo lavorando e ti dico anche che usiamo FIWERE.
+  Sappi che è presente anche un'altro schema che segue la seguente struttura:
+  public.measuremets, con le seguenti colonne: timestamp, device_id, controlled_property, location, value, raw_value.
+  La colonna device_id rappresenta il Device a cui fa riferimento quel dato.
+  Ora compreso ciò fai un file/risposta in formato yaml unica che contenga solo le "responses" con struttura presente nel Template.
+  Le risposte non devono avere caratteri aggiuntivi/trattini e non devono essere presenti note.

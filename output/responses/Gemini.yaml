@@ -51,4 +51,3 @@ responses:
       RETURN a.name, total_devices
       ORDER BY total_devices DESC
       LIMIT 1
-```
