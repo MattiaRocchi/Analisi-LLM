@@ -1,0 +1,54 @@
+responses:
+  - id: "Q1"
+    query: |
+      MATCH (m:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:hasDevice]->(n:AgriParcel)
+      RETURN count(n)
+  - id: "Q2"
+    query: |
+      MATCH (n:AgriParcel {name: 'Fondo Errano 2024 T0'})-[:hasDevice]->(d:Device)
+      RETURN d.id
+  - id: "Q3"
+    query: |
+      MATCH (n:Device)
+      WHERE 'soilMoisture' IN n.controlledProperty
+      RETURN DISTINCT n.name
+  - id: "Q4"
+    query: |
+      MATCH (m:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:hasDevice*]->(n:Device)
+      WHERE 'soilMoisture' IN n.controlledProperty
+      RETURN DISTINCT n.name
+  - id: "Q5"
+    query: |
+      MATCH (m:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:hasDevice]->(n:AgriParcel)
+      WHERE n.colture = 'Kiwi G3'
+      RETURN n.name
+  - id: "Q6"
+    query: |
+      MATCH (n:AgriParcel {name: 'Fondo Errano 2024 T1'})-[:hasDevice]->(d:Device)
+      WHERE 'dripper' IN d.controlledProperty
+      RETURN d.name
+  - id: "Q7"
+    query: |
+      MATCH (n:Device)
+      WHERE EXISTS(n.value) AND 'soilMoisture' IN n.controlledProperty
+      UNWIND n.value AS val
+      RETURN n.name, val
+      ORDER BY val
+      LIMIT 1
+  - id: "Q8"
+    query: |
+      MATCH (n:Device)
+      WHERE EXISTS(n.location)
+      WITH n, point({latitude: 44.235, longitude: 11.799}) AS target_point
+      RETURN n.name, point(n.location) AS sensor_point
+      ORDER BY distance(sensor_point, target_point)
+      LIMIT 1
+  - id: "Q9"
+    query: |
+      MATCH (a:AgriParcel)-[:hasDevice]->(d1:Device)
+      OPTIONAL MATCH (d1)-[:hasDevice]->(d2:Device)
+      WITH a, count(d1) + count(d2) AS total_devices
+      RETURN a.name, total_devices
+      ORDER BY total_devices DESC
+      LIMIT 1
+```
