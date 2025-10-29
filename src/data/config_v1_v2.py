@@ -17,7 +17,6 @@ config = GraphConfig(
         # Common fields for ALL node types
         'common': [
             'id',      # URN identifier
-            'name',    # Human-readable name
             'type',    # Entity type
         ],
        
