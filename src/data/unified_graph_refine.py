@@ -9,15 +9,7 @@ import config_v1_v2
 
 
 def _build_node_mappings(graph_data: Dict) -> Dict[str, str]:
-    """
-    Build mapping from node internal ID to URN identifier.
-   
-    Args:
-        graph_data: Original graph data
-       
-    Returns:
-        Dictionary mapping internal node IDs to URNs
-    """
+
     node_id_map = {}
     for node in graph_data['nodes']:
         urn_id = node['properties'].get('id')
@@ -27,16 +19,7 @@ def _build_node_mappings(graph_data: Dict) -> Dict[str, str]:
 
 
 def _build_has_device_map(graph_data: Dict, node_id_map: Dict[str, str]) -> Dict[str, List[str]]:
-    """
-    Build hasDevice relationship mapping from edges.
-   
-    Args:
-        graph_data: Original graph data
-        node_id_map: Mapping from internal IDs to URNs
-       
-    Returns:
-        Dictionary mapping parent URNs to list of child URNs
-    """
+
     has_device_map = {}
    
     for edge in graph_data['edges']:
@@ -68,19 +51,7 @@ def _clean_graph_base(graph_data: Dict, config: GraphConfig,
                      include_label: bool = False,
                      include_edges: bool = True,
                      skip_measurements: bool = True) -> Tuple[List[Dict], List[Dict]]:
-    """
-    Base function for graph cleaning that can be customized for different versions.
-   
-    Args:
-        graph_data: Original graph data
-        config: Configuration specifying fields to keep/exclude
-        include_label: Whether to include node labels in output
-        include_edges: Whether to include edges in output
-        skip_measurements: Whether to skip Measurement nodes
-       
-    Returns:
-        Tuple of (cleaned_nodes, cleaned_edges)
-    """
+    
     # Build mappings
     node_id_map = _build_node_mappings(graph_data)
     has_device_map = _build_has_device_map(graph_data, node_id_map)
@@ -90,10 +61,6 @@ def _clean_graph_base(graph_data: Dict, config: GraphConfig,
     # Process nodes
     for node in graph_data['nodes']:
         node_type = node['label']
-       
-        # Skip Measurement nodes if configured
-        if skip_measurements and node_type == 'Measurement':
-            continue
        
         urn_id = node['properties'].get('id')
         if not urn_id:
@@ -141,10 +108,7 @@ def _clean_graph_base(graph_data: Dict, config: GraphConfig,
 
 
 def clean_graph_v0(graph_data: Dict) -> Dict:
-    """
-    Generate V0 graph using configuration from config_v0.py
-    V0 is a minimal structure with basic schema information.
-    """
+
     config = config_v0.config
     clean_nodes, clean_edges = _clean_graph_base(
         graph_data=graph_data,
@@ -161,10 +125,7 @@ def clean_graph_v0(graph_data: Dict) -> Dict:
 
 
 def clean_graph_v1(graph_data: Dict) -> Dict:
-    """
-    Generate V1 graph using configuration from config_v1_v2.py
-    V1 includes detailed properties for each node type.
-    """
+
     config = config_v1_v2.config
     clean_nodes, clean_edges = _clean_graph_base(
         graph_data=graph_data,
@@ -181,12 +142,9 @@ def clean_graph_v1(graph_data: Dict) -> Dict:
 
 
 def clean_graph_v2(graph_data: Dict) -> Dict:
-    """
-    Generate V2 graph using configuration from config_v1_v2.py
-    V2 includes nodes with properties + measurements table reference.
-    """
+
     config = config_v1_v2.config
-    clean_nodes, _ = _clean_graph_base(
+    clean_nodes, clean_edges = _clean_graph_base(
         graph_data=graph_data,
         config=config,
         include_label=True,
@@ -199,7 +157,8 @@ def clean_graph_v2(graph_data: Dict) -> Dict:
         clean_nodes.append(config.measurements_table)
    
     return {
-        'nodes': clean_nodes
+        'nodes': clean_nodes,
+        'edges': clean_edges
     }
 
 
