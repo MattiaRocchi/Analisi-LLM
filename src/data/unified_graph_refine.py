@@ -113,7 +113,7 @@ def clean_graph_v0(graph_data: Dict) -> Dict:
     clean_nodes, clean_edges = _clean_graph_base(
         graph_data=graph_data,
         config=config,
-        include_label=False,
+        include_label=True,
         include_edges=True,
         skip_measurements=True
     )
@@ -148,7 +148,7 @@ def clean_graph_v2(graph_data: Dict) -> Dict:
         graph_data=graph_data,
         config=config,
         include_label=True,
-        include_edges=False,
+        include_edges=True,
         skip_measurements=True
     )
    
