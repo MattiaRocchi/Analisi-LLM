@@ -9,3 +9,4 @@ request: |
   La colonna device_id rappresenta il Device a cui fa riferimento quel dato.
   Ora compreso ciò fai un file/risposta in formato yaml unica che contenga solo le "responses" con struttura presente nel Template.
   Le risposte non devono avere caratteri aggiuntivi/trattini e non devono essere presenti note.
+  Le query delle risposte devono ritornare il grafo con nodi e archi! Non voglio altri tipi di dati.

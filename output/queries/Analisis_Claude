@@ -1,6 +1,100 @@
 {
-  "timestamp": "2025-11-03T10:13:54.277677",
   "gt_file": "../../prompts/queries/responses_groundTrue.yaml",
   "llm_file": "../../output/responses/Claude.yaml",
-  "comparisons": []
+  "comparisons": [
+    {
+      "query_id": "Q1",
+      "nodes_gt": 0,
+      "nodes_llm": 0,
+      "edges_gt": 0,
+      "edges_llm": 0,
+      "missing_llm": {
+        "nodes": [],
+        "edges": []
+      },
+      "extra_llm": {
+        "nodes": [],
+        "edges": []
+      }
+    },
+    {
+      "query_id": "Q10",
+      "error": {
+        "gt": "can't execute an empty query",
+        "llm": "function ANY does not exist\nLINE 1: SELECT * FROM cypher('agri_graph', $$\n                                            ^\nHINT:  If the function is from an external extension, make sure the extension is installed and the function is in the search path.\n"
+      }
+    },
+    {
+      "query_id": "Q2",
+      "nodes_gt": 0,
+      "nodes_llm": 0,
+      "edges_gt": 0,
+      "edges_llm": 0,
+      "missing_llm": {
+        "nodes": [],
+        "edges": []
+      },
+      "extra_llm": {
+        "nodes": [],
+        "edges": []
+      }
+    },
+    {
+      "query_id": "Q3",
+      "error": {
+        "gt": null,
+        "llm": "function ANY does not exist\nLINE 1: SELECT * FROM cypher('agri_graph', $$\n                                            ^\nHINT:  If the function is from an external extension, make sure the extension is installed and the function is in the search path.\n"
+      }
+    },
+    {
+      "query_id": "Q4",
+      "error": {
+        "gt": null,
+        "llm": "function ANY does not exist\nLINE 1: SELECT * FROM cypher('agri_graph', $$\n                                            ^\nHINT:  If the function is from an external extension, make sure the extension is installed and the function is in the search path.\n"
+      }
+    },
+    {
+      "query_id": "Q5",
+      "nodes_gt": 0,
+      "nodes_llm": 0,
+      "edges_gt": 0,
+      "edges_llm": 0,
+      "missing_llm": {
+        "nodes": [],
+        "edges": []
+      },
+      "extra_llm": {
+        "nodes": [],
+        "edges": []
+      }
+    },
+    {
+      "query_id": "Q6",
+      "error": {
+        "gt": null,
+        "llm": "function ANY does not exist\nLINE 1: SELECT * FROM cypher('agri_graph', $$\n                                            ^\nHINT:  If the function is from an external extension, make sure the extension is installed and the function is in the search path.\n"
+      }
+    },
+    {
+      "query_id": "Q7",
+      "error": {
+        "gt": null,
+        "llm": "function ANY does not exist\nLINE 1: SELECT * FROM cypher('agri_graph', $$\n                                            ^\nHINT:  If the function is from an external extension, make sure the extension is installed and the function is in the search path.\n"
+      }
+    },
+    {
+      "query_id": "Q8",
+      "error": {
+        "gt": null,
+        "llm": "schema \"point\" does not exist\nLINE 5:   WITH d, point.distance(point({latitude: toFloat(split(repl...\n                                ^\n"
+      }
+    },
+    {
+      "query_id": "Q9",
+      "error": {
+        "gt": null,
+        "llm": "could not find rte for deviceCount\nLINE 4:   ORDER BY deviceCount DESC LIMIT 1\n                   ^\n"
+      }
+    }
+  ]
 }

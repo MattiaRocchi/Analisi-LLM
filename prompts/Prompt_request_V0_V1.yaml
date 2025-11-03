@@ -6,3 +6,4 @@ request: |
   Questa query Cypher/SQL ibrida compatibile con db PostgreSQL che usa Apache AGE e postgres, cosi capisci bene come stiamo lavorando e ti dico anche che usiamo FIWERE.
   Ora compreso ciò fai un file/risposta in formato yaml unica che contenga solo le "responses" con struttura presente nel Template.
   Le risposte non devono avere caratteri aggiuntivi/trattini e non devono essere presenti note.
+  Le query delle risposte devono ritornare il grafo con nodi e archi! Non voglio altri tipi di dati.
