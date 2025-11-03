@@ -1,4 +1,4 @@
-from typing import Dict, List, Any, Set, Tuple
+from typing import Dict, List, Set, Tuple
 from config_dataclasses import ComparisonMetrics
 
 class CompareGraph:
@@ -32,6 +32,14 @@ class CompareGraph:
                         nodes.add(CompareGraph.normalize_node(value))
                     elif 'start_id' in value and 'end_id' in value:
                         edges.add(CompareGraph.normalize_edge(value))
+                        
+                elif isinstance(value, list):
+                    for item in value:
+                        if isinstance(item, dict):
+                            if 'id' in item and 'label' in item:
+                                nodes.add(CompareGraph.normalize_node(item))
+                            elif 'start_id' in item and 'end_id' in item:
+                                edges.add(CompareGraph.normalize_edge(item))
         
         return nodes, edges
     
@@ -60,5 +68,6 @@ class CompareGraph:
             nodes_llm=len(llm_nodes),
             edges_gt=len(gt_edges),
             edges_llm=len(llm_edges)
+        
         )
 
