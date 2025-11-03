@@ -18,7 +18,7 @@ responses_results:
       SELECT * FROM cypher('agri_graph', $$
         MATCH (device:Device)
         WHERE 'soilMoisture' IN device.controlledProperty
-        OPTIONAL MATCH (device)-[r]-(n)
+        OPTIONAL MATCH (device)-[r:hasDevice]->(n)
         RETURN device, r, n
       $$) AS (device agtype, r agtype, n agtype);
 
