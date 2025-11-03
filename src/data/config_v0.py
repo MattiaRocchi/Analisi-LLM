@@ -1,46 +1,32 @@
-"""
-Configuration file for Graph V0 (minimal structure)
-V0 includes only basic schema information without detailed properties.
-
-HOW TO USE:
-- Keep the properties you want in the lists below
-- Comment out or remove properties you don't want
-- 'common' fields apply to ALL node types
-- Type-specific fields apply only to that node type
-"""
-
 from config_dataclasses import GraphConfig
 
-# V0 Configuration - minimal structure
 config = GraphConfig(
     fields_to_keep={
         # Common fields for ALL node types
         'common': [
-            'id',      # URN identifier
-            'name',    # Human-readable name
-            # 'type',  # Entity type (uncomment if needed in V0)
+            'id',
+            'name',
         ],
        
         # AgriFarm specific fields
         'AgriFarm': [
-            'location',  # Geographic location
-            # Add more fields here if needed
+            #'location',
         ],
        
         # AgriParcel specific fields
         'AgriParcel': [
-            'location',  # Geographic location
-            # 'colture',              # Crop type (uncomment if needed)
-            # 'irrigationSystemType', # Irrigation system (uncomment if needed)
+            #'location',
+            # 'colture',
+            # 'irrigationSystemType',
         ],
        
         # Device specific fields
         'Device': [
-            'location',  # Geographic location
-            # 'value',              # Current value (uncomment if needed)
-            # 'controlledProperty', # What the device measures (uncomment if needed)
-            # 'deviceCategory',     # Device category (uncomment if needed)
-            # 'x', 'y', 'z',       # Coordinates (uncomment if needed)
+            #'location',
+            # 'value',
+            # 'controlledProperty',
+            # 'deviceCategory',
+            # 'x', 'y', 'z',
         ]
     },
     fields_to_exclude=[
@@ -62,7 +48,7 @@ config = GraphConfig(
         'belongsTo',
         'hasDevice',
         'hasAgriParcel',
-        'hasMeasurement',
+        'Measurement'
        
         # Properties better suited for V1/V2
         'type',

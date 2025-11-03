@@ -3,28 +3,18 @@
     {
       "properties": {
         "id": "urn:ngsi-ld:AgriFarm:unibo:c29ee13f6e871b9588c9b3d58e43df23",
-        "name": "ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA",
-        "type": "AgriFarm",
-        "location": "POLYGON ((11.798105 44.234354, 11.801217 44.237683, 11.805286 44.235809, 11.803987 44.234851, 11.804789 44.233683, 11.80268 44.231419, 11.798105 44.234354))",
-        "hasDevice": [
-          "urn:ngsi-ld:AgriParcel:unibo:647c399b2188ff484f7416389f94885c",
-          "urn:ngsi-ld:AgriParcel:unibo:2de48d8524fbe1867ae9b7f1979e87ad",
-          "urn:ngsi-ld:AgriParcel:unibo:102220a008cba90174069a0c12d5c212"
-        ]
+        "location": "POLYGON ((11.798105 44.234354, 11.801217 44.237683, 11.805286 44.235809, 11.803987 44.234851, 11.804789 44.233683, 11.80268 44.231419, 11.798105 44.234354))"
       },
       "label": "AgriFarm"
     },
     {
       "properties": {
         "id": "urn:ngsi-ld:AgriParcel:unibo:647c399b2188ff484f7416389f94885c",
-        "name": "Fondo Errano 2024 T0",
-        "type": "AgriParcel",
         "colture": "Kiwi G3",
         "location": "POLYGON ((11.798775 44.235004, 11.799136 44.235376, 11.800661 44.234333, 11.800189 44.234023, 11.798775 44.235004))",
         "irrigationSystemType": "Drip irrigation",
-        "hasDevice": [
-          "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
-          "urn:ngsi-ld:Device:unibo:a316ef4f55a925842cca39af7280f4d8"
+        "belongsTo": [
+          "urn:ngsi-ld:AgriFarm:unibo:c29ee13f6e871b9588c9b3d58e43df23"
         ]
       },
       "label": "AgriParcel"
@@ -32,16 +22,11 @@
     {
       "properties": {
         "id": "urn:ngsi-ld:AgriParcel:unibo:2de48d8524fbe1867ae9b7f1979e87ad",
-        "name": "Fondo Errano 2024 T2",
-        "type": "AgriParcel",
         "colture": "Kiwi G3",
         "location": "POLYGON ((11.799569 44.235609, 11.79977 44.235759, 11.801395 44.234782, 11.80108 44.234572, 11.799569 44.235609))",
         "irrigationSystemType": "Drip irrigation",
-        "hasDevice": [
-          "urn:ngsi-ld:Device:unibo:bc8f7461962ba09c7d9574a068c8780a",
-          "urn:ngsi-ld:Device:unibo:aaaa7adc8f8a91bcaee40f7528877b53",
-          "urn:ngsi-ld:Device:unibo:584cdee35107b5f7d9774433be67a661",
-          "urn:ngsi-ld:Device:unibo:2d6b0e0c8c57f720c48fcb40563b4401"
+        "belongsTo": [
+          "urn:ngsi-ld:AgriFarm:unibo:c29ee13f6e871b9588c9b3d58e43df23"
         ]
       },
       "label": "AgriParcel"
@@ -49,16 +34,11 @@
     {
       "properties": {
         "id": "urn:ngsi-ld:AgriParcel:unibo:102220a008cba90174069a0c12d5c212",
-        "name": "Fondo Errano 2024 T1",
-        "type": "AgriParcel",
         "colture": "Kiwi G3",
         "location": "POLYGON ((11.79915 44.235384, 11.799412 44.23567, 11.801042 44.234555, 11.800681 44.234343, 11.79915 44.235384))",
         "irrigationSystemType": "Drip irrigation",
-        "hasDevice": [
-          "urn:ngsi-ld:Device:unibo:e0a35eede1bd643062e7e83011896ef2",
-          "urn:ngsi-ld:Device:unibo:4706ab32adba82399acb21d45489535c",
-          "urn:ngsi-ld:Device:unibo:a4f623ee3a7cec264df7af733c3b58e4",
-          "urn:ngsi-ld:Device:unibo:ace4b1adb69da4c71c3e02e6509e859e"
+        "belongsTo": [
+          "urn:ngsi-ld:AgriFarm:unibo:c29ee13f6e871b9588c9b3d58e43df23"
         ]
       },
       "label": "AgriParcel"
@@ -69,8 +49,6 @@
         "y": -60,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:09bf3c00cdb036951340bc3de59b401b",
-        "name": "Ges v60_52",
-        "type": "Device",
         "value": [
           -23.72543126
         ],
@@ -86,8 +64,6 @@
         "y": -60,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:7c9ac3b27115a41c509ad71d20db4a88",
-        "name": "Ges v60_80",
-        "type": "Device",
         "value": [
           -28.325010716
         ],
@@ -103,8 +79,6 @@
         "y": -40,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:5d929b1bde23c5f6ef1b70201195701b",
-        "name": "Ges v40_0",
-        "type": "Device",
         "value": [
           -25.54639104
         ],
@@ -117,8 +91,6 @@
     {
       "properties": {
         "id": "urn:ngsi-ld:Device:unibo:a316ef4f55a925842cca39af7280f4d8",
-        "name": "Dripper Fondo Errano 2024 T0 T0",
-        "type": "Device",
         "value": [
           0
         ],
@@ -128,6 +100,9 @@
         ],
         "controlledProperty": [
           "dripper"
+        ],
+        "belongsTo": [
+          "urn:ngsi-ld:AgriParcel:unibo:647c399b2188ff484f7416389f94885c"
         ]
       },
       "label": "Device"
@@ -135,8 +110,6 @@
     {
       "properties": {
         "id": "urn:ngsi-ld:Device:unibo:e0a35eede1bd643062e7e83011896ef2",
-        "name": "Dripper Fondo Errano 2024 T1 T1 alto",
-        "type": "Device",
         "value": [
           0
         ],
@@ -146,6 +119,9 @@
         ],
         "controlledProperty": [
           "dripper"
+        ],
+        "belongsTo": [
+          "urn:ngsi-ld:AgriParcel:unibo:102220a008cba90174069a0c12d5c212"
         ]
       },
       "label": "Device"
@@ -153,8 +129,6 @@
     {
       "properties": {
         "id": "urn:ngsi-ld:Device:unibo:4706ab32adba82399acb21d45489535c",
-        "name": "Dripper Fondo Errano 2024 T1 T1 basso",
-        "type": "Device",
         "value": [
           0
         ],
@@ -164,6 +138,9 @@
         ],
         "controlledProperty": [
           "dripper"
+        ],
+        "belongsTo": [
+          "urn:ngsi-ld:AgriParcel:unibo:102220a008cba90174069a0c12d5c212"
         ]
       },
       "label": "Device"
@@ -171,8 +148,6 @@
     {
       "properties": {
         "id": "urn:ngsi-ld:Device:unibo:bc8f7461962ba09c7d9574a068c8780a",
-        "name": "Dripper Fondo Errano 2024 T2 T2 alto",
-        "type": "Device",
         "value": [
           0
         ],
@@ -182,6 +157,9 @@
         ],
         "controlledProperty": [
           "dripper"
+        ],
+        "belongsTo": [
+          "urn:ngsi-ld:AgriParcel:unibo:2de48d8524fbe1867ae9b7f1979e87ad"
         ]
       },
       "label": "Device"
@@ -189,8 +167,6 @@
     {
       "properties": {
         "id": "urn:ngsi-ld:Device:unibo:aaaa7adc8f8a91bcaee40f7528877b53",
-        "name": "Dripper Fondo Errano 2024 T2 T2 basso",
-        "type": "Device",
         "value": [
           0
         ],
@@ -200,6 +176,9 @@
         ],
         "controlledProperty": [
           "dripper"
+        ],
+        "belongsTo": [
+          "urn:ngsi-ld:AgriParcel:unibo:2de48d8524fbe1867ae9b7f1979e87ad"
         ]
       },
       "label": "Device"
@@ -207,9 +186,10 @@
     {
       "properties": {
         "id": "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
-        "name": "Soil moisture sensor grid Fondo Errano 2024 T0 T0",
-        "type": "Device",
         "location": "POINT (11.798998 44.235024)",
+        "belongsTo": [
+          "urn:ngsi-ld:AgriParcel:unibo:647c399b2188ff484f7416389f94885c"
+        ],
         "hasDevice": [
           "urn:ngsi-ld:Device:unibo:09bf3c00cdb036951340bc3de59b401b",
           "urn:ngsi-ld:Device:unibo:7c9ac3b27115a41c509ad71d20db4a88",
@@ -233,8 +213,6 @@
         "y": -20,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:fabb65ec5178be7d3e0f7c1e8210cfdc",
-        "name": "Ges v20_0",
-        "type": "Device",
         "value": [
           -2500
         ],
@@ -250,8 +228,6 @@
         "y": -20,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:7fb7b74c0b10ee2bc49659ef2fbfc17e",
-        "name": "Ges v20_26",
-        "type": "Device",
         "value": [
           -2500
         ],
@@ -267,8 +243,6 @@
         "y": -20,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:2f2699dd8eb6bb75c0df757bfccc035f",
-        "name": "Ges v20_52",
-        "type": "Device",
         "value": [
           -25.54639104
         ],
@@ -284,8 +258,6 @@
         "y": -20,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:a3a5e76ca4431df1daa44ed824714bd2",
-        "name": "Ges v20_80",
-        "type": "Device",
         "value": [
           -27.702294398
         ],
@@ -301,8 +273,6 @@
         "y": -60,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:469041255c19a44e276333092dd4129a",
-        "name": "Ges v60_0",
-        "type": "Device",
         "value": [
           -27.989707511
         ],
@@ -318,8 +288,6 @@
         "y": -60,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:bbd0fc75da579af01a8e67b6de1ba64c",
-        "name": "Ges v60_26",
-        "type": "Device",
         "value": [
           -26.792089744
         ],
@@ -335,8 +303,6 @@
         "y": -40,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:aa330bc5e29463d601c1dad3ffc03121",
-        "name": "Ges v40_26",
-        "type": "Device",
         "value": [
           -23.389949438
         ],
@@ -352,8 +318,6 @@
         "y": -40,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:ea878798346b626a88d88e29b7f9ea34",
-        "name": "Ges v40_52",
-        "type": "Device",
         "value": [
           -31.677326438
         ],
@@ -369,8 +333,6 @@
         "y": -40,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:13e6e314d9b9c5eacfa444358261f077",
-        "name": "Ges v40_80",
-        "type": "Device",
         "value": [
           -29.235053764
         ],
@@ -383,9 +345,10 @@
     {
       "properties": {
         "id": "urn:ngsi-ld:Device:unibo:a4f623ee3a7cec264df7af733c3b58e4",
-        "name": "Soil moisture sensor grid Fondo Errano 2024 T1 T1 alto",
-        "type": "Device",
         "location": "POINT (11.799328 44.235394)",
+        "belongsTo": [
+          "urn:ngsi-ld:AgriParcel:unibo:102220a008cba90174069a0c12d5c212"
+        ],
         "hasDevice": [
           "urn:ngsi-ld:Device:unibo:ef8500898bef0b14a32f8169edebac0b",
           "urn:ngsi-ld:Device:unibo:8480b7a7ac70dc1b7c6d16860c30a48c",
@@ -409,8 +372,6 @@
         "y": -20,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:ef8500898bef0b14a32f8169edebac0b",
-        "name": "Ges v20_80",
-        "type": "Device",
         "value": [
           -26.169262852
         ],
@@ -426,8 +387,6 @@
         "y": -40,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:8480b7a7ac70dc1b7c6d16860c30a48c",
-        "name": "Ges v40_80",
-        "type": "Device",
         "value": [
           -21.616472012
         ],
@@ -443,8 +402,6 @@
         "y": -20,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:4b50a0bcfe3003f759ebf9822d1b417c",
-        "name": "Ges v20_0",
-        "type": "Device",
         "value": [
           -2022.073776
         ],
@@ -460,8 +417,6 @@
         "y": -40,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:ae1bab98fd2de2b3c1c19a094c624d00",
-        "name": "Ges v40_0",
-        "type": "Device",
         "value": [
           -24.923474308
         ],
@@ -477,8 +432,6 @@
         "y": -60,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:0879959787ef0bc019d60e0f276b20f5",
-        "name": "Ges v60_80",
-        "type": "Device",
         "value": [
           -21.904087666
         ],
@@ -494,8 +447,6 @@
         "y": -20,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:c80cee815bbe7005e7fe43ca566b42f5",
-        "name": "Ges v20_-80",
-        "type": "Device",
         "value": [
           -42.969821938
         ],
@@ -511,8 +462,6 @@
         "y": -40,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:abab65e58239b3eed4c4d393200f8969",
-        "name": "Ges v40_-26",
-        "type": "Device",
         "value": [
           -2500
         ],
@@ -528,8 +477,6 @@
         "y": -60,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:a6f612ee6dbd43e6aa5b35e73077851b",
-        "name": "Ges v60_26_SX",
-        "type": "Device",
         "value": [
           -33.54448024
         ],
@@ -545,8 +492,6 @@
         "y": -40,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:eb8203a907270a596c71a18e10531889",
-        "name": "Ges v40_-80",
-        "type": "Device",
         "value": [
           -24.012976742
         ],
@@ -562,8 +507,6 @@
         "y": -60,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:6c35e0fbc698b5d3d5775a8d547c51ed",
-        "name": "Ges v60_-80",
-        "type": "Device",
         "value": [
           -24.923474308
         ],
@@ -579,8 +522,6 @@
         "y": -60,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:eaa5ed03c90067ea6f7827163f373121",
-        "name": "Ges v60_0",
-        "type": "Device",
         "value": [
           -20.75356764
         ],
@@ -596,8 +537,6 @@
         "y": -20,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:27b5d273f42f4ca161abda3c475193c4",
-        "name": "Ges v20_-26",
-        "type": "Device",
         "value": [
           -2500
         ],
@@ -610,9 +549,10 @@
     {
       "properties": {
         "id": "urn:ngsi-ld:Device:unibo:ace4b1adb69da4c71c3e02e6509e859e",
-        "name": "Soil moisture sensor grid Fondo Errano 2024 T1 T1 basso",
-        "type": "Device",
         "location": "POINT (11.800613 44.234509)",
+        "belongsTo": [
+          "urn:ngsi-ld:AgriParcel:unibo:102220a008cba90174069a0c12d5c212"
+        ],
         "hasDevice": [
           "urn:ngsi-ld:Device:unibo:1c23c1ae83fb4a17593f2c4a48df242a",
           "urn:ngsi-ld:Device:unibo:fc9eddab8396ceb7984269e6c4f64a37",
@@ -632,8 +572,6 @@
         "y": -20,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:1c23c1ae83fb4a17593f2c4a48df242a",
-        "name": "Ges v20_0",
-        "type": "Device",
         "value": [
           -21.904087666
         ],
@@ -649,8 +587,6 @@
         "y": -20,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:fc9eddab8396ceb7984269e6c4f64a37",
-        "name": "Ges v20_26",
-        "type": "Device",
         "value": [
           -22.479290266
         ],
@@ -666,8 +602,6 @@
         "y": -20,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:b9841b914bcbcef037e8228dfe0534c7",
-        "name": "Ges v20_52",
-        "type": "Device",
         "value": [
           -23.389949438
         ],
@@ -683,8 +617,6 @@
         "y": -20,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:73123080564803f933d53da932285009",
-        "name": "Ges v20_80",
-        "type": "Device",
         "value": [
           -23.389949438
         ],
@@ -700,8 +632,6 @@
         "y": -60,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:021603b7002a09a92f0b8c33b8cf58df",
-        "name": "Ges v60_52",
-        "type": "Device",
         "value": [
           -21.904087666
         ],
@@ -717,8 +647,6 @@
         "y": -60,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:3021f6ae554c290d29eed7a69794ebbf",
-        "name": "Ges v60_80",
-        "type": "Device",
         "value": [
           -21.904087666
         ],
@@ -734,8 +662,6 @@
         "y": -60,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:b75d85c1d0a8556889ed0edb2125254d",
-        "name": "Ges v60_0",
-        "type": "Device",
         "value": [
           -22.19169375
         ],
@@ -751,8 +677,6 @@
         "y": -60,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:b44e173125a6aec1d1ce19d4fa7a06f7",
-        "name": "Ges v60_26",
-        "type": "Device",
         "value": [
           -2500
         ],
@@ -765,9 +689,10 @@
     {
       "properties": {
         "id": "urn:ngsi-ld:Device:unibo:584cdee35107b5f7d9774433be67a661",
-        "name": "Soil moisture sensor grid Fondo Errano 2024 T2 T2 alto",
-        "type": "Device",
         "location": "POINT (11.799925 44.235401)",
+        "belongsTo": [
+          "urn:ngsi-ld:AgriParcel:unibo:2de48d8524fbe1867ae9b7f1979e87ad"
+        ],
         "hasDevice": [
           "urn:ngsi-ld:Device:unibo:ee01b6d5da860b9da2d401aff84f62b6",
           "urn:ngsi-ld:Device:unibo:a2160dfe09c426a5ffb59e5ed707225a",
@@ -791,8 +716,6 @@
         "y": -40,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:ee01b6d5da860b9da2d401aff84f62b6",
-        "name": "Ges v40_0",
-        "type": "Device",
         "value": [
           -29.522415844
         ],
@@ -808,8 +731,6 @@
         "y": -40,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:a2160dfe09c426a5ffb59e5ed707225a",
-        "name": "Ges v40_100",
-        "type": "Device",
         "value": [
           -23.389949438
         ],
@@ -825,8 +746,6 @@
         "y": -40,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:b3fbebb223aeb083e6872342e799309d",
-        "name": "Ges v40_33",
-        "type": "Device",
         "value": [
           -2500
         ],
@@ -842,8 +761,6 @@
         "y": -40,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:8c2e793562c0fa448edfa544c3358c68",
-        "name": "Ges v40_66",
-        "type": "Device",
         "value": [
           -1384.105213048
         ],
@@ -859,8 +776,6 @@
         "y": -20,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:cc0bd900fd26648c528389c9bcec83c3",
-        "name": "Ges v20_0",
-        "type": "Device",
         "value": [
           -25.258896592
         ],
@@ -876,8 +791,6 @@
         "y": -20,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:3ca361bc617f7328f938d50ee72b924e",
-        "name": "Ges v20_100",
-        "type": "Device",
         "value": [
           -26.169262852
         ],
@@ -893,8 +806,6 @@
         "y": -20,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:95b749fe480dc357bb8be94c9a70ac8f",
-        "name": "Ges v20_33",
-        "type": "Device",
         "value": [
           -72.423053327
         ],
@@ -910,8 +821,6 @@
         "y": -20,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:41712974e0a32be25b58dd48aadf1993",
-        "name": "Ges v20_66",
-        "type": "Device",
         "value": [
           -358.674773822
         ],
@@ -927,8 +836,6 @@
         "y": -60,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:a24fe9ee3b1c1904adfde95ece8691e9",
-        "name": "Ges v60_100",
-        "type": "Device",
         "value": [
           -23.389949438
         ],
@@ -944,8 +851,6 @@
         "y": -60,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:aef26afa31492e7ae52fe8fb3e880f24",
-        "name": "Ges v60_33",
-        "type": "Device",
         "value": [
           -2500
         ],
@@ -961,8 +866,6 @@
         "y": -60,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:982ebb7c2cded9794c60b636f726710b",
-        "name": "Ges v60_66",
-        "type": "Device",
         "value": [
           -22.479290266
         ],
@@ -978,8 +881,6 @@
         "y": -60,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:cd1164af506ac55a816e19370c9310dd",
-        "name": "Ges v60_0",
-        "type": "Device",
         "value": [
           -21.616472012
         ],
@@ -992,9 +893,10 @@
     {
       "properties": {
         "id": "urn:ngsi-ld:Device:unibo:2d6b0e0c8c57f720c48fcb40563b4401",
-        "name": "Soil moisture sensor grid Fondo Errano 2024 T2 T2 basso",
-        "type": "Device",
         "location": "POINT (11.800711 44.234904)",
+        "belongsTo": [
+          "urn:ngsi-ld:AgriParcel:unibo:2de48d8524fbe1867ae9b7f1979e87ad"
+        ],
         "hasDevice": [
           "urn:ngsi-ld:Device:unibo:5803479336682117345f280f4696df68",
           "urn:ngsi-ld:Device:unibo:5ae1780eac62ecc1dc428bca4bb1ed03",
@@ -1018,8 +920,6 @@
         "y": -20,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:5803479336682117345f280f4696df68",
-        "name": "Ges v20_100",
-        "type": "Device",
         "value": [
           -43.973945378
         ],
@@ -1035,8 +935,6 @@
         "y": -20,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:5ae1780eac62ecc1dc428bca4bb1ed03",
-        "name": "Ges v20_33",
-        "type": "Device",
         "value": [
           -45.599420519
         ],
@@ -1052,8 +950,6 @@
         "y": -20,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:218035d236661e6841738c8594b40692",
-        "name": "Ges v20_66",
-        "type": "Device",
         "value": [
           -43.973945378
         ],
@@ -1069,8 +965,6 @@
         "y": -20,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:64f08a20f0bf561596a0c17d7e9b89a4",
-        "name": "Ges v20_0",
-        "type": "Device",
         "value": [
           -30.767540951
         ],
@@ -1086,8 +980,6 @@
         "y": -60,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:72b4e32b32c26e2bdf09ac684e547053",
-        "name": "Ges v60_0",
-        "type": "Device",
         "value": [
           -32.587015972
         ],
@@ -1103,8 +995,6 @@
         "y": -60,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:5acd0f9d7b680045dbc3253fd139d835",
-        "name": "Ges v60_100",
-        "type": "Device",
         "value": [
           -24.300512656
         ],
@@ -1120,8 +1010,6 @@
         "y": -60,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:0d3a505153a67ba5aeaa38fd76509a77",
-        "name": "Ges v60_33",
-        "type": "Device",
         "value": [
           -2500
         ],
@@ -1137,8 +1025,6 @@
         "y": -60,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:e1bddbe97fb2250946afdff592536926",
-        "name": "Ges v60_66",
-        "type": "Device",
         "value": [
           -31.054851997
         ],
@@ -1154,8 +1040,6 @@
         "y": -40,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:42743b9cc2883d0d4d57db2d704c24ef",
-        "name": "Ges v40_0",
-        "type": "Device",
         "value": [
           -24.923474308
         ],
@@ -1171,8 +1055,6 @@
         "y": -40,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:5b3f1e17cb9a61bf709f43d2dfaa8c81",
-        "name": "Ges v40_100",
-        "type": "Device",
         "value": [
           -26.792089744
         ],
@@ -1188,8 +1070,6 @@
         "y": -40,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:43ef95eede19014fc817fdc81e0ff76e",
-        "name": "Ges v40_33",
-        "type": "Device",
         "value": [
           -24.923474308
         ],
@@ -1205,8 +1085,6 @@
         "y": -40,
         "z": 0,
         "id": "urn:ngsi-ld:Device:unibo:578e326ffc1428e78fe44418300b816e",
-        "name": "Ges v40_66",
-        "type": "Device",
         "value": [
           -109.892034899
         ],
@@ -1215,6 +1093,422 @@
         ]
       },
       "label": "Device"
+    }
+  ],
+  "edges": [
+    {
+      "type": "belongsTo",
+      "start_id": "urn:ngsi-ld:AgriParcel:unibo:647c399b2188ff484f7416389f94885c",
+      "end_id": "urn:ngsi-ld:AgriFarm:unibo:c29ee13f6e871b9588c9b3d58e43df23",
+      "properties": {}
+    },
+    {
+      "type": "belongsTo",
+      "start_id": "urn:ngsi-ld:AgriParcel:unibo:2de48d8524fbe1867ae9b7f1979e87ad",
+      "end_id": "urn:ngsi-ld:AgriFarm:unibo:c29ee13f6e871b9588c9b3d58e43df23",
+      "properties": {}
+    },
+    {
+      "type": "belongsTo",
+      "start_id": "urn:ngsi-ld:AgriParcel:unibo:102220a008cba90174069a0c12d5c212",
+      "end_id": "urn:ngsi-ld:AgriFarm:unibo:c29ee13f6e871b9588c9b3d58e43df23",
+      "properties": {}
+    },
+    {
+      "type": "belongsTo",
+      "start_id": "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
+      "end_id": "urn:ngsi-ld:AgriParcel:unibo:647c399b2188ff484f7416389f94885c",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
+      "end_id": "urn:ngsi-ld:Device:unibo:09bf3c00cdb036951340bc3de59b401b",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
+      "end_id": "urn:ngsi-ld:Device:unibo:7c9ac3b27115a41c509ad71d20db4a88",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
+      "end_id": "urn:ngsi-ld:Device:unibo:5d929b1bde23c5f6ef1b70201195701b",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
+      "end_id": "urn:ngsi-ld:Device:unibo:fabb65ec5178be7d3e0f7c1e8210cfdc",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
+      "end_id": "urn:ngsi-ld:Device:unibo:7fb7b74c0b10ee2bc49659ef2fbfc17e",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
+      "end_id": "urn:ngsi-ld:Device:unibo:2f2699dd8eb6bb75c0df757bfccc035f",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
+      "end_id": "urn:ngsi-ld:Device:unibo:a3a5e76ca4431df1daa44ed824714bd2",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
+      "end_id": "urn:ngsi-ld:Device:unibo:469041255c19a44e276333092dd4129a",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
+      "end_id": "urn:ngsi-ld:Device:unibo:bbd0fc75da579af01a8e67b6de1ba64c",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
+      "end_id": "urn:ngsi-ld:Device:unibo:aa330bc5e29463d601c1dad3ffc03121",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
+      "end_id": "urn:ngsi-ld:Device:unibo:ea878798346b626a88d88e29b7f9ea34",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
+      "end_id": "urn:ngsi-ld:Device:unibo:13e6e314d9b9c5eacfa444358261f077",
+      "properties": {}
+    },
+    {
+      "type": "belongsTo",
+      "start_id": "urn:ngsi-ld:Device:unibo:a316ef4f55a925842cca39af7280f4d8",
+      "end_id": "urn:ngsi-ld:AgriParcel:unibo:647c399b2188ff484f7416389f94885c",
+      "properties": {}
+    },
+    {
+      "type": "belongsTo",
+      "start_id": "urn:ngsi-ld:Device:unibo:e0a35eede1bd643062e7e83011896ef2",
+      "end_id": "urn:ngsi-ld:AgriParcel:unibo:102220a008cba90174069a0c12d5c212",
+      "properties": {}
+    },
+    {
+      "type": "belongsTo",
+      "start_id": "urn:ngsi-ld:Device:unibo:4706ab32adba82399acb21d45489535c",
+      "end_id": "urn:ngsi-ld:AgriParcel:unibo:102220a008cba90174069a0c12d5c212",
+      "properties": {}
+    },
+    {
+      "type": "belongsTo",
+      "start_id": "urn:ngsi-ld:Device:unibo:bc8f7461962ba09c7d9574a068c8780a",
+      "end_id": "urn:ngsi-ld:AgriParcel:unibo:2de48d8524fbe1867ae9b7f1979e87ad",
+      "properties": {}
+    },
+    {
+      "type": "belongsTo",
+      "start_id": "urn:ngsi-ld:Device:unibo:aaaa7adc8f8a91bcaee40f7528877b53",
+      "end_id": "urn:ngsi-ld:AgriParcel:unibo:2de48d8524fbe1867ae9b7f1979e87ad",
+      "properties": {}
+    },
+    {
+      "type": "belongsTo",
+      "start_id": "urn:ngsi-ld:Device:unibo:a4f623ee3a7cec264df7af733c3b58e4",
+      "end_id": "urn:ngsi-ld:AgriParcel:unibo:102220a008cba90174069a0c12d5c212",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:a4f623ee3a7cec264df7af733c3b58e4",
+      "end_id": "urn:ngsi-ld:Device:unibo:ef8500898bef0b14a32f8169edebac0b",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:a4f623ee3a7cec264df7af733c3b58e4",
+      "end_id": "urn:ngsi-ld:Device:unibo:8480b7a7ac70dc1b7c6d16860c30a48c",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:a4f623ee3a7cec264df7af733c3b58e4",
+      "end_id": "urn:ngsi-ld:Device:unibo:4b50a0bcfe3003f759ebf9822d1b417c",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:a4f623ee3a7cec264df7af733c3b58e4",
+      "end_id": "urn:ngsi-ld:Device:unibo:ae1bab98fd2de2b3c1c19a094c624d00",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:a4f623ee3a7cec264df7af733c3b58e4",
+      "end_id": "urn:ngsi-ld:Device:unibo:0879959787ef0bc019d60e0f276b20f5",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:a4f623ee3a7cec264df7af733c3b58e4",
+      "end_id": "urn:ngsi-ld:Device:unibo:c80cee815bbe7005e7fe43ca566b42f5",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:a4f623ee3a7cec264df7af733c3b58e4",
+      "end_id": "urn:ngsi-ld:Device:unibo:abab65e58239b3eed4c4d393200f8969",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:a4f623ee3a7cec264df7af733c3b58e4",
+      "end_id": "urn:ngsi-ld:Device:unibo:a6f612ee6dbd43e6aa5b35e73077851b",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:a4f623ee3a7cec264df7af733c3b58e4",
+      "end_id": "urn:ngsi-ld:Device:unibo:eb8203a907270a596c71a18e10531889",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:a4f623ee3a7cec264df7af733c3b58e4",
+      "end_id": "urn:ngsi-ld:Device:unibo:6c35e0fbc698b5d3d5775a8d547c51ed",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:a4f623ee3a7cec264df7af733c3b58e4",
+      "end_id": "urn:ngsi-ld:Device:unibo:eaa5ed03c90067ea6f7827163f373121",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:a4f623ee3a7cec264df7af733c3b58e4",
+      "end_id": "urn:ngsi-ld:Device:unibo:27b5d273f42f4ca161abda3c475193c4",
+      "properties": {}
+    },
+    {
+      "type": "belongsTo",
+      "start_id": "urn:ngsi-ld:Device:unibo:ace4b1adb69da4c71c3e02e6509e859e",
+      "end_id": "urn:ngsi-ld:AgriParcel:unibo:102220a008cba90174069a0c12d5c212",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:ace4b1adb69da4c71c3e02e6509e859e",
+      "end_id": "urn:ngsi-ld:Device:unibo:1c23c1ae83fb4a17593f2c4a48df242a",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:ace4b1adb69da4c71c3e02e6509e859e",
+      "end_id": "urn:ngsi-ld:Device:unibo:fc9eddab8396ceb7984269e6c4f64a37",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:ace4b1adb69da4c71c3e02e6509e859e",
+      "end_id": "urn:ngsi-ld:Device:unibo:b9841b914bcbcef037e8228dfe0534c7",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:ace4b1adb69da4c71c3e02e6509e859e",
+      "end_id": "urn:ngsi-ld:Device:unibo:73123080564803f933d53da932285009",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:ace4b1adb69da4c71c3e02e6509e859e",
+      "end_id": "urn:ngsi-ld:Device:unibo:021603b7002a09a92f0b8c33b8cf58df",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:ace4b1adb69da4c71c3e02e6509e859e",
+      "end_id": "urn:ngsi-ld:Device:unibo:3021f6ae554c290d29eed7a69794ebbf",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:ace4b1adb69da4c71c3e02e6509e859e",
+      "end_id": "urn:ngsi-ld:Device:unibo:b75d85c1d0a8556889ed0edb2125254d",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:ace4b1adb69da4c71c3e02e6509e859e",
+      "end_id": "urn:ngsi-ld:Device:unibo:b44e173125a6aec1d1ce19d4fa7a06f7",
+      "properties": {}
+    },
+    {
+      "type": "belongsTo",
+      "start_id": "urn:ngsi-ld:Device:unibo:584cdee35107b5f7d9774433be67a661",
+      "end_id": "urn:ngsi-ld:AgriParcel:unibo:2de48d8524fbe1867ae9b7f1979e87ad",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:584cdee35107b5f7d9774433be67a661",
+      "end_id": "urn:ngsi-ld:Device:unibo:ee01b6d5da860b9da2d401aff84f62b6",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:584cdee35107b5f7d9774433be67a661",
+      "end_id": "urn:ngsi-ld:Device:unibo:a2160dfe09c426a5ffb59e5ed707225a",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:584cdee35107b5f7d9774433be67a661",
+      "end_id": "urn:ngsi-ld:Device:unibo:b3fbebb223aeb083e6872342e799309d",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:584cdee35107b5f7d9774433be67a661",
+      "end_id": "urn:ngsi-ld:Device:unibo:8c2e793562c0fa448edfa544c3358c68",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:584cdee35107b5f7d9774433be67a661",
+      "end_id": "urn:ngsi-ld:Device:unibo:cc0bd900fd26648c528389c9bcec83c3",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:584cdee35107b5f7d9774433be67a661",
+      "end_id": "urn:ngsi-ld:Device:unibo:3ca361bc617f7328f938d50ee72b924e",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:584cdee35107b5f7d9774433be67a661",
+      "end_id": "urn:ngsi-ld:Device:unibo:95b749fe480dc357bb8be94c9a70ac8f",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:584cdee35107b5f7d9774433be67a661",
+      "end_id": "urn:ngsi-ld:Device:unibo:41712974e0a32be25b58dd48aadf1993",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:584cdee35107b5f7d9774433be67a661",
+      "end_id": "urn:ngsi-ld:Device:unibo:a24fe9ee3b1c1904adfde95ece8691e9",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:584cdee35107b5f7d9774433be67a661",
+      "end_id": "urn:ngsi-ld:Device:unibo:aef26afa31492e7ae52fe8fb3e880f24",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:584cdee35107b5f7d9774433be67a661",
+      "end_id": "urn:ngsi-ld:Device:unibo:982ebb7c2cded9794c60b636f726710b",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:584cdee35107b5f7d9774433be67a661",
+      "end_id": "urn:ngsi-ld:Device:unibo:cd1164af506ac55a816e19370c9310dd",
+      "properties": {}
+    },
+    {
+      "type": "belongsTo",
+      "start_id": "urn:ngsi-ld:Device:unibo:2d6b0e0c8c57f720c48fcb40563b4401",
+      "end_id": "urn:ngsi-ld:AgriParcel:unibo:2de48d8524fbe1867ae9b7f1979e87ad",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:2d6b0e0c8c57f720c48fcb40563b4401",
+      "end_id": "urn:ngsi-ld:Device:unibo:5803479336682117345f280f4696df68",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:2d6b0e0c8c57f720c48fcb40563b4401",
+      "end_id": "urn:ngsi-ld:Device:unibo:5ae1780eac62ecc1dc428bca4bb1ed03",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:2d6b0e0c8c57f720c48fcb40563b4401",
+      "end_id": "urn:ngsi-ld:Device:unibo:218035d236661e6841738c8594b40692",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:2d6b0e0c8c57f720c48fcb40563b4401",
+      "end_id": "urn:ngsi-ld:Device:unibo:64f08a20f0bf561596a0c17d7e9b89a4",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:2d6b0e0c8c57f720c48fcb40563b4401",
+      "end_id": "urn:ngsi-ld:Device:unibo:72b4e32b32c26e2bdf09ac684e547053",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:2d6b0e0c8c57f720c48fcb40563b4401",
+      "end_id": "urn:ngsi-ld:Device:unibo:5acd0f9d7b680045dbc3253fd139d835",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:2d6b0e0c8c57f720c48fcb40563b4401",
+      "end_id": "urn:ngsi-ld:Device:unibo:0d3a505153a67ba5aeaa38fd76509a77",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:2d6b0e0c8c57f720c48fcb40563b4401",
+      "end_id": "urn:ngsi-ld:Device:unibo:e1bddbe97fb2250946afdff592536926",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:2d6b0e0c8c57f720c48fcb40563b4401",
+      "end_id": "urn:ngsi-ld:Device:unibo:42743b9cc2883d0d4d57db2d704c24ef",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:2d6b0e0c8c57f720c48fcb40563b4401",
+      "end_id": "urn:ngsi-ld:Device:unibo:5b3f1e17cb9a61bf709f43d2dfaa8c81",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:2d6b0e0c8c57f720c48fcb40563b4401",
+      "end_id": "urn:ngsi-ld:Device:unibo:43ef95eede19014fc817fdc81e0ff76e",
+      "properties": {}
+    },
+    {
+      "type": "hasDevice",
+      "start_id": "urn:ngsi-ld:Device:unibo:2d6b0e0c8c57f720c48fcb40563b4401",
+      "end_id": "urn:ngsi-ld:Device:unibo:578e326ffc1428e78fe44418300b816e",
+      "properties": {}
     }
   ]
 }
