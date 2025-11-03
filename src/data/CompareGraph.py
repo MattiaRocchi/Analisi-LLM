@@ -1,5 +1,5 @@
 from typing import Dict, List, Set, Tuple
-from config_dataclasses import ComparisonMetrics
+from .config_dataclasses import ComparisonMetrics
 
 class CompareGraph:
 

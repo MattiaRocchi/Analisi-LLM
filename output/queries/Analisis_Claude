@@ -1,0 +1,6 @@
+{
+  "timestamp": "2025-11-03T10:13:54.277677",
+  "gt_file": "../../prompts/queries/responses_groundTrue.yaml",
+  "llm_file": "../../output/responses/Claude.yaml",
+  "comparisons": []
+}
