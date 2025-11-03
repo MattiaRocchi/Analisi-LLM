@@ -1,77 +1,21 @@
 responses:
-  - id: Q1
-    query: |
-      SELECT * FROM cypher('agri_graph', $$
-        MATCH (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:hasDevice]->(p:AgriParcel)
-        RETURN COUNT(p) AS num_parcel
-      $$) AS (num_parcel integer);
-
-  - id: Q2
-    query: |
-      SELECT * FROM cypher('agri_graph', $$
-        MATCH (p:AgriParcel {name: 'Fondo Errano 2024 T0'})-[:hasDevice]->(d:Device)
-        RETURN d.id AS device_id
-      $$) AS (device_id text);
-
-  - id: Q3
-    query: |
-      SELECT * FROM cypher('agri_graph', $$
-        MATCH (d:Device)
-        WHERE 'soilMoisture' IN d.controlledProperty
-        RETURN d.id AS device_id, d.name AS device_name
-      $$) AS (device_id text, device_name text);
-
-  - id: Q4
-    query: |
-      SELECT * FROM cypher('agri_graph', $$
-        MATCH (f:AgriFarm)
-        WHERE f.name CONTAINS 'ZESPRI'
-        MATCH (f)-[:hasDevice*]->(d:Device)
-        WHERE 'soilMoisture' IN d.controlledProperty
-        RETURN DISTINCT d.id AS device_id, d.name AS device_name
-      $$) AS (device_id text, device_name text);
-
-  - id: Q5
-    query: |
-      SELECT * FROM cypher('agri_graph', $$
-        MATCH (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:hasDevice]->(p:AgriParcel)
-        WHERE p.colture ILIKE '%Kiwi%'
-        RETURN p.name AS parcel_name
-      $$) AS (parcel_name text);
-
-  - id: Q6
-    query: |
-      SELECT * FROM cypher('agri_graph', $$
-        MATCH (p:AgriParcel)
-        WHERE p.name CONTAINS 'T1' AND p.irrigationSystemType = 'Drip irrigation'
-        MATCH (p)-[:hasDevice]->(d:Device)
-        RETURN d.id AS device_id, d.name AS device_name
-      $$) AS (device_id text, device_name text);
-
-  - id: Q7
-    query: |
-      SELECT * FROM cypher('agri_graph', $$
-        MATCH (d:Device)
-        WHERE 'soilMoisture' IN d.controlledProperty
-        RETURN d.name AS device_name, MIN(d.value[0]) AS min_value
-      $$) AS (device_name text, min_value float);
-
-  - id: Q8
-    query: |
-      SELECT * FROM cypher('agri_graph', $$
-        MATCH (d:Device)
-        WHERE exists(d.location)
-        WITH d, ST_GeomFromText(d.location) AS geom
-        ORDER BY ST_Distance(geom, ST_GeomFromText('POINT(11.799 44.235)'))
-        LIMIT 1
-        RETURN d.id AS nearest_device_id, d.name AS nearest_device_name
-      $$) AS (nearest_device_id text, nearest_device_name text);
-
-  - id: Q9
-    query: |
-      SELECT * FROM cypher('agri_graph', $$
-        MATCH (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:hasDevice]->(p:AgriParcel)-[:hasDevice]->(d:Device)
-        RETURN p.name AS parcel_name, COUNT(d) AS num_devices
-        ORDER BY num_devices DESC
-        LIMIT 1
-      $$) AS (parcel_name text, num_devices integer);
+- id: Q1
+  query: 'SELECT COUNT(*) FROM cypher(''agri_graph'', $$ MATCH (f:AgriFarm {name: ''ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA''})-[:belongsTo]->(p:AgriParcel) RETURN DISTINCT p $$) as (p agtype);'
+- id: Q2
+  query: 'SELECT (d->>''id'') AS device_id FROM cypher(''agri_graph'', $$ MATCH (p:AgriParcel {name: ''Fondo Errano 2024 T0''})<-[:belongsTo]-(d:Device) RETURN d $$) as (d agtype);'
+- id: Q3
+  query: SELECT (d->>'id') AS device_id FROM cypher('agri_graph', $$ MATCH (d:Device) WHERE 'soilMoisture' IN d.controlledProperty RETURN d $$) as (d agtype);
+- id: Q4
+  query: 'SELECT (d->>''id'') AS device_id FROM cypher(''agri_graph'', $$ MATCH (f:AgriFarm {name: ''ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA''})<-[:belongsTo]-(p:AgriParcel)<-[:belongsTo]-(d:Device) WHERE ''soilMoisture'' IN d.controlledProperty RETURN d $$) as (d agtype);'
+- id: Q5
+  query: SELECT (p->>'id') AS parcel_id FROM cypher('agri_graph', $$ MATCH (p:AgriParcel) WHERE toLower(coalesce(p.colture, '')) LIKE '%kiwi%' RETURN p $$) as (p agtype);
+- id: Q6
+  query: 'SELECT (d->>''id'') AS device_id FROM cypher(''agri_graph'', $$ MATCH (p:AgriParcel {name: ''T1''})<-[:belongsTo]-(d:Device) WHERE (''dripper'' IN coalesce(d.controlledProperty, [])) OR (p.irrigationSystemType = ''Drip irrigation'') RETURN d $$) as (d agtype);'
+- id: Q7
+  query: SELECT m.device_id, m.value FROM public.measuremets m WHERE m.controlled_property = 'soilMoisture' ORDER BY m.value ASC LIMIT 1;
+- id: Q8
+  query: SELECT dev.device_id FROM ( SELECT (d->>'id') AS device_id, (d->>'location') AS location_wkt FROM cypher('agri_graph', $$ MATCH (d:Device) WHERE exists(d.location) RETURN d $$) as (d agtype) ) AS dev WHERE dev.location_wkt IS NOT NULL ORDER BY ST_Distance( ST_SetSRID(ST_GeomFromText(dev.location_wkt), 4326), ST_SetSRID(ST_Point(11.799, 44.235), 4326) ) LIMIT 1;
+- id: Q9
+  query: SELECT p_summary.parcel_id, p_summary.devices_count FROM ( SELECT (p->>'id') AS parcel_id, COUNT(d) AS devices_count FROM cypher('agri_graph', $$ MATCH (p:AgriParcel)<-[:belongsTo]-(d:Device) RETURN p, d $$) as (p agtype, d agtype) GROUP BY (p->>'id') ORDER BY devices_count DESC LIMIT 1 ) AS p_summary;
+- id: Q10
+  query: SELECT m.device_id, m.value FROM public.measuremets m WHERE m.controlled_property = 'temperature' ORDER BY m.value ASC LIMIT 1;

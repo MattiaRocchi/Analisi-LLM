@@ -1,53 +1,76 @@
 responses:
   - id: "Q1"
     query: |
-      MATCH (m:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:hasDevice]->(n:AgriParcel)
-      RETURN count(n)
+      SELECT * FROM cypher('agri_graph', $$
+          MATCH (f:AgriFarm {name : 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'}) - [*1..2] -> (p:AgriParcel)
+          RETURN count(p) AS AgriParcel_Count
+      $$) AS (AgriParcel_Count agtype);
   - id: "Q2"
     query: |
-      MATCH (n:AgriParcel {name: 'Fondo Errano 2024 T0'})-[:hasDevice]->(d:Device)
-      RETURN d.id
+      SELECT * FROM cypher('agri_graph', $$
+          MATCH (p:AgriParcel {name: 'Fondo Errano 2024 T0'}) - [*1..2] -> (d:Device)
+          RETURN d.id AS Device_ID
+      $$) AS (Device_ID agtype);
   - id: "Q3"
     query: |
-      MATCH (n:Device)
-      WHERE 'soilMoisture' IN n.controlledProperty
-      RETURN DISTINCT n.name
+      SELECT DISTINCT d.id
+      FROM public.measuremets d
+      WHERE d.controlled_property = 'soilMoisture';
   - id: "Q4"
     query: |
-      MATCH (m:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:hasDevice*]->(n:Device)
-      WHERE 'soilMoisture' IN n.controlledProperty
-      RETURN DISTINCT n.name
+      SELECT DISTINCT t.device_id
+      FROM cypher('agri_graph', $$
+          MATCH (f:AgriFarm {name : 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'}) - [*1..3] -> (d:Device)
+          RETURN d.id AS device_id
+      $$) AS t
+      INNER JOIN public.measuremets m
+      ON t.device_id = m.device_id
+      WHERE m.controlled_property = 'soilMoisture';
   - id: "Q5"
     query: |
-      MATCH (m:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:hasDevice]->(n:AgriParcel)
-      WHERE n.colture = 'Kiwi G3'
-      RETURN n.name
+      SELECT * FROM cypher('agri_graph', $$
+          MATCH (f:AgriFarm {name : 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'}) - [*1..2] -> (p:AgriParcel)
+          WHERE p.crops = 'Kiwi' OR p.crops CONTAINS 'Kiwi' -- Assumendo che 'crops' possa essere una lista/stringa
+          RETURN p.name AS Lotto
+      $$) AS (Lotto agtype);
   - id: "Q6"
     query: |
-      MATCH (n:AgriParcel {name: 'Fondo Errano 2024 T1'})-[:hasDevice]->(d:Device)
-      WHERE 'dripper' IN d.controlledProperty
-      RETURN d.name
+      SELECT * FROM cypher('agri_graph', $$
+          MATCH (p:AgriParcel {name: 'T1'}) - [*1..2] -> (d:Device)
+          WHERE d.deviceType = 'DripIrrigation' -- Assumendo esista una property 'deviceType' o simile
+          RETURN d.id AS DripIrrigation_Device
+      $$) AS (DripIrrigation_Device agtype);
   - id: "Q7"
     query: |
-      MATCH (n:Device)
-      WHERE EXISTS(n.value) AND 'soilMoisture' IN n.controlledProperty
-      UNWIND n.value AS val
-      RETURN n.name, val
-      ORDER BY val
-      LIMIT 1
+      SELECT device_id, value
+      FROM public.measuremets
+      WHERE controlled_property = 'soilMoisture'
+      ORDER BY value ASC
+      LIMIT 1;
   - id: "Q8"
     query: |
-      MATCH (n:Device)
-      WHERE EXISTS(n.location)
-      WITH n, point({latitude: 44.235, longitude: 11.799}) AS target_point
-      RETURN n.name, point(n.location) AS sensor_point
-      ORDER BY distance(sensor_point, target_point)
-      LIMIT 1
+      SELECT * FROM cypher('agri_graph', $$
+          MATCH (d:Device)
+          WITH d, point({latitude: d.latitude, longitude: d.longitude}) AS device_point -- Assumendo d.latitude e d.longitude
+          WITH d, point({latitude: 44.235, longitude: 11.799}) AS target_point, device_point
+          RETURN d.id AS nearest_sensor_id, distance(device_point, target_point) AS distance_meters
+          ORDER BY distance_meters ASC
+          LIMIT 1
+      $$) AS (nearest_sensor_id agtype, distance_meters agtype);
   - id: "Q9"
     query: |
-      MATCH (a:AgriParcel)-[:hasDevice]->(d1:Device)
-      OPTIONAL MATCH (d1)-[:hasDevice]->(d2:Device)
-      WITH a, count(d1) + count(d2) AS total_devices
-      RETURN a.name, total_devices
-      ORDER BY total_devices DESC
-      LIMIT 1
+      SELECT * FROM cypher('agri_graph', $$
+          MATCH (p:AgriParcel) - [*1..2] -> (d:Device)
+          WITH p, count(d) AS device_count
+          RETURN p.name AS lotto_name, device_count
+          ORDER BY device_count DESC
+          LIMIT 1
+      $$) AS (lotto_name agtype, device_count agtype);
+  - id: "Q10"
+    query: |
+      SELECT device_id, MIN(value) AS min_temp
+      FROM public.measuremets
+      WHERE controlled_property = 'temperature'
+      GROUP BY device_id
+      ORDER BY min_temp ASC
+      LIMIT 1;
