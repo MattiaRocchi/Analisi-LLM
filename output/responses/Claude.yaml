@@ -3,96 +3,103 @@ responses:
     query: |
       SELECT * FROM cypher('agri_graph', $$
         MATCH (farm:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})<-[r:belongsTo]-(parcel:AgriParcel)
-        RETURN parcel, farm, r
-      $$) AS (parcel agtype, farm agtype, r agtype);
+        RETURN farm, r, parcel
+      $$) as (farm agtype, r agtype, parcel agtype);
 
   - id: Q2
     query: |
       SELECT * FROM cypher('agri_graph', $$
         MATCH (parcel:AgriParcel {name: 'Fondo Errano 2024 T0'})<-[r:belongsTo]-(device:Device)
-        OPTIONAL MATCH (parcel)<-[m:belongsTo]-(parent:Device)-[n:hasDevice]->(child:Device)
-        RETURN parcel, device, parent, child, r, m, n
-      $$) AS (parcel agtype, device agtype, parent agtype, child agtype, r agtype, m agtype, n agtype);
+        RETURN parcel, r, device
+      $$) as (parcel agtype, r agtype, device agtype);
 
   - id: Q3
     query: |
       SELECT * FROM cypher('agri_graph', $$
         MATCH (device:Device)
-        WHERE 'soilMoisture' IN device.controlledProperty
-        OPTIONAL MATCH (device)-[r]-(n)
-        RETURN device, r, n
-      $$) AS (device agtype, r agtype, n agtype);
+        WHERE 'soilMoisture' = ANY(device.controlledProperty)
+        RETURN device
+      $$) as (device agtype);
 
   - id: Q4
     query: |
       SELECT * FROM cypher('agri_graph', $$
-        MATCH (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})<-[r:belongsTo]-(p:AgriParcel)<-[m:belongsTo]-(device:Device)-[n:hasDevice]->(dev:Device)
-        WHERE 'soilMoisture' IN dev.controlledProperty
-        RETURN f, r, p, m, device, n, dev
-      $$) AS (f agtype, r agtype, p agtype, m agtype, device agtype, n agtype, dev agtype);
+        MATCH (farm:AgriFarm)-[r1*]->(parcel:AgriParcel)-[r2:belongsTo]-(device:Device)
+        WHERE farm.name CONTAINS 'ZESPRI' AND 'soilMoisture' = ANY(device.controlledProperty)
+        RETURN farm, r1, parcel, r2, device
+      $$) as (farm agtype, r1 agtype, parcel agtype, r2 agtype, device agtype);
 
   - id: Q5
     query: |
       SELECT * FROM cypher('agri_graph', $$
-        MATCH (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})<-[r:belongsTo]-(p:AgriParcel)
-        WHERE p.colture = 'Kiwi G3'
-        RETURN f, r, p
-      $$) AS (f agtype, r agtype, p agtype);
+        MATCH (farm:AgriFarm)<-[r:belongsTo]-(parcel:AgriParcel)
+        WHERE parcel.colture CONTAINS 'Kiwi'
+        RETURN farm, r, parcel
+      $$) as (farm agtype, r agtype, parcel agtype);
 
   - id: Q6
     query: |
       SELECT * FROM cypher('agri_graph', $$
-        MATCH (p:AgriParcel)<-[r:belongsTo]-(d:Device)
-        WHERE 'dripper' IN d.controlledProperty
-        RETURN p, r, d
-      $$) AS (p agtype, r agtype, d agtype);
+        MATCH (parcel:AgriParcel)-[r:belongsTo]-(device:Device)
+        WHERE parcel.name = 'Fondo Errano 2024 T1' AND parcel.irrigationSystemType = 'Drip irrigation'
+        RETURN parcel, r, device
+      $$) as (parcel agtype, r agtype, device agtype);
 
   - id: Q7
     query: |
-      SELECT * FROM cypher('agri_graph', $
-        MATCH (s:Device)
-        WHERE 'soilMoisture' IN s.controlledProperty AND toFloat(s.value[0]) > -2500
-        WITH s
-        ORDER BY toFloat(s.value[0]) ASC LIMIT 1
-        OPTIONAL MATCH (s)-[r]-(n)
-        RETURN s, r, n
-      $) AS (s agtype, r agtype, n agtype);
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH (device:Device)
+        WHERE 'soilMoisture' = ANY(device.controlledProperty) AND device.value IS NOT NULL
+        WITH device, device.value[0] AS moisture_value
+        ORDER BY moisture_value ASC
+        LIMIT 1
+        RETURN device
+      $$) as (device agtype);
 
   - id: Q8
     query: |
-      SELECT * FROM cypher('agri_graph', $
-        MATCH (d:Device)
-        WHERE d.location IS NOT NULL
-        WITH d, split(replace(replace(d.location, 'POINT (', ''), ')', ''), ' ') AS coords
-        WITH d, toFloat(coords[0]) AS lon, toFloat(coords[1]) AS lat
-        WITH d, lon, lat
-        ORDER BY sqrt((lon - 11.799)^2 + (lat - 44.235)^2) ASC LIMIT 1
-        OPTIONAL MATCH (d)-[r]-(n)
-        RETURN d, r, n
-      $) AS (d agtype, r agtype, n agtype);
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH (device:Device)
+        WHERE device.location IS NOT NULL
+        WITH device, 
+             point({longitude: 11.799, latitude: 44.235}) AS target_point,
+             point({longitude: split(replace(replace(device.location, 'POINT (', ''), ')', ''), ' ')[0]::float, 
+                    latitude: split(replace(replace(device.location, 'POINT (', ''), ')', ''), ' ')[1]::float}) AS device_point
+        WITH device, distance(target_point, device_point) AS dist
+        ORDER BY dist ASC
+        LIMIT 1
+        RETURN device
+      $$) as (device agtype);
 
   - id: Q9
     query: |
-      SELECT * FROM cypher('agri_graph', $
-        MATCH (farm:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})<-[r_farm:belongsTo]-(parcel:AgriParcel)
-        OPTIONAL MATCH (parcel)<-[r_direct:belongsTo]-(direct_device:Device)
-        OPTIONAL MATCH (parcel)<-[r_grid:belongsTo]-(grid:Device)-[r_has:hasDevice]->(grid_device:Device)
-        WITH parcel, farm, r_farm,
-             collect(DISTINCT direct_device) + collect(DISTINCT grid) + collect(DISTINCT grid_device) AS all_devices,
-             collect(DISTINCT r_direct) + collect(DISTINCT r_grid) + collect(DISTINCT r_has) AS all_relationships,
-             size(collect(DISTINCT direct_device) + collect(DISTINCT grid) + collect(DISTINCT grid_device)) AS device_count
-        ORDER BY device_count DESC 
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH (parcel:AgriParcel)<-[r:belongsTo]-(device:Device)
+        WITH parcel, COUNT(device) AS device_count, COLLECT(r) AS relationships, COLLECT(device) AS devices
+        ORDER BY device_count DESC
         LIMIT 1
-        RETURN parcel, farm, r_farm, all_devices, all_relationships
-      $) AS (parcel agtype, farm agtype, r_farm agtype, all_devices agtype, all_relationships agtype);
+        UNWIND relationships AS rel
+        UNWIND devices AS dev
+        RETURN parcel, rel, dev
+      $$) as (parcel agtype, rel agtype, dev agtype);
 
   - id: Q10
     query: |
-      SELECT * FROM cypher('agri_graph', $
-        MATCH (d:Device)
-        WHERE 'temperature' IN d.controlledProperty
-        WITH d
-        ORDER BY toFloat(d.value[0]) ASC LIMIT 1
-        OPTIONAL MATCH (d)-[r]-(n)
-        RETURN d, r, n
-      $) AS (d agtype, r agtype, n agtype);
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH (device:Device)-[r:belongsTo]->(parcel:AgriParcel)
+        WHERE 'temperature' = ANY(device.controlledProperty)
+        WITH device, parcel, r, device.value[0] AS temp_value
+        ORDER BY temp_value ASC
+        LIMIT 1
+        RETURN device, r, parcel
+      $$) as (device agtype, r agtype, parcel agtype)
+      UNION
+      SELECT d.*, rel.*, p.*
+      FROM public.measurements m
+      JOIN cypher('agri_graph', $$
+        MATCH (device:Device)-[r:belongsTo]->(parcel:AgriParcel)
+        RETURN device, r, parcel
+      $$) as (device agtype, r agtype, parcel agtype) ON m.device_id = (device->>'id')::text
+      WHERE m.controlled_property = 'temperature'
+      ORDER BY m.value ASC
+      LIMIT 1;
