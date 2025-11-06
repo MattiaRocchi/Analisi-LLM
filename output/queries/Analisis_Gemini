@@ -1,0 +1,257 @@
+{
+  "gt_file": "../../prompts/queries/responses_groundTrue.yaml",
+  "llm_file": "../../output/responses/Gemini.yaml",
+  "comparisons": [
+    {
+      "query_id": "Q1",
+      "nodes_gt": 4,
+      "nodes_llm": 0,
+      "edges_gt": 3,
+      "edges_llm": 0,
+      "missing_llm": {
+        "nodes": [
+          [
+            "urn:ngsi-ld:AgriParcel:unibo:647c399b2188ff484f7416389f94885c",
+            "AgriParcel"
+          ],
+          [
+            "urn:ngsi-ld:AgriParcel:unibo:2de48d8524fbe1867ae9b7f1979e87ad",
+            "AgriParcel"
+          ],
+          [
+            "urn:ngsi-ld:AgriParcel:unibo:102220a008cba90174069a0c12d5c212",
+            "AgriParcel"
+          ],
+          [
+            "urn:ngsi-ld:AgriFarm:unibo:c29ee13f6e871b9588c9b3d58e43df23",
+            "AgriFarm"
+          ]
+        ],
+        "edges": [
+          [
+            "urn:ngsi-ld:AgriParcel:unibo:2de48d8524fbe1867ae9b7f1979e87ad",
+            "urn:ngsi-ld:AgriFarm:unibo:c29ee13f6e871b9588c9b3d58e43df23",
+            "belongsTo"
+          ],
+          [
+            "urn:ngsi-ld:AgriParcel:unibo:102220a008cba90174069a0c12d5c212",
+            "urn:ngsi-ld:AgriFarm:unibo:c29ee13f6e871b9588c9b3d58e43df23",
+            "belongsTo"
+          ],
+          [
+            "urn:ngsi-ld:AgriParcel:unibo:647c399b2188ff484f7416389f94885c",
+            "urn:ngsi-ld:AgriFarm:unibo:c29ee13f6e871b9588c9b3d58e43df23",
+            "belongsTo"
+          ]
+        ]
+      },
+      "extra_llm": {
+        "nodes": [],
+        "edges": []
+      }
+    },
+    {
+      "query_id": "Q10",
+      "error": {
+        "gt": "can't execute an empty query",
+        "llm": "relation \"public.measuremets\" does not exist\nLINE 5:     public.measuremets\n            ^\n"
+      }
+    },
+    {
+      "query_id": "Q2",
+      "nodes_gt": 15,
+      "nodes_llm": 0,
+      "edges_gt": 14,
+      "edges_llm": 0,
+      "missing_llm": {
+        "nodes": [
+          [
+            "urn:ngsi-ld:Device:unibo:469041255c19a44e276333092dd4129a",
+            "Device"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:aa330bc5e29463d601c1dad3ffc03121",
+            "Device"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:5d929b1bde23c5f6ef1b70201195701b",
+            "Device"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:a316ef4f55a925842cca39af7280f4d8",
+            "Device"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:bbd0fc75da579af01a8e67b6de1ba64c",
+            "Device"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:13e6e314d9b9c5eacfa444358261f077",
+            "Device"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:a3a5e76ca4431df1daa44ed824714bd2",
+            "Device"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:ea878798346b626a88d88e29b7f9ea34",
+            "Device"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:2f2699dd8eb6bb75c0df757bfccc035f",
+            "Device"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:7c9ac3b27115a41c509ad71d20db4a88",
+            "Device"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:7fb7b74c0b10ee2bc49659ef2fbfc17e",
+            "Device"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
+            "Device"
+          ],
+          [
+            "urn:ngsi-ld:AgriParcel:unibo:647c399b2188ff484f7416389f94885c",
+            "AgriParcel"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:09bf3c00cdb036951340bc3de59b401b",
+            "Device"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:fabb65ec5178be7d3e0f7c1e8210cfdc",
+            "Device"
+          ]
+        ],
+        "edges": [
+          [
+            "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
+            "urn:ngsi-ld:Device:unibo:7fb7b74c0b10ee2bc49659ef2fbfc17e",
+            "hasDevice"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
+            "urn:ngsi-ld:Device:unibo:5d929b1bde23c5f6ef1b70201195701b",
+            "hasDevice"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
+            "urn:ngsi-ld:Device:unibo:469041255c19a44e276333092dd4129a",
+            "hasDevice"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
+            "urn:ngsi-ld:Device:unibo:13e6e314d9b9c5eacfa444358261f077",
+            "hasDevice"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:a316ef4f55a925842cca39af7280f4d8",
+            "urn:ngsi-ld:AgriParcel:unibo:647c399b2188ff484f7416389f94885c",
+            "belongsTo"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
+            "urn:ngsi-ld:Device:unibo:09bf3c00cdb036951340bc3de59b401b",
+            "hasDevice"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
+            "urn:ngsi-ld:Device:unibo:a3a5e76ca4431df1daa44ed824714bd2",
+            "hasDevice"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
+            "urn:ngsi-ld:Device:unibo:7c9ac3b27115a41c509ad71d20db4a88",
+            "hasDevice"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
+            "urn:ngsi-ld:Device:unibo:fabb65ec5178be7d3e0f7c1e8210cfdc",
+            "hasDevice"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
+            "urn:ngsi-ld:Device:unibo:2f2699dd8eb6bb75c0df757bfccc035f",
+            "hasDevice"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
+            "urn:ngsi-ld:AgriParcel:unibo:647c399b2188ff484f7416389f94885c",
+            "belongsTo"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
+            "urn:ngsi-ld:Device:unibo:bbd0fc75da579af01a8e67b6de1ba64c",
+            "hasDevice"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
+            "urn:ngsi-ld:Device:unibo:aa330bc5e29463d601c1dad3ffc03121",
+            "hasDevice"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:0030d9e3116f5d4d3e5876b62e5144a6",
+            "urn:ngsi-ld:Device:unibo:ea878798346b626a88d88e29b7f9ea34",
+            "hasDevice"
+          ]
+        ]
+      },
+      "extra_llm": {
+        "nodes": [],
+        "edges": []
+      }
+    },
+    {
+      "query_id": "Q3",
+      "error": {
+        "gt": null,
+        "llm": "syntax error at or near \"DISTINCT\"\nLINE 4:     SELECT DISTINCT device_id FROM public.measuremets WHERE ...\n                   ^\n"
+      }
+    },
+    {
+      "query_id": "Q4",
+      "error": {
+        "gt": null,
+        "llm": "syntax error at or near \"DISTINCT\"\nLINE 4:     SELECT DISTINCT device_id FROM public.measuremets WHERE ...\n                   ^\n"
+      }
+    },
+    {
+      "query_id": "Q5",
+      "error": {
+        "gt": null,
+        "llm": "invalid indirection syntax\nLINE 3:   WHERE p.colture IS NOT NULL AND p.colture::text ILIKE '%Ki...\n                                          ^\n"
+      }
+    },
+    {
+      "query_id": "Q6",
+      "error": {
+        "gt": null,
+        "llm": "invalid indirection syntax\nLINE 3:   WHERE p.name IS NOT NULL AND p.name::text ILIKE '%T1%' AND...\n                                       ^\n"
+      }
+    },
+    {
+      "query_id": "Q7",
+      "error": {
+        "gt": null,
+        "llm": "relation \"public.measuremets\" does not exist\nLINE 5:     public.measuremets\n            ^\n"
+      }
+    },
+    {
+      "query_id": "Q8",
+      "error": {
+        "gt": null,
+        "llm": "relation \"public.measuremets\" does not exist\nLINE 5:     public.measuremets\n            ^\n"
+      }
+    },
+    {
+      "query_id": "Q9",
+      "error": {
+        "gt": null,
+        "llm": "could not find rte for device_count\nLINE 4:   ORDER BY device_count DESC\n                   ^\n"
+      }
+    }
+  ]
+}

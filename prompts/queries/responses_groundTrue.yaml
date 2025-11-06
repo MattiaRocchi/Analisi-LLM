@@ -83,3 +83,15 @@ responses_results:
   
   - id: Q10
     query: |
+      WITH min_temp AS (
+        SELECT m.device_id, m.value
+        FROM measurements m
+        WHERE m.controlled_property = 'temperature'
+        ORDER BY m.value ASC
+        LIMIT 1
+      )
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH (d:Device)
+        RETURN d
+      $$) as (d agtype)
+      WHERE d::json -> 'properties' ->> 'id' = (SELECT device_id FROM min_temp);
