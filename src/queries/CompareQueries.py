@@ -4,9 +4,6 @@ from difflib import unified_diff
 from datetime import datetime
 
 def load_yaml_file(file_path):
-    """
-    Load and parse a YAML file
-    """
     try:
         with open(file_path, 'r', encoding='utf-8') as file:
             return yaml.safe_load(file)
@@ -18,18 +15,12 @@ def load_yaml_file(file_path):
         return None
 
 def normalize_query(query):
-    """
-    Normalize a query string for comparison by removing extra whitespace
-    """
     if query is None:
         return ""
     # Remove leading/trailing whitespace and normalize internal whitespace
     return ' '.join(query.strip().split()).lower()
 
 def compare_queries(ground_truth_file, llm_output_file, output_file='query_differences.txt'):
-    """
-    Compare queries from LLM output with ground truth and generate a difference report
-    """
     # Load both YAML files
     ground_truth = load_yaml_file(ground_truth_file)
     llm_output = load_yaml_file(llm_output_file)
@@ -143,9 +134,6 @@ def compare_queries(ground_truth_file, llm_output_file, output_file='query_diffe
         print("All queries match!")
 
 def main():
-    """
-    Main function to handle command line arguments and execute comparison
-    """
     parser = argparse.ArgumentParser(
         description='Compare LLM generated queries with ground truth queries',
         formatter_class=argparse.RawDescriptionHelpFormatter
