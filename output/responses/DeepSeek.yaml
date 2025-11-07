@@ -2,48 +2,49 @@ responses:
   - id: "Q1"
     query: |
       SELECT * FROM cypher('agri_graph', $$
-        MATCH (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})<-[:belongsTo]-(p:AgriParcel)
-        RETURN f, p, relationships(p) as r
-      $$) as (m agtype, r agtype, n agtype)
+        MATCH (f:AgriFarm)-[r:belongsTo]-(p:AgriParcel)
+        WHERE f.name = 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'
+        RETURN f, r, p
+      $$) as (f agtype, r agtype, p agtype);
 
   - id: "Q2"
     query: |
       SELECT * FROM cypher('agri_graph', $$
-        MATCH (p:AgriParcel {id: 'urn:ngsi-ld:AgriParcel:unibo:647c399b2188ff484f7416389f94885c'})<-[:belongsTo]-(d:Device)
-        RETURN p, d, relationships(d) as r
-      $$) as (m agtype, r agtype, n agtype)
+        MATCH (p:AgriParcel {id: 'urn:ngsi-ld:AgriParcel:unibo:647c399b2188ff484f7416389f94885c'})-[r:belongsTo]-(d:Device)
+        RETURN p, r, d
+      $$) as (p agtype, r agtype, d agtype);
 
   - id: "Q3"
     query: |
       SELECT * FROM cypher('agri_graph', $$
         MATCH (d:Device)
         WHERE 'soilMoisture' IN d.controlledProperty
-        RETURN d, relationships(d) as r
-      $$) as (m agtype, r agtype, n agtype)
+        RETURN d
+      $$) as (d agtype);
 
   - id: "Q4"
     query: |
       SELECT * FROM cypher('agri_graph', $$
-        MATCH (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})<-[:belongsTo]-(p:AgriParcel)<-[:belongsTo]-(d:Device)
+        MATCH (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:belongsTo]-(p:AgriParcel)-[:belongsTo]-(d:Device)
         WHERE 'soilMoisture' IN d.controlledProperty
-        RETURN f, p, d, relationships(p) as r1, relationships(d) as r2
-      $$) as (m agtype, r agtype, n agtype)
+        RETURN f, p, d
+      $$) as (f agtype, p agtype, d agtype);
 
   - id: "Q5"
     query: |
       SELECT * FROM cypher('agri_graph', $$
-        MATCH (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})<-[:belongsTo]-(p:AgriParcel)
+        MATCH (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:belongsTo]-(p:AgriParcel)
         WHERE p.colture CONTAINS 'Kiwi'
-        RETURN f, p, relationships(p) as r
-      $$) as (m agtype, r agtype, n agtype)
+        RETURN p
+      $$) as (p agtype);
 
   - id: "Q6"
     query: |
       SELECT * FROM cypher('agri_graph', $$
-        MATCH (p:AgriParcel)<-[:belongsTo]-(d:Device)
+        MATCH (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:belongsTo]-(p:AgriParcel)-[r:belongsTo]-(d:Device)
         WHERE 'dripper' IN d.controlledProperty AND p.id CONTAINS 'T1'
-        RETURN p, d, relationships(d) as r
-      $$) as (m agtype, r agtype, n agtype)
+        RETURN p, r, d
+      $$) as (p agtype, r agtype, d agtype);
 
   - id: "Q7"
     query: |
@@ -51,33 +52,48 @@ responses:
         MATCH (d:Device)
         WHERE 'soilMoisture' IN d.controlledProperty
         WITH d ORDER BY d.value[0] ASC LIMIT 1
-        RETURN d, relationships(d) as r
-      $$) as (m agtype, r agtype, n agtype)
+        RETURN d
+      $$) as (d agtype);
 
   - id: "Q8"
     query: |
       SELECT * FROM cypher('agri_graph', $$
         MATCH (d:Device)
         WHERE d.location IS NOT NULL
-        WITH d, point(d.location) as point1, point('POINT(11.799 44.235)') as point2
-        WITH d, distance(point1, point2) as dist ORDER BY dist ASC LIMIT 1
-        RETURN d, relationships(d) as r
-      $$) as (m agtype, r agtype, n agtype)
+        WITH d, point(d.location) as loc
+        ORDER BY distance(loc, point('11.799,44.235'))
+        LIMIT 1
+        RETURN d
+      $$) as (d agtype);
 
   - id: "Q9"
     query: |
       SELECT * FROM cypher('agri_graph', $$
-        MATCH (p:AgriParcel)<-[:belongsTo]-(d:Device)
-        WITH p, count(d) as device_count ORDER BY device_count DESC LIMIT 1
-        MATCH (p)<-[:belongsTo]-(devices:Device)
-        RETURN p, devices, relationships(p) as r1, relationships(devices) as r2
-      $$) as (m agtype, r agtype, n agtype)
+        MATCH (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:belongsTo]-(p:AgriParcel)-[r:belongsTo]-(d:Device)
+        WITH p, count(d) as device_count
+        ORDER BY device_count DESC LIMIT 1
+        MATCH (p)-[r:belongsTo]-(d:Device)
+        RETURN p, r, d
+      $$) as (p agtype, r agtype, d agtype);
 
   - id: "Q10"
     query: |
+      WITH min_temp AS (
+        SELECT m.device_id
+        FROM public.measurements m
+        JOIN (
+          SELECT d::json -> 'properties' ->> 'id' as device_id
+          FROM cypher('agri_graph', $$
+            MATCH (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})-[:belongsTo]-(:AgriParcel)-[:belongsTo]-(d:Device)
+            RETURN d
+          $$) AS (d agtype)
+        ) AS farm_devices ON farm_devices.device_id = m.device_id
+        WHERE m.controlled_property = 'temperature'
+        ORDER BY m.value ASC
+        LIMIT 1
+      )
       SELECT * FROM cypher('agri_graph', $$
-        MATCH (d:Device)
-        WHERE 'temperature' IN d.controlledProperty
-        WITH d ORDER BY d.value[0] ASC LIMIT 1
-        RETURN d, relationships(d) as r
-      $$) as (m agtype, r agtype, n agtype)
+        MATCH (d:Device)-[r]-(n)
+        WHERE d.id = $device_id
+        RETURN d, r, n
+      $$, json_build_object('device_id', (SELECT device_id FROM min_temp))::agtype) as (d agtype, r agtype, n agtype);
