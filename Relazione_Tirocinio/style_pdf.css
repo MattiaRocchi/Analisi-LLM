@@ -1,0 +1,62 @@
+body {
+  font-family: "Times New Roman", serif;
+  font-size: 12pt;
+  line-height: 1.6;
+  margin: 2cm;
+  text-align: justify;
+}
+
+h1, h2, h3 {
+  color: #1b263b;
+  font-weight: bold;
+  page-break-after: avoid;
+}
+
+h2 {
+  page-break-before: always;
+}
+
+h1:first-child, h2:first-child {
+  page-break-before: avoid;
+}
+
+img {
+  display: block;
+  margin: 0 auto;
+  width: 95%;
+  height: auto;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+  width: 90%;
+}
+
+th, td {
+  border: 1px solid #555;
+  padding: 6px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+em {
+  display: block;
+  text-align: center;
+  font-size: 10pt;
+  color: #444;
+}
+
+h1 + p,
+h1 + p + p,
+h1 + p + p + p,
+h1 + p + p + p + p {
+  text-align: center;
+  line-height: 1.4;
+  margin-bottom: 4px;
+}
+
+h1 + p:last-of-type {
+  margin-bottom: 20px;
+}
