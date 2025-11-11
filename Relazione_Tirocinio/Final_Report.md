@@ -87,7 +87,7 @@ I risultati sono stati classificati in tre categorie:
 
 ### 5.1 Analisi Preliminare: Impatto dell'Arricchimento del Contesto
 
-Per determinare la configurazione ottimale per il benchmark finale, è stata condotta un'analisi preliminare sulle tre versioni progressive della struttura del grafo. La Tabella 1 mostra l'evoluzione delle performance per Gemini Pro attraverso le diverse versioni, applicando la **metrica simmetrica** di valutazione:
+Per determinare la configurazione ottimale per il benchmark finale, è stata condotta un'analisi preliminare sulle tre versioni progressive della struttura del grafo. La Tabella 1 mostra l'evoluzione delle performance per Gemini Pro attraverso le diverse versioni:
 
 | Versione | Query Corrette | Mismatch | Errori | Note Principali |
 |----------|:---------------:|:--------:|:------:|-----------------|
@@ -107,7 +107,7 @@ Questo pattern è stato osservato in tutti i modelli testati, sebbene con valori
 
 ### 5.2 Benchmark Finale con Metrica Simmetrica
 
-Sulla base dei risultati dell'analisi preliminare, il benchmark finale è stato condotto utilizzando la **Versione 3**. Applicando una **metrica di valutazione simmetrica** - dove sia i nodi/archi mancanti che quelli in eccesso rispetto al ground truth sono considerati errori - i risultati mostrano un quadro più rigoroso delle performance effettive.
+Sulla base dei risultati dell'analisi preliminare, il benchmark finale è stato condotto utilizzando la **Versione 3**, con la nostra metrica di valutazione.
 
 | Modello LLM | Corretto | Mismatch | Errore |
 | :---------: | :---------: | :---------: | :---------: |
