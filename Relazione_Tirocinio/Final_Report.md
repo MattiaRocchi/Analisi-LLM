@@ -52,7 +52,7 @@ La parte pratica si è concentrata sulla progettazione e l'esecuzione di un benc
 1. **Definizione progressiva della struttura del grafo:** Per valutare come il livello di dettaglio nel prompt influenzi la capacità dei LLM, sono state definite tre versioni progressive della struttura:
    * **Versione 1:** Solo la struttura base del grafo (nodi e relazioni) senza dati esemplificativi
    * **Versione 2:** Struttura arricchita con tutte le proprietà, presenti nei nodi
-   * **Versione 3:** Struttura completa che includeva anche la descrizione della tabella relazionale "measurements", una Hypertable di Timescale, con al suo interno le varie misurazioni dei Divice e la componente SQL delle query ibride serve per interrogare questa tabella
+   * **Versione 3:** Struttura completa che includeva anche la descrizione della tabella relazionale "measurements", una Hypertable di Timescale, con al suo interno le varie misurazioni dei Device e la componente SQL delle query ibride serve per interrogare questa tabella
 
     Questo approccio graduale ha permesso di isolare l'impatto dell'arricchimento semantico sulla qualità delle query generate.
 
