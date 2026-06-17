@@ -36,10 +36,11 @@ class AgriQueryPipeline:
 
     def start(self):
         print("Inizializzazione sistema in corso...")
+        print("Lettura system_instructions...")
         dataset = self.load_dataset()
         schema = SchemaExtractor.get_full_prompt_context(self.config['refined_graph_path'])
         
-        # Il selettore viene creato UNA volta sola qui
+        # Il selettore viene creato
         selector = FewShotSelector(ground_truth_examples=dataset)
         
         print("\n--- SISTEMA AGRI-QUERY PRONTO ---")
@@ -49,13 +50,7 @@ class AgriQueryPipeline:
                 break
                 
             print("Analisi domanda e selezione esempi simili...")
-            few_shot = selector.select_top_k(user_q, k=2)
-
-            # --- BLOCCO HACK PER IL DEBUG ---
-            # 2. Cerca manualmente la Q10 nel database e forzala nella lista
-            q10_example = next((ex for ex in dataset if ex['id'] == 'Q10'), None)
-            if q10_example and q10_example not in few_shot:
-                few_shot.append(q10_example)
+            few_shot = selector.select_top_k(user_q, k=5)
 
             print(f"\n[DEBUG FEW-SHOT] Esempi selezionati ({len(few_shot)}):")
             for i, ex in enumerate(few_shot, 1):
