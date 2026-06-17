@@ -2,6 +2,6 @@
 model_name: "gpt-4o"
 instructions_path: "Tesi/config/system_instructions.txt"
 refined_graph_path: "data/raw/Graph/graph_v2.json"
-ground_truth_path: "prompts/queries/responses_groundTrue.yaml"
-template_query_path: "prompts/queries/Template_query.yaml"
+ground_truth_path: "Tesi/Few_shot_data/responses_query_nl.yaml"
+template_query_path: "Tesi/Few_shot_data/query_nl.yaml"
 report_output_path: "output/experiment_results.json"

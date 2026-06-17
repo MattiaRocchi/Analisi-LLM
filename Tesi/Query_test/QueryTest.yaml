@@ -1,0 +1,39 @@
+Q21
+Domanda: Mostra la topologia di rete (grafo) di tutti gli apparecchi nel lotto 'Fondo Errano 2024 T0' che hanno trasmesso dati sulla proprietà 'dripper'.
+Focus: Generalizzazione Topologica ed Esistenziale (Path completo a salto singolo da AgriParcel a Device + Filtro SQL semplice su dripper).
+
+Q22
+Domanda: Restituisci esclusivamente il nodo del sensore che in assoluto ha registrato il valore più basso di umidità del suolo ('soilMoisture') nell'intera storia del database.
+Focus: Estrazione Nodo da Condizione Estrema (CTE SQL con ORDER BY m.value ASC LIMIT 1 + Navigazione fino a d2).
+
+Q23
+Domanda: Restituisci il grafo che mostra le aziende agricole (AgriFarm) che possiedono sensori che hanno segnalato un valore di 'soilMoisture' inferiore a -500.
+Focus: Deduzione Spaziale a Ritroso (Path lungo da AgriFarm giù fino a d2 filtrato per valore di soilMoisture).
+
+Q24
+Domanda: Genera la rete dei lotti agricoli coltivati a 'kiwi' e mostra tutti i dispositivi e sensori ad essi collegati.
+Focus: Grafo Puro con filtro basato sulle proprietà estratte dallo schema JSON.
+
+Q25
+Domanda: Mostra il sotto-grafo dei dispositivi che sono particolarmente attivi, ovvero che hanno registrato più di 100 eventi 'dripper' totali.
+Focus: Aggregazione SQL + Grafo Dinamico (GROUP BY e HAVING COUNT(*) > 100 in CTE e salto topologico singolo).
+
+Q26
+Domanda: Visualizza l'albero dei dispositivi nel lotto 'Fondo Errano 2024 T1' che nel mese di Agosto 2024 hanno avuto un livello di umidità del terreno ('soilMoisture') sotto il 15.
+Focus: Condizione Ibrida Multi-Parametro basata su dati reali (Filtro spaziale nel grafo con nome esatto + filtro temporale assoluto e quantitativo SQL su una proprietà esistente).
+
+Q27
+Domanda: Restituisci il grafo di tutti i sensori finali collegati al dispositivo principale il cui ID è 'urn:ngsi-ld:Device:unibo:2d6b0e0c8c57f720c48fcb40563b4401'.
+Focus: Isolamento Gerarchico (Puro Cypher con navigazione in avanti partendo da un ID confermato nel JSON).
+
+Q28
+Domanda: Estrai i nodi dei sensori di umidità la cui media delle misurazioni storiche ('soilMoisture') risulta essere inferiore a 40.
+Focus: Calcolo Media Ibrida (HAVING AVG(m.value) < 40 in CTE).
+
+Q29
+Domanda: Mostra il grafo dei dispositivi (nodi padre) presenti nell'azienda 'ZESPRI' che non hanno alcun sensore finale collegato a loro tramite hasDevice.
+Focus: Ricerca Relazionale Orfana (Puro Cypher con clausola NOT EXISTS per testare la topologia).
+
+Q30
+Domanda: Restituisci il percorso topologico dal lotto al sensore per tutti quei dispositivi che hanno registrato, nella loro storia, sia un valore di 'soilMoisture' inferiore a 20, sia almeno un evento 'dripper' con valore superiore a 0.
+Focus: Multi-Ponte (CTE SQL complessa con doppio controllo su due controlled_property differenti usando INTERSECT o doppi filtri IN, che testerà la comprensione logica del modello di fronte a due diverse topologie hardware).

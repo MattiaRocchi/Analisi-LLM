@@ -1,0 +1,203 @@
+responses_results:
+  - id: Q1
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH path = (farm:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})<-[:belongsTo]-(parcel:AgriParcel)
+        RETURN path
+      $$) AS (graph_path agtype);
+  - id: Q2
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH path1 = (p:AgriParcel {name: 'Fondo Errano 2024 T0'})<-[:belongsTo]-(d:Device)
+        OPTIONAL MATCH path2 = (d)-[:hasDevice]->(d2:Device)
+        RETURN path1, path2
+      $$) AS (path1 agtype, path2 agtype);
+
+  - id: Q3
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH path = (d:Device)
+        WHERE 'soilMoisture' IN d.controlledProperty
+        OPTIONAL MATCH path2 = (d)-[r:hasDevice]->(n)
+        RETURN path, path2
+      $$) AS (path agtype, path2 agtype);
+
+  - id: Q4
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH path = (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})<-[r:belongsTo]-(p:AgriParcel)<-[m:belongsTo]-(d:Device)-[n:hasDevice]->(dev:Device)
+        WHERE 'soilMoisture' IN dev.controlledProperty
+        RETURN path
+      $$) as (path agtype);
+
+  - id: Q5
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH path = (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})<-[r:belongsTo]-(p:AgriParcel)
+        WHERE p.colture = 'Kiwi G3'
+        RETURN path
+      $$) AS (path agtype);
+
+  - id: Q6
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+          MATCH path = (p:AgriParcel {name: 'Fondo Errano 2024 T1'})<-[:belongsTo]-(d:Device)
+          WHERE d.id CONTAINS 'dripper'
+          RETURN path, d
+      $$) AS (graph_path agtype, d agtype);
+
+  - id: Q7
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH (s:Device)
+        WHERE 'soilMoisture' IN s.controlledProperty
+        WITH s, toFloat(s.value[0]) AS numeric_value
+        RETURN s
+        ORDER BY numeric_value ASC LIMIT 1
+      $$) AS (s agtype);
+
+  - id: Q8
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH (d:Device)
+        WITH d, split(replace(replace(d.location, 'POINT (', ''), ')', ''), ' ') as coords
+        WITH d, toFloat(coords[0]) as lon, toFloat(coords[1]) as lat
+        WITH d, lon, lat, sqrt((lon - 11.799)^2 + (lat - 44.235)^2) AS distance
+        RETURN d
+        ORDER BY distance ASC LIMIT 1
+      $$) AS (d agtype);
+
+  - id: Q9
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH (farm:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})<-[r_farm:belongsTo]-(parcel:AgriParcel)
+        OPTIONAL MATCH (parcel)<-[r_direct:belongsTo]-(direct_device:Device)
+        OPTIONAL MATCH (parcel)<-[r_grid:belongsTo]-(grid:Device)-[r_has:hasDevice]->(grid_device:Device)
+        WITH parcel, farm, 
+             collect(DISTINCT direct_device) + collect(DISTINCT grid) + collect(DISTINCT grid_device) AS all_devices,
+             collect(r_farm) + collect(r_direct) + collect(r_grid) + collect(r_has) AS all_relationships
+        RETURN parcel, farm, all_devices, all_relationships
+        ORDER BY size(all_devices) DESC 
+        LIMIT 1
+      $$) AS (parcel agtype, farm agtype, all_devices agtype, all_relationships agtype)
+  
+  - id: Q10
+    query: |
+      WITH min_temp AS (
+        SELECT m.device_id, m.value
+        FROM measurements m
+        WHERE m.controlled_property = 'temperature'
+        ORDER BY m.value ASC
+        LIMIT 1
+      )
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH (d:Device)
+        RETURN d
+      $$) as (d agtype)
+      WHERE d::json -> 'properties' ->> 'id' = (SELECT device_id FROM min_temp);
+  
+  - id: Q11
+    query: |  
+      WITH active_sensors AS (
+          SELECT DISTINCT m.device_id
+          FROM public.measurements m
+          WHERE m.controlled_property = 'soilMoisture'
+      )
+      SELECT * FROM cypher('agri_graph', $$
+          MATCH path = (p:AgriParcel {name: 'Fondo Errano 2024 T1'})<-[:belongsTo]-(d:Device)-[:hasDevice]->(d2:Device)
+          RETURN path, d2
+      $$) AS (graph_path agtype, d2 agtype)
+      WHERE d2::json -> 'properties' ->> 'id' IN (SELECT device_id FROM active_sensors);
+
+  - id: Q12
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+          MATCH path = (f:AgriFarm)<-[:belongsTo]-(p:AgriParcel)<-[:belongsTo]-(d:Device)-[:hasDevice]->(d2:Device {id: 'urn:ngsi-ld:Device:unibo:0d3a505153a67ba5aeaa38fd76509a77'})
+          RETURN path
+          $$) AS (graph_path agtype);
+  
+  - id: Q13
+    query: |
+      WITH critical_moisture AS (
+        SELECT DISTINCT m.device_id
+        FROM public.measurements m
+        WHERE m.controlled_property = 'soilMoisture' AND m.value < 25
+      )
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH path = (p:AgriParcel)<-[:belongsTo]-(d:Device)-[:hasDevice]->(d2:Device)
+        RETURN path, d, d2
+      $$) AS (graph_path agtype, d agtype, d2 agtype)
+      WHERE d::json -> 'properties' ->> 'id' IN (SELECT device_id FROM critical_moisture)
+      OR d2::json -> 'properties' ->> 'id' IN (SELECT device_id FROM critical_moisture);
+  
+  - id: Q14
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH path = (p:AgriParcel)<-[:belongsTo]-(d:Device)
+        WHERE d.name CONTAINS 'Dripper'
+        RETURN path
+      $$) AS (graph_path agtype);
+
+  - id: Q15
+    query: |
+      WITH recent_irrigation AS (
+        SELECT DISTINCT m.device_id
+        FROM public.measurements m
+        WHERE m.controlled_property = 'dripper'
+      AND m.timestamp >= '2024-07-01' AND m.timestamp < '2024-08-01'
+      )
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH path = (p:AgriParcel {name: 'Fondo Errano 2024 T2'})<-[:belongsTo]-(d:Device)
+        RETURN path, d
+      $$) AS (graph_path agtype, d agtype)
+      WHERE d::json -> 'properties' ->> 'id' IN (SELECT device_id FROM recent_irrigation);
+    
+  - id: Q16
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH path1 = (p:AgriParcel {colture: 'Kiwi G3'})<-[:belongsTo]-(d:Device)
+        OPTIONAL MATCH path2 = (d)-[:hasDevice]->(d2:Device)
+        RETURN path1, path2
+      $$) AS (path1 agtype, path2 agtype);
+  
+  - id: Q17
+    query: |
+      WITH active_drippers AS (
+        SELECT DISTINCT m.device_id
+        FROM public.measurements m
+        WHERE m.controlled_property = 'dripper' AND m.value > 3 
+      )
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH path = (p:AgriParcel)<-[:belongsTo]-(d:Device)
+        RETURN path, d
+      $$) AS (graph_path agtype, d agtype)
+      WHERE d::json -> 'properties' ->> 'id' IN (SELECT device_id FROM active_drippers);
+  
+  - id: Q18
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH path = (p:AgriParcel {name: 'Fondo Errano 2024 T2'})<-[:belongsTo]-(d:Device)
+        RETURN path
+      $$) AS (graph_path agtype);
+  
+  - id: Q19
+    query: |
+      WITH recent_moisture AS (
+        SELECT DISTINCT m.device_id
+        FROM public.measurements m
+        WHERE m.controlled_property = 'soilMoisture'
+        AND EXTRACT(YEAR FROM m.timestamp) = 2024
+      )
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH path = (p:AgriParcel)<-[:belongsTo]-(d:Device)-[:hasDevice]->(d2:Device)
+        RETURN path, d, d2
+      $$) AS (graph_path agtype, d agtype, d2 agtype)
+      WHERE d::json -> 'properties' ->> 'id' IN (SELECT device_id FROM recent_moisture)
+      OR d2::json -> 'properties' ->> 'id' IN (SELECT device_id FROM recent_moisture);
+  
+  - id: Q20
+    query: |
+      SELECT * FROM cypher('agri_graph', $$
+        MATCH (d:Device {id: 'urn:ngsi-ld:Device:unibo:2d6b0e0c8c57f720c48fcb40563b4401'})-[:hasDevice]->(d2:Device)
+        RETURN d2
+      $$) AS (d2 agtype);

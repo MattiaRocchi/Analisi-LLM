@@ -1,0 +1,65 @@
+query_descriptions:
+  - id: Q1
+    nl_query: "Quali AgriParcel appartengono alla AgriFarm con nome 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'?"
+
+  - id: Q2
+    nl_query: "Quali sono gli ID dei dispositivi(Device) che appartengono all'AgriParcel 'Fondo Errano 2024 T0'?"
+
+  - id: Q3
+    nl_query: "Quali dispositivi(Device) hanno controlledProperty 'soilMoisture'?"
+
+  - id: Q4
+    nl_query: "Trova tutti i sensori di umidità del suolo nell'azienda(Farm) agricola ZESPRI."
+
+  - id: Q5
+    nl_query: "Quali sono i lotti dell'azienda(Farm) che coltivano kiwi?"
+
+  - id: Q6
+    nl_query: "Elenca i dispositivi di irrigazione a goccia nel lotto T1."
+
+  - id: Q7
+    nl_query: "Quale sensore di umidità del suolo ha registrato il valore più basso? E qual è il valore?"
+
+  - id: Q8
+    nl_query: "Considerando le coordinate, qual è il sensore più vicino al punto (11.799, 44.235)?"
+
+  - id: Q9
+    nl_query: "Quale lotto ha più dispositivi?"
+    
+  - id: Q10
+    nl_query: "Trova la temperatura minima, e dimmi a che dispositivi(Device) appartiene!"
+
+  - id: Q11
+    nl_query: "Mostra i sensori/dispositivi principali nel lotto 'Errano T1' che hanno registrato misurazioni di umidità del terreno ('soilMoisture')."
+
+  - id: Q12
+    nl_query: "Dato il sensore con ID 'urn:ngsi-ld:Device:unibo:0d3a505153a67ba5aeaa38fd76509a77', visualizzare a quale lotto e a quale azienda agricola appartiene."
+
+  - id: Q13
+    nl_query: "Visualizza la rete dei sensori in tutta l'azienda(Farm) che hanno segnalato un livello di umidità del terreno ('soilMoisture') critico inferiore a 25."
+
+  - id: Q14
+    nl_query: "Genera il grafo completo di tutti i dispositivi di irrigazione (i cui ID contengono 'dripper') e mostrami a quali lotti sono collegati."
+
+  - id: Q15
+    nl_query: "Estrai il grafo dei dispositivi nel lotto T2 ('Fondo Errano 2024 T2') che hanno registrato eventi di irrigazione ('dripper') nel mese di Luglio 2024."
+
+  - id: Q16
+    nl_query: "Mostra il grafo di tutti i dispositivi (e i loro sensori foglia) che appartengono a lotti coltivati a 'Kiwi G3'."
+
+  - id: Q17
+    nl_query: "Restituisci il sotto-grafo dei dispositivi (e i loro lotti di appartenenza) che hanno registrato almeno un evento 'dripper' con valore superiore a 3."
+
+  - id: Q18
+    nl_query: "Dato il lotto T2 (Fondo Errano 2024 T2), mostra solo il grafo dei suoi dispositivi principali (gateway) ignorando le relazioni verso i sensori finali."
+
+  - id: Q19
+    nl_query: "Visualizza la rete dei sensori e dei dispositivi padre che hanno effettuato misurazioni di 'soilMoisture' durante l'anno 2024."
+
+  - id: Q20
+    nl_query: "Estrai esclusivamente il nodo (o i nodi) dei sensori finali collegati al gateway 'urn:ngsi-ld:Device:unibo:2d6b0e0c8c57f720c48fcb40563b4401'."
+
+responses:
+  - id: "Q numero id query"
+    query: |
+      -- Inserisci qui la query Cypher/SQL ibrida compatibile con db PostgreSQL che usa Apache AGE e postgres
