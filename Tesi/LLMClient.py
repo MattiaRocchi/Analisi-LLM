@@ -8,7 +8,7 @@ from azure.core.credentials import AzureKeyCredential
 load_dotenv()
 
 class LLMClient:
-    def __init__(self, model_name: str = "deepseek/DeepSeek-V3-0324"):
+    def __init__(self, model_name: str):
         self.model_name = model_name
         self.token = os.getenv("GITHUB_API_KEY_DeepSeek") or os.getenv("GITHUB_TOKEN")
         if not self.token:
@@ -16,7 +16,7 @@ class LLMClient:
             
         self.client = ChatCompletionsClient(
             # 1. FIX ENDPOINT E TIMEOUT (Evita il blocco totale)
-            endpoint="https://models.inference.ai.azure.com",
+            endpoint="https://models.github.ai/inference",
             credential=AzureKeyCredential(self.token),
             connection_timeout=10,
             read_timeout=30
@@ -53,7 +53,6 @@ class LLMClient:
             response = self.client.complete(
                 messages=messages,
                 temperature=0.0,
-                top_p=0.1, # Questo blocca ulteriormente le allucinazioni
                 model=self.model_name
             )
             query = response.choices[0].message.content.strip()
@@ -69,7 +68,7 @@ class LLMClient:
 
 # TEST STANDALONE
 if __name__ == "__main__":
-    client = LLMClient()
+    client = LLMClient(model_name="mistral-ai/Codestral-2501")
     print("Test API in corso...")
     res = client.generate_query(
         instructions_path="Tesi/config/system_instructions.txt",

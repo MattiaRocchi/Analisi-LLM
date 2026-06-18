@@ -1,5 +1,5 @@
-#model_name: "DeepSeek-V3"
-model_name: "gpt-4o"
+#model_name: "DeepSeek-V3" Cohere-embed-v3
+model_name: "mistral-ai/Codestral-2501"
 instructions_path: "Tesi/config/system_instructions.txt"
 refined_graph_path: "data/raw/Graph/graph_v2.json"
 ground_truth_path: "Tesi/Few_shot_data/responses_query_nl.yaml"

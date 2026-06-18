@@ -9,8 +9,8 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from typing import Dict, Optional
 from datetime import datetime
 from dotenv import load_dotenv
-from data.db_conn import db_conn as db_conn_module
-from data.CompareGraph import CompareGraph
+from db_conn import db_conn as db_conn_module
+from CompareGraph import CompareGraph
 
 load_dotenv()
 

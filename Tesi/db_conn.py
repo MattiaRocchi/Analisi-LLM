@@ -14,7 +14,7 @@ class db_conn:
         try:
             self.connection = psycopg2.connect(
                 host=self.db_config['host'],
-                port=self.db_config.get('port', 45432),
+                port=self.db_config['port'],
                 database=self.db_config['database'],
                 user=self.db_config['user'],
                 password=self.db_config['password']

@@ -1,6 +1,6 @@
 from typing import Dict, List, Set, Tuple, Any
 import json
-from .config_dataclasses import ComparisonMetrics
+from config_dataclasses import ComparisonMetrics
 
 class CompareGraph:
 
