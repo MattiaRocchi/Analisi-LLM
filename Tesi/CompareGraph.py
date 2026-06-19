@@ -65,6 +65,13 @@ class CompareGraph:
         item = CompareGraph.parse_agtype_value(item)
         
         if isinstance(item, dict):
+            # Gestione path AGE
+            if 'vertices' in item and 'edges' in item:
+                for vertex in item.get('vertices', []):
+                    CompareGraph.extract_from_item(vertex, nodes, edges, node_id_map)
+                for edge in item.get('edges', []):
+                    CompareGraph.extract_from_item(edge, nodes, edges, node_id_map)
+                return
             # Check if it's an edge FIRST
             if CompareGraph.is_edge(item):
                 edge_tuple = CompareGraph.normalize_edge(item)
