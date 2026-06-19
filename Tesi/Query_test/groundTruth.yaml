@@ -18,18 +18,19 @@ responses_results:
   - id: Q22
     nl_query: "Restituisci esclusivamente il nodo del sensore che in assoluto ha registrato il valore più basso di umidità del suolo ('soilMoisture') nell'intera storia del database."
     query: |
-      WITH lowest_moisture AS (
-          SELECT m.device_id
-          FROM public.measurements m
-          WHERE m.controlled_property = 'soilMoisture'
-          ORDER BY m.value ASC
-          LIMIT 1
+      WITH min_soil_moisture AS (
+        SELECT m.device_id, MIN(m.value) AS min_value
+        FROM public.measurements m
+        WHERE m.controlled_property = 'soilMoisture'
+        GROUP BY m.device_id
+        ORDER BY min_value ASC
+        LIMIT 1
       )
       SELECT * FROM cypher('agri_graph', $$
-          MATCH path = (p:AgriParcel)<-[:belongsTo]-(d:Device)-[:hasDevice]->(d2:Device)
-          RETURN path, d2
-      $$) AS (graph_path agtype, d2 agtype)
-      WHERE d2::json -> 'properties' ->> 'id' IN (SELECT device_id FROM lowest_moisture);
+        MATCH (d:Device)
+        RETURN d
+      $$) AS (d agtype)
+      WHERE d::json -> 'properties' ->> 'id' IN (SELECT device_id FROM min_soil_moisture);
 
   - id: Q23
     nl_query: "Genera la rete delle aziende agricole (AgriFarm) assieme ai relativi sensori che hanno segnalato un valore di 'soilMoisture' inferiore a -500."

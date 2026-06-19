@@ -20,12 +20,57 @@ class CompareGraph:
         return (str(start), str(end), str(edge_type), str(edge_id))
     
     @staticmethod
+    def parse_path(value: str) -> list:
+        # Rimuove ::path finale e parentesi quadre esterne
+        inner = value.strip()
+        if '::path' in inner:
+            inner = inner[:inner.rfind('::path')].strip()
+        if inner.startswith('['):
+            inner = inner[1:]
+        if inner.endswith(']'):
+            inner = inner[:-1]
+        
+        elements = []
+        depth = 0
+        current = []
+
+        for char in inner:
+            if char == '{':
+                depth += 1
+                current.append(char)
+            elif char == '}':
+                depth -= 1
+                current.append(char)
+                if depth == 0:
+                    # Oggetto JSON completo — estrailo
+                    json_str = ''.join(current).strip()
+                    try:
+                        elements.append(json.loads(json_str))
+                    except json.JSONDecodeError:
+                        pass
+                    current = []
+            elif depth > 0:
+                # Siamo dentro un oggetto, accumula tutto
+                current.append(char)
+            # Se depth == 0 e non siamo in un oggetto,
+            # siamo su virgole o suffissi ::vertex/::edge — li ignoriamo
+        
+        return elements
+
+    @staticmethod
     def parse_agtype_value(value: Any) -> Any:
         if value is None:
             return None
         
         if isinstance(value, str):
-            clean_value = value.split('::')[0]
+            stripped = value.strip()
+            
+            # Caso path AGE: [..., {...}::vertex, {...}::edge, ...]::path
+            if stripped.endswith('::path'):
+                return CompareGraph.parse_path(stripped)
+            
+            # Caso normale: {…}::vertex o {…}::edge
+            clean_value = stripped.split('::')[0].strip()
             try:
                 return json.loads(clean_value)
             except (json.JSONDecodeError, ValueError):
@@ -65,18 +110,9 @@ class CompareGraph:
         item = CompareGraph.parse_agtype_value(item)
         
         if isinstance(item, dict):
-            # Gestione path AGE
-            if 'vertices' in item and 'edges' in item:
-                for vertex in item.get('vertices', []):
-                    CompareGraph.extract_from_item(vertex, nodes, edges, node_id_map)
-                for edge in item.get('edges', []):
-                    CompareGraph.extract_from_item(edge, nodes, edges, node_id_map)
-                return
-            # Check if it's an edge FIRST
             if CompareGraph.is_edge(item):
                 edge_tuple = CompareGraph.normalize_edge(item)
                 edges.add(edge_tuple)
-            # Then check if it's a node
             elif CompareGraph.is_node(item):
                 node_tuple = CompareGraph.normalize_node(item)
                 nodes.add(node_tuple)

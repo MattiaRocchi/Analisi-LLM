@@ -20,8 +20,10 @@ class FewShotSelector:
             raise ValueError("Token di accesso GitHub non trovato nel file .env")
             
         self.client = EmbeddingsClient(
-            endpoint="https://models.inference.ai.azure.com",
-            credential=AzureKeyCredential(token)
+            endpoint="https://models.github.ai/inference",
+            credential=AzureKeyCredential(token),
+            onnection_timeout=10,
+            read_timeout=30
         )
         
         # INDICIZZAZIONE: Viene fatta solo una volta all'avvio del programma
