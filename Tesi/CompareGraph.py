@@ -62,7 +62,6 @@ class CompareGraph:
         if item is None:
             return
         
-        # Try to parse if it's a string
         item = CompareGraph.parse_agtype_value(item)
         
         if isinstance(item, dict):
@@ -85,11 +84,6 @@ class CompareGraph:
         elif isinstance(item, list):
             for element in item:
                 CompareGraph.extract_from_item(element, nodes, edges, node_id_map)
-        
-        elif isinstance(item, str):
-            parsed = CompareGraph.parse_agtype_value(item)
-            if parsed != item and isinstance(parsed, (dict, list)):
-                CompareGraph.extract_from_item(parsed, nodes, edges, node_id_map)
 
     @staticmethod
     def resolve_edges(edges: Set, node_id_map: Dict) -> Set:

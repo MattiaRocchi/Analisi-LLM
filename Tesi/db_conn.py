@@ -53,24 +53,19 @@ class db_conn:
         
         self.cursor.execute(query_clean)
         
-        # Results
-        try:
-            if self.cursor.description is None:
-                return [], []
-            else:
-                rows = self.cursor.fetchall()
-                column_names = [desc[0] for desc in self.cursor.description]
-                return rows, column_names
-                
-        except (psycopg2.ProgrammingError, AttributeError):
+        if self.cursor.description is None:
             return [], []
-    
+        rows = self.cursor.fetchall()
+        column_names = [desc[0] for desc in self.cursor.description]
+        return rows, column_names
+            
     def parse_agtype(self, value: Any) -> Any:
         if value is None:
             return None
         if isinstance(value, str):
+            clean = value.split('::')[0].strip()
             try:
-                return json.loads(value)
+                return json.loads(clean)
             except (json.JSONDecodeError, TypeError):
                 return value
         return value

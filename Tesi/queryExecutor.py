@@ -27,6 +27,7 @@ class QueryExecutor:
         self.db = db_conn_module(clean_config)
     
     def execute_query(self, query: str, query_id: str) -> Dict:
+        
         try:
             start = datetime.now()
             rows, columns = self.db.execute_raw(query)
@@ -36,8 +37,7 @@ class QueryExecutor:
             for row in rows:
                 row_dict = {}
                 for i, value in enumerate(row):
-                    col = columns[i] if i < len(columns) else f"col_{i}"
-                    row_dict[col] = self.db.parse_agtype(value)
+                    row_dict[columns[i]] = self.db.parse_agtype(value)
                 results.append(row_dict)
             
             print(f"{query_id}: {len(results)} rows, {exec_time:.3f}s")
@@ -148,7 +148,6 @@ def main():
     try:
         executor = QueryExecutor(DB_CONFIG)
         executor.run(args.gt_file, args.llm_file, args.output_file)
-        print("Done!")
     except Exception as e:
         print(f"\nError: {e}")
         raise
