@@ -43,7 +43,7 @@ class SchemaExtractor:
         for label in schema_summary["graph_model"]["nodes"]:
             schema_summary["graph_model"]["nodes"][label] = sorted(list(schema_summary["graph_model"]["nodes"][label]))
 
-        # Estrazione tipi di relazione con DIREZIONALITA'
+        # Estrazione tipi di relazione con direzione'
         edge_signatures = set()
         for edge in data.get('edges', []):
             rel_type = edge.get('type') or edge.get('label')
