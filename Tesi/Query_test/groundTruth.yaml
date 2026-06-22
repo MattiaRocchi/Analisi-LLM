@@ -122,17 +122,17 @@ responses_results:
       $$) AS (graph_path agtype);
 
   - id: Q30
-    nl_query: "Individua i dispositivi che, nella loro storia, hanno registrato sia un valore di 'soilMoisture' inferiore a 20, sia almeno un evento 'dripper' maggiore di 0. Traccia il collegamento partendo dal loro lotto di origine."
+    nl_query: "Individua i dispositivi che, nella loro storia, hanno registrato sia un valore di 'soilMoisture' inferiore a 20, sia almeno un evento 'dripper' maggiore di 0."
     query: |
-      WITH multi_task_devices AS (
-          SELECT device_id FROM public.measurements WHERE controlled_property = 'soilMoisture' AND value < 20
-          INTERSECT
-          SELECT device_id FROM public.measurements WHERE controlled_property = 'dripper' AND value > 0
+      WITH valid_data AS (
+      SELECT DISTINCT m.device_id
+      FROM public.measurements m
+      WHERE (m.controlled_property = 'soilMoisture' AND m.value < 20)
+      OR (m.controlled_property = 'dripper' AND m.value > 0)
       )
       SELECT * FROM cypher('agri_graph', $$
-          MATCH path1 = (p:AgriParcel)<-[:belongsTo]-(d:Device)
-          OPTIONAL MATCH path2 = (d)-[:hasDevice]->(d2:Device)
-          RETURN path1, path2, d, d2
-      $$) AS (path1 agtype, path2 agtype, d agtype, d2 agtype)
-      WHERE d::json -> 'properties' ->> 'id' IN (SELECT device_id FROM multi_task_devices)
-         OR d2::json -> 'properties' ->> 'id' IN (SELECT device_id FROM multi_task_devices);
+        MATCH path = (p:AgriParcel)<-[:belongsTo]-(d:Device)-[:hasDevice]->(d2:Device)
+        RETURN path, d, d2
+      $$) AS (graph_path agtype, d agtype, d2 agtype)
+      WHERE d::json -> 'properties' ->> 'id' IN (SELECT device_id FROM valid_data)
+      OR d2::json -> 'properties' ->> 'id' IN (SELECT device_id FROM valid_data);

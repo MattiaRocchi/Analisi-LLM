@@ -138,7 +138,7 @@ class AgriQueryPipeline:
             
         print("\n")
         print(f"Test LLM completato! Query generate salvate in: {output_yaml_path}")
-        print("Avvio della validazione su Database (QueryExecutor)...")
+        print("Avvio della validazione su Database (QueryExecutor)")
         print("")
 
         # Esecuzione validazione sul db
@@ -158,7 +158,7 @@ DB_CONFIG = {
 def menu_scelta_modello():
     modelli = {
         "1": ("DeepSeek V3 (Consigliato per codice)", "DeepSeek-V3-0324", "DEEPV3_TOKEN"),
-        "2": ("DeepSeek R1 (Ragionamento avanzato)", "DeepSeek-R1", "DEEPR1_TOKEN"),
+        "2": ("Codeestral", "Codestral-2501", "CODESTRAL_TOKEN"),
         "3": ("OpenAI GPT-4o", "gpt-4o", "OPENAI_API_KEY"),
         "4": ("LLaMA 3.3 70B Instruct", "Llama-3.3-70B-Instruct", "LLAMA_TOKEN"),
     }
@@ -183,7 +183,7 @@ def menu_scelta_modello():
 if __name__ == "__main__":
     CONFIG_FILE = "Tesi/config/pipeline_conf.yaml"
     
-    # LOOP ESTERNO: Gestisce il cambio di modello LLM
+    #Gestisce il cambio di modello LLM
     while True:
         modello_selezionato, token_env_name = menu_scelta_modello()
         
@@ -195,14 +195,14 @@ if __name__ == "__main__":
             continue
         
         try:
-            # Passiamo anche il token all'inizializzazione della pipeline
+            #passiamo anche il token all'inizializzazione della pipeline
             app = AgriQueryPipeline(CONFIG_FILE, selected_model=modello_selezionato, token=token)
         except Exception as e:
             print(f"\nErrore durante l'inizializzazione: {e}")
             input("Premi INVIO per riprovare")
             continue
             
-        # LOOP INTERNO: Gestisce le azioni per il modello selezionato
+        #gestisce le azioni per il modello selezionato
         while True:
             nome_modello_display = modello_selezionato.split('/')[-1]
             print("\n")
@@ -218,11 +218,14 @@ if __name__ == "__main__":
             if scelta == '1':
                 app.start() 
             elif scelta == '2':
+                out_yaml = f"Tesi/output/llm_generated_q21_q30_{nome_modello_display}.yaml"
+                out_results = f"Tesi/output/analysis_results_{nome_modello_display}.yaml"
+                
                 app.run_test(
                     test_file_path="Tesi/Query_test/QueryTest.yaml", 
-                    output_yaml_path="Tesi/output/llm_generated_q21_q30.yaml",
+                    output_yaml_path=out_yaml,
                     gt_file_path="Tesi/Query_test/groundTruth.yaml",
-                    output_results_path="Tesi/output/analysis_results.yaml"
+                    output_results_path=out_results
                 )
                 input("\nPremi INVIO per tornare al menu principale")
             elif scelta == '3':

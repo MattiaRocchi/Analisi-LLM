@@ -19,7 +19,7 @@ class LLMClient:
             endpoint="https://models.inference.ai.azure.com",
             credential=AzureKeyCredential(self.token),
             connection_timeout=10,
-            read_timeout=120
+            read_timeout=30
         )
 
     def generate_query(self, 
