@@ -20,7 +20,7 @@ responses:
     il valore più basso di umidità del suolo ('soilMoisture') nell'intera storia del
     database.
   query: |-
-    WITH lowest_moisture AS (
+    WITH min_moisture AS (
         SELECT device_id, MIN(value) AS min_value
         FROM public.measurements
         WHERE controlled_property = 'soilMoisture'
@@ -32,7 +32,7 @@ responses:
         MATCH (d:Device)
         RETURN d
     $$) AS (d agtype)
-    WHERE d::json -> 'properties' ->> 'id' IN (SELECT device_id FROM lowest_moisture);
+    WHERE d::json -> 'properties' ->> 'id' IN (SELECT device_id FROM min_moisture);
 - id: Q23
   nl_query: Restituisci il grafo che mostra le aziende agricole (AgriFarm) che possiedono
     sensori che hanno segnalato un valore di 'soilMoisture' inferiore a -500.
@@ -80,10 +80,10 @@ responses:
     ovvero che hanno registrato più di 100 eventi 'dripper' totali.
   query: |-
     WITH active_drippers AS (
-      SELECT device_id
-      FROM public.measurements
-      WHERE controlled_property = 'dripper'
-      GROUP BY device_id
+      SELECT m.device_id
+      FROM public.measurements m
+      WHERE m.controlled_property = 'dripper'
+      GROUP BY m.device_id
       HAVING COUNT(*) > 100
     )
     SELECT * FROM cypher('agri_graph', $$
@@ -142,16 +142,13 @@ responses:
     WITH devices_without_sensors AS (
       SELECT DISTINCT d.device_id
       FROM public.measurements d
-      WHERE d.device_id NOT IN (
-        SELECT d2.device_id
-        FROM public.measurements d2
-        JOIN public.measurements d3 ON d2.device_id = d3.device_id
-        WHERE d2.controlled_property = 'dripper'
-      )
+      WHERE d.controlled_property = 'soilMoisture'
     )
     SELECT * FROM cypher('agri_graph', $$
-      MATCH path = (f:AgriFarm {name: 'ZESPRI'})<-[r:belongsTo]-(p:AgriParcel)<-[m:belongsTo]-(d:Device)
-      WHERE NOT (d)-[:hasDevice]->()
+      MATCH path = (f:AgriFarm {name: 'ZESPRI'})<-[:belongsTo]-(p:AgriParcel)<-[:belongsTo]-(d:Device)
+      WHERE NOT EXISTS {
+        MATCH (d)-[:hasDevice]->()
+      }
       RETURN path
     $$) AS (graph_path agtype)
     WHERE d::json -> 'properties' ->> 'id' IN (SELECT device_id FROM devices_without_sensors);

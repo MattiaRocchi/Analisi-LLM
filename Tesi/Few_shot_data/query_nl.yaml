@@ -18,13 +18,13 @@ query_descriptions:
     nl_query: "Elenca i dispositivi di irrigazione a goccia nel lotto T1."
 
   - id: Q7
-    nl_query: "Quale sensore di umidità del suolo ha registrato il valore più basso? E qual è il valore?"
+    nl_query: "Trova i dispositivi principali che non hanno ancora sensori finali collegati."
 
   - id: Q8
     nl_query: "Considerando le coordinate, qual è il sensore più vicino al punto (11.799, 44.235)?"
 
   - id: Q9
-    nl_query: "Quale lotto ha più dispositivi?"
+    nl_query: "Quali dispositivi hanno registrato più di 100 eventi 'dripper' totali?"
     
   - id: Q10
     nl_query: "Trova la temperatura minima, e dimmi a che dispositivi(Device) appartiene!"
@@ -39,7 +39,7 @@ query_descriptions:
     nl_query: "Visualizza la rete dei sensori in tutta l'azienda(Farm) che hanno segnalato un livello di umidità del terreno ('soilMoisture') critico inferiore a 25."
 
   - id: Q14
-    nl_query: "Genera il grafo completo di tutti i dispositivi di irrigazione (i cui ID contengono 'dripper') e mostrami a quali lotti sono collegati."
+    nl_query: "Trova i dispositivi che hanno registrato almeno una misurazione critica: temperature con valore superiore a 3 oppure umidità del suolo inferiore a 25."
 
   - id: Q15
     nl_query: "Estrai il grafo dei dispositivi nel lotto T2 ('Fondo Errano 2024 T2') che hanno registrato eventi di irrigazione ('dripper') nel mese di Luglio 2024."

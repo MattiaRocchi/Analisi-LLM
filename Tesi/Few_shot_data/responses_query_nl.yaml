@@ -34,7 +34,7 @@ responses_results:
     query: |
       SELECT * FROM cypher('agri_graph', $$
         MATCH path = (f:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})<-[r:belongsTo]-(p:AgriParcel)
-        WHERE p.colture = 'Kiwi G3'
+        WHERE toLower(p.colture) CONTAINS toLower('kiwi')
         RETURN path
       $$) AS (path agtype);
 
@@ -49,12 +49,10 @@ responses_results:
   - id: Q7
     query: |
       SELECT * FROM cypher('agri_graph', $$
-        MATCH (s:Device)
-        WHERE 'soilMoisture' IN s.controlledProperty
-        WITH s, toFloat(s.value[0]) AS numeric_value
-        RETURN s
-        ORDER BY numeric_value ASC LIMIT 1
-      $$) AS (s agtype);
+        MATCH (d:Device)
+        WHERE NOT EXISTS ((d)-[:hasDevice]->(:Device))
+        RETURN d
+      $$) AS (d agtype);
 
   - id: Q8
     query: |
@@ -69,18 +67,19 @@ responses_results:
 
   - id: Q9
     query: |
+      WITH active_drippers AS (
+      SELECT m.device_id
+        FROM public.measurements m
+        WHERE m.controlled_property = 'dripper'
+        GROUP BY m.device_id
+        HAVING COUNT(*) > 100
+      )
       SELECT * FROM cypher('agri_graph', $$
-        MATCH (farm:AgriFarm {name: 'ZESPRI AZ. AGR. DALLE FABBRICHE ANDREA'})<-[r_farm:belongsTo]-(parcel:AgriParcel)
-        OPTIONAL MATCH (parcel)<-[r_direct:belongsTo]-(direct_device:Device)
-        OPTIONAL MATCH (parcel)<-[r_grid:belongsTo]-(grid:Device)-[r_has:hasDevice]->(grid_device:Device)
-        WITH parcel, farm, 
-             collect(DISTINCT direct_device) + collect(DISTINCT grid) + collect(DISTINCT grid_device) AS all_devices,
-             collect(r_farm) + collect(r_direct) + collect(r_grid) + collect(r_has) AS all_relationships
-        RETURN parcel, farm, all_devices, all_relationships
-        ORDER BY size(all_devices) DESC 
-        LIMIT 1
-      $$) AS (parcel agtype, farm agtype, all_devices agtype, all_relationships agtype)
-  
+        MATCH path = (p:AgriParcel)<-[:belongsTo]-(d:Device)
+        RETURN path, d
+      $$) AS (graph_path agtype, d agtype)
+      WHERE d::json -> 'properties' ->> 'id' IN (SELECT device_id FROM active_drippers);
+
   - id: Q10
     query: |
       WITH min_temp AS (
@@ -132,11 +131,18 @@ responses_results:
   
   - id: Q14
     query: |
+      WITH critical_devices AS (
+        SELECT DISTINCT m.device_id
+        FROM public.measurements m
+        WHERE (m.controlled_property = 'temperature' AND m.value > 3)
+          OR (m.controlled_property = 'soilMoisture' AND m.value < 25)
+      )
       SELECT * FROM cypher('agri_graph', $$
-        MATCH path = (p:AgriParcel)<-[:belongsTo]-(d:Device)
-        WHERE d.name CONTAINS 'Dripper'
-        RETURN path
-      $$) AS (graph_path agtype);
+        MATCH path = (p:AgriParcel)<-[:belongsTo]-(d:Device)-[:hasDevice]->(d2:Device)
+        RETURN path, d, d2
+      $$) AS (graph_path agtype, d agtype, d2 agtype)
+      WHERE d::json -> 'properties' ->> 'id' IN (SELECT device_id FROM critical_devices)
+      OR d2::json -> 'properties' ->> 'id' IN (SELECT device_id FROM critical_devices);
 
   - id: Q15
     query: |
@@ -198,6 +204,6 @@ responses_results:
   - id: Q20
     query: |
       SELECT * FROM cypher('agri_graph', $$
-        MATCH (d:Device {id: 'urn:ngsi-ld:Device:unibo:2d6b0e0c8c57f720c48fcb40563b4401'})-[:hasDevice]->(d2:Device)
-        RETURN d2
-      $$) AS (d2 agtype);
+      MATCH path = (d:Device {id: 'urn:ngsi-ld:Device:unibo:2d6b0e0c8c57f720c48fcb40563b4401'})-[:hasDevice]->(d2:Device)
+      RETURN path
+      $$) AS (graph_path agtype);

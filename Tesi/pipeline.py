@@ -115,7 +115,7 @@ class AgriQueryPipeline:
             nl_query = test['nl_query']
             print(f"\n[{i}/{total}] Processando {q_id}: {nl_query}")
 
-            few_shot = selector.select_top_k(nl_query, k=5)
+            few_shot = selector.select_top_k(nl_query, k=3)
             
             generated_query = self.client.generate_query(
                 instructions_path=self.config['instructions_path'], 

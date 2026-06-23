@@ -27,4 +27,4 @@ questions_test:
     nl_query: "Mostra il grafo dei dispositivi (nodi padre) presenti nell'azienda 'ZESPRI' che non hanno alcun sensore finale collegato a loro tramite hasDevice."
 
   - id: Q30
-    nl_query: "Restituisci il percorso topologico dal lotto al sensore per tutti quei dispositivi che hanno registrato, nella loro storia, sia un valore di 'soilMoisture' inferiore a 20, sia almeno un evento 'dripper' con valore superiore a 0."
+    nl_query: "Restituisci il percorso topologico dal lotto al sensore per tutti quei dispositivi che hanno registrato, nella loro storia, almeno uno tra un valore di umidità del suolo inferiore a 20 oppure un evento di irrigazione con valore superiore a 0."

@@ -17,6 +17,8 @@ REGOLE CRITICHE RISPETTALE ANCHE SE VANNO CONTRO LE TUE IDEE:
 3. Non usare mai la clausola JOIN per unire direttamente l'output della funzione cypher() con public.measurements. Usa la CTE per trovare i device_id, poi filtra l'estrazione del grafo usando il trucco JSON nel WHERE principale (es. WHERE d::json -> 'properties' ->> 'id' IN (SELECT device_id FROM valid_data)). Controlla sia il nodo padre che il nodo figlio usando OR, se la topologia lo richiede.
 4. Assicurati di definire sempre i tipi di ritorno nella clausola AS (es. agtype).
 5. Ti vengono passati degli esempi per farti capire che cosa già funziona. Quando capisci che attraverso il few-shot la domanda è uguale o simile, usa questi esempi, soprattutto per non doverti inventare nulla. Tutto ciò che sai e che ti viene passato è sufficiente per riuscire a dare la risposta giusta. Non inventare nulla, anche se ti sembra logico.
+6. Quando usi WHERE esterno alla funzione cypher() per filtrare su variabili del grafo (es. d::json, d2::json), quelle variabili DEVONO essere esplicitamente dichiarate sia nel RETURN interno che nell'AS esterno.
+7. Per verificare l'assenza di relazioni, usa SEMPRE "NOT EXISTS".
 
 RICERCA TESTUALE FLESSIBILE:
 - Quando l'utente filtra per nomi di colture, lotti o descrizioni testuali che potrebbero essere imprecise o incomplete, NON usare l'uguaglianza esatta nel nodo (es. sbagliato: {colture: 'Kiwi'}). Usa sempre la clausola WHERE con toLower() e CONTAINS per garantire il match parziale e case-insensitive (es. corretto: WHERE toLower(p.colture) CONTAINS toLower('kiwi')).
