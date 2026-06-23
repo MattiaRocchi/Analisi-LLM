@@ -1,0 +1,148 @@
+responses:
+- id: Q21
+  nl_query: Mostra la topologia di rete (grafo) di tutti gli apparecchi nel lotto
+    'Fondo Errano 2024 T0' che hanno trasmesso dati sulla proprietà 'dripper'.
+  query: |-
+    WITH active_devices AS (
+      SELECT DISTINCT m.device_id
+      FROM public.measurements m
+      WHERE m.controlled_property = 'dripper'
+    )
+    SELECT * FROM cypher('agri_graph', $$
+      MATCH path = (p:AgriParcel {name: 'Fondo Errano 2024 T0'})<-[:belongsTo]-(d:Device)-[:hasDevice*0..]->(d2:Device)
+      RETURN path, d, d2
+    $$) AS (graph_path agtype, d agtype, d2 agtype)
+    WHERE d::json -> 'properties' ->> 'id' IN (SELECT device_id FROM active_devices)
+       OR d2::json -> 'properties' ->> 'id' IN (SELECT device_id FROM active_devices);
+- id: Q22
+  nl_query: Restituisci esclusivamente il nodo del sensore che in assoluto ha registrato
+    il valore più basso di umidità del suolo ('soilMoisture') nell'intera storia del
+    database.
+  query: |-
+    SELECT * FROM cypher('agri_graph', $$
+      MATCH (s:Device)
+      WHERE 'soilMoisture' IN s.controlledProperty
+      WITH s, toFloat(s.value[0]) AS numeric_value
+      RETURN s
+      ORDER BY numeric_value ASC LIMIT 1
+    $$) AS (s agtype);
+- id: Q23
+  nl_query: Restituisci il grafo che mostra le aziende agricole (AgriFarm) che possiedono
+    sensori che hanno segnalato un valore di 'soilMoisture' inferiore a -500.
+  query: |-
+    WITH critical_moisture AS (
+      SELECT DISTINCT m.device_id
+      FROM public.measurements m
+      WHERE m.controlled_property = 'soilMoisture' AND m.value < -500
+    )
+    SELECT * FROM cypher('agri_graph', $$
+      MATCH path = (f:AgriFarm)<-[:belongsTo]-(p:AgriParcel)<-[:belongsTo]-(d:Device)
+      RETURN path, f, p, d
+    $$) AS (graph_path agtype, f agtype, p agtype, d agtype)
+    WHERE d::json -> 'properties' ->> 'id' IN (SELECT device_id FROM critical_moisture);
+- id: Q24
+  nl_query: Genera la rete dei lotti agricoli coltivati a 'kiwi' e mostra tutti i
+    dispositivi e sensori ad essi collegati.
+  query: |-
+    SELECT * FROM cypher('agri_graph', $$
+      MATCH path1 = (p:AgriParcel)<-[:belongsTo]-(d:Device)
+      WHERE toLower(p.colture) CONTAINS toLower('kiwi')
+      OPTIONAL MATCH path2 = (d)-[:hasDevice]->(d2:Device)
+      RETURN path1, path2
+    $$) AS (path1 agtype, path2 agtype);
+- id: Q25
+  nl_query: Mostra il sotto-grafo dei dispositivi che sono particolarmente attivi,
+    ovvero che hanno registrato più di 100 eventi 'dripper' totali.
+  query: |-
+    WITH active_devices AS (
+      SELECT m.device_id
+      FROM public.measurements m
+      WHERE m.controlled_property = 'dripper'
+      GROUP BY m.device_id
+      HAVING COUNT(*) > 100
+    )
+    SELECT * FROM cypher('agri_graph', $$
+      MATCH path = (p:AgriParcel)<-[:belongsTo]-(d:Device)
+      RETURN path, d
+    $$) AS (graph_path agtype, d agtype)
+    WHERE d::json -> 'properties' ->> 'id' IN (SELECT device_id FROM active_devices);
+- id: Q26
+  nl_query: Visualizza l'albero dei dispositivi nel lotto 'Fondo Errano 2024 T1' che
+    nel mese di Agosto 2024 hanno avuto un livello di umidità del terreno ('soilMoisture')
+    sotto il 15.
+  query: |-
+    WITH critical_moisture AS (
+      SELECT DISTINCT m.device_id
+      FROM public.measurements m
+      WHERE m.controlled_property = 'soilMoisture'
+      AND m.value < 15
+      AND m.timestamp >= '2024-08-01' AND m.timestamp < '2024-09-01'
+    )
+    SELECT * FROM cypher('agri_graph', $$
+      MATCH path = (p:AgriParcel {name: 'Fondo Errano 2024 T1'})<-[:belongsTo]-(d:Device)-[:hasDevice*]->(d2:Device)
+      RETURN path, d, d2
+    $$) AS (graph_path agtype, d agtype, d2 agtype)
+    WHERE d::json -> 'properties' ->> 'id' IN (SELECT device_id FROM critical_moisture)
+    OR d2::json -> 'properties' ->> 'id' IN (SELECT device_id FROM critical_moisture);
+- id: Q27
+  nl_query: Restituisci il grafo di tutti i sensori finali collegati al dispositivo
+    principale il cui ID è 'urn:ngsi-ld:Device:unibo:2d6b0e0c8c57f720c48fcb40563b4401'.
+  query: |-
+    SELECT * FROM cypher('agri_graph', $$
+      MATCH path = (d:Device {id: 'urn:ngsi-ld:Device:unibo:2d6b0e0c8c57f720c48fcb40563b4401'})-[:hasDevice]->(d2:Device)
+      RETURN path
+    $$) AS (graph_path agtype);
+- id: Q28
+  nl_query: Estrai i nodi dei sensori di umidità la cui media delle misurazioni storiche
+    ('soilMoisture') risulta essere inferiore a 40.
+  query: |-
+    WITH avg_moisture AS (
+      SELECT m.device_id
+      FROM public.measurements m
+      WHERE m.controlled_property = 'soilMoisture'
+      GROUP BY m.device_id
+      HAVING AVG(m.value) < 40
+    )
+    SELECT * FROM cypher('agri_graph', $$
+      MATCH (s:Device)
+      WHERE 'soilMoisture' IN s.controlledProperty
+      RETURN s
+    $$) AS (s agtype)
+    WHERE s::json -> 'properties' ->> 'id' IN (SELECT device_id FROM avg_moisture);
+- id: Q29
+  nl_query: Mostra il grafo dei dispositivi (nodi padre) presenti nell'azienda 'ZESPRI'
+    che non hanno alcun sensore finale collegato a loro tramite hasDevice.
+  query: |-
+    SELECT * FROM cypher('agri_graph', $$
+      MATCH (f:AgriFarm {name: 'ZESPRI'})<-[:belongsTo]-(p:AgriParcel)<-[:belongsTo]-(d:Device)
+      WHERE NOT EXISTS ((d)-[:hasDevice]->(:Device))
+      RETURN d
+    $$) AS (d agtype);
+- id: Q30
+  nl_query: Restituisci il percorso topologico dal lotto al sensore per tutti quei
+    dispositivi che hanno registrato, nella loro storia, sia un valore di 'soilMoisture'
+    inferiore a 20, sia almeno un evento 'dripper' con valore superiore a 0.
+  query: |-
+    WITH soil_moisture_devices AS (
+      SELECT DISTINCT m.device_id
+      FROM public.measurements m
+      WHERE m.controlled_property = 'soilMoisture' AND m.value < 20
+    ),
+    dripper_devices AS (
+      SELECT DISTINCT m.device_id
+      FROM public.measurements m
+      WHERE m.controlled_property = 'dripper' AND m.value > 0
+    ),
+    valid_devices AS (
+      SELECT device_id
+      FROM soil_moisture_devices
+      INTERSECT
+      SELECT device_id
+      FROM dripper_devices
+    )
+    SELECT * FROM cypher('agri_graph', $$
+      MATCH path = (p:AgriParcel)<-[:belongsTo]-(d:Device)-[:hasDevice*]->(s:Device)
+      RETURN path, d, s
+    $$) AS (graph_path agtype, d agtype, s agtype)
+    WHERE d::json -> 'properties' ->> 'id' IN (SELECT device_id FROM valid_devices)
+    OR s::json -> 'properties' ->> 'id' IN (SELECT device_id FROM valid_devices);

@@ -1,0 +1,234 @@
+{
+  "gt_file": "Tesi/Query_test/groundTruth.yaml",
+  "llm_file": "Tesi/output/llm_generated_q21_q30_gpt-4o.yaml",
+  "comparisons": [
+    {
+      "query_id": "Q21",
+      "nodes_gt": 2,
+      "nodes_llm": 2,
+      "edges_gt": 1,
+      "edges_llm": 1,
+      "missing_llm": {
+        "nodes": [],
+        "edges": []
+      },
+      "extra_llm": {
+        "nodes": [],
+        "edges": []
+      }
+    },
+    {
+      "query_id": "Q22",
+      "nodes_gt": 1,
+      "nodes_llm": 1,
+      "edges_gt": 0,
+      "edges_llm": 0,
+      "missing_llm": {
+        "nodes": [],
+        "edges": []
+      },
+      "extra_llm": {
+        "nodes": [],
+        "edges": []
+      }
+    },
+    {
+      "query_id": "Q23",
+      "nodes_gt": 47,
+      "nodes_llm": 47,
+      "edges_gt": 46,
+      "edges_llm": 46,
+      "missing_llm": {
+        "nodes": [],
+        "edges": []
+      },
+      "extra_llm": {
+        "nodes": [],
+        "edges": []
+      }
+    },
+    {
+      "query_id": "Q24",
+      "nodes_gt": 69,
+      "nodes_llm": 69,
+      "edges_gt": 66,
+      "edges_llm": 66,
+      "missing_llm": {
+        "nodes": [],
+        "edges": []
+      },
+      "extra_llm": {
+        "nodes": [],
+        "edges": []
+      }
+    },
+    {
+      "query_id": "Q25",
+      "nodes_gt": 8,
+      "nodes_llm": 8,
+      "edges_gt": 5,
+      "edges_llm": 5,
+      "missing_llm": {
+        "nodes": [],
+        "edges": []
+      },
+      "extra_llm": {
+        "nodes": [],
+        "edges": []
+      }
+    },
+    {
+      "query_id": "Q26",
+      "nodes_gt": 22,
+      "nodes_llm": 22,
+      "edges_gt": 21,
+      "edges_llm": 21,
+      "missing_llm": {
+        "nodes": [],
+        "edges": []
+      },
+      "extra_llm": {
+        "nodes": [],
+        "edges": []
+      }
+    },
+    {
+      "query_id": "Q27",
+      "nodes_gt": 13,
+      "nodes_llm": 13,
+      "edges_gt": 12,
+      "edges_llm": 12,
+      "missing_llm": {
+        "nodes": [],
+        "edges": []
+      },
+      "extra_llm": {
+        "nodes": [],
+        "edges": []
+      }
+    },
+    {
+      "query_id": "Q28",
+      "nodes_gt": 64,
+      "nodes_llm": 64,
+      "edges_gt": 61,
+      "edges_llm": 61,
+      "missing_llm": {
+        "nodes": [],
+        "edges": []
+      },
+      "extra_llm": {
+        "nodes": [],
+        "edges": []
+      }
+    },
+    {
+      "query_id": "Q29",
+      "nodes_gt": 9,
+      "nodes_llm": 0,
+      "edges_gt": 8,
+      "edges_llm": 0,
+      "missing_llm": {
+        "nodes": [
+          [
+            "urn:ngsi-ld:Device:unibo:e0a35eede1bd643062e7e83011896ef2",
+            "Device"
+          ],
+          [
+            "urn:ngsi-ld:AgriParcel:unibo:102220a008cba90174069a0c12d5c212",
+            "AgriParcel"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:bc8f7461962ba09c7d9574a068c8780a",
+            "Device"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:aaaa7adc8f8a91bcaee40f7528877b53",
+            "Device"
+          ],
+          [
+            "urn:ngsi-ld:AgriParcel:unibo:647c399b2188ff484f7416389f94885c",
+            "AgriParcel"
+          ],
+          [
+            "urn:ngsi-ld:AgriFarm:unibo:c29ee13f6e871b9588c9b3d58e43df23",
+            "AgriFarm"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:4706ab32adba82399acb21d45489535c",
+            "Device"
+          ],
+          [
+            "urn:ngsi-ld:AgriParcel:unibo:2de48d8524fbe1867ae9b7f1979e87ad",
+            "AgriParcel"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:a316ef4f55a925842cca39af7280f4d8",
+            "Device"
+          ]
+        ],
+        "edges": [
+          [
+            "urn:ngsi-ld:Device:unibo:aaaa7adc8f8a91bcaee40f7528877b53",
+            "urn:ngsi-ld:AgriParcel:unibo:2de48d8524fbe1867ae9b7f1979e87ad",
+            "belongsTo"
+          ],
+          [
+            "urn:ngsi-ld:AgriParcel:unibo:102220a008cba90174069a0c12d5c212",
+            "urn:ngsi-ld:AgriFarm:unibo:c29ee13f6e871b9588c9b3d58e43df23",
+            "belongsTo"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:bc8f7461962ba09c7d9574a068c8780a",
+            "urn:ngsi-ld:AgriParcel:unibo:2de48d8524fbe1867ae9b7f1979e87ad",
+            "belongsTo"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:e0a35eede1bd643062e7e83011896ef2",
+            "urn:ngsi-ld:AgriParcel:unibo:102220a008cba90174069a0c12d5c212",
+            "belongsTo"
+          ],
+          [
+            "urn:ngsi-ld:AgriParcel:unibo:2de48d8524fbe1867ae9b7f1979e87ad",
+            "urn:ngsi-ld:AgriFarm:unibo:c29ee13f6e871b9588c9b3d58e43df23",
+            "belongsTo"
+          ],
+          [
+            "urn:ngsi-ld:AgriParcel:unibo:647c399b2188ff484f7416389f94885c",
+            "urn:ngsi-ld:AgriFarm:unibo:c29ee13f6e871b9588c9b3d58e43df23",
+            "belongsTo"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:4706ab32adba82399acb21d45489535c",
+            "urn:ngsi-ld:AgriParcel:unibo:102220a008cba90174069a0c12d5c212",
+            "belongsTo"
+          ],
+          [
+            "urn:ngsi-ld:Device:unibo:a316ef4f55a925842cca39af7280f4d8",
+            "urn:ngsi-ld:AgriParcel:unibo:647c399b2188ff484f7416389f94885c",
+            "belongsTo"
+          ]
+        ]
+      },
+      "extra_llm": {
+        "nodes": [],
+        "edges": []
+      }
+    },
+    {
+      "query_id": "Q30",
+      "nodes_gt": 64,
+      "nodes_llm": 64,
+      "edges_gt": 61,
+      "edges_llm": 61,
+      "missing_llm": {
+        "nodes": [],
+        "edges": []
+      },
+      "extra_llm": {
+        "nodes": [],
+        "edges": []
+      }
+    }
+  ]
+}
